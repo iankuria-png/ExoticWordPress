@@ -69,7 +69,6 @@ global $taxonomy_profile_name_plural, $taxonomy_location_url;
 			.slidercountries { top: 20% !important; }
 		}
 		@media screen and (max-width: 640px){
-			.mobile-menu-div { display: flex; }
 			.countries.slidercountries {
 				display: none;
 				width: 94% !important;

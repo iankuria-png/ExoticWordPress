@@ -46,26 +46,32 @@ if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options'))
     <div class="header-top-bar modern-header-top">
         <div class="header_top_left modern-header-left">
             <!-- Mobile Controls (preserved for JS) -->
-            <div class="modern-mobile-controls">
+            <div class="modern-mobile-controls modern-mobile-controls--left">
                 <div class="mobile-menu-icon">
                     <img src="<?php echo get_stylesheet_directory_uri() . '/img/mobile-menu-icon.png'; ?>" />
-                </div>
-                <div class="mobile-login-icon">
-                    <img src="<?php echo get_stylesheet_directory_uri() . '/img/login-icon.png'; ?>" />
                 </div>
             </div>
 
             <!-- Mobile Menu Drawer (preserved for JS) -->
             <div class="mobile-menu-div-content">
                 <a href="#" class="close-menu">Close</a>
+                <div class="mobile-menu-quick-actions">
+                    <a class="mobile-menu-quick-action mobile-menu-search" href="<?php echo get_permalink(get_option('search_page_id')); ?>">
+                        <span class="icon icon-search"></span>
+                        <?php _e('Search','escortwp'); ?>
+                    </a>
+                    <a href="#" class="mobile-menu-quick-action open-country">
+                        <span class="icon icon-location"></span>
+                        <?php _e('Escort Locations','escortwp'); ?>
+                    </a>
+                </div>
                 <h4 class="h-heading">Main Navigation</h4>
                 <?php
                 wp_nav_menu(array(
                     'theme_location' => 'header-menu',
-                    'container' => 'ul',
+                    'container' => false,
                     'menu_class' => 'slider-menu',
-                    'items_wrap' => '<ul class="%2$s">%3$s</ul>',
-                    'fallback_cb' => false
+                    'fallback_cb' => 'wp_page_menu'
                 ));
                 ?>
             </div>
@@ -110,6 +116,15 @@ if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options'))
                 ?>
                 <h1 class="l"><?php echo '<a href="'.get_bloginfo("url").'/" title="'.get_bloginfo('name').'">'.$h1.'</a>'; ?></h1>
             </div>
+
+            <div class="modern-mobile-controls modern-mobile-controls--right">
+                <a href="#" class="open-country mobile-location-icon" aria-label="<?php esc_attr_e('Escort Locations','escortwp'); ?>">
+                    <span class="icon icon-location"></span>
+                </a>
+                <div class="mobile-login-icon">
+                    <img src="<?php echo get_stylesheet_directory_uri() . '/img/login-icon.png'; ?>" />
+                </div>
+            </div>
         </div>
 
         <div class="heager_top_right">
@@ -122,9 +137,8 @@ if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options'))
             if (has_nav_menu("header-menu")) {
                 wp_nav_menu(array(
                     'theme_location' => 'header-menu',
-                    'container' => 'ul',
+                    'container' => false,
                     'menu_class' => 'header-menu vcenter l',
-                    'items_wrap' => '<ul class="%2$s">%3$s</ul>',
                     'fallback_cb' => false
                 ));
             }

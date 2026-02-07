@@ -79,23 +79,22 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
     <?php endif; ?>
 
     <div class="thumb rad3<?php echo esc_attr($thumbclass); ?>">
-        <div class="girl-overlay">
-            <div class="set-pad">
-                <a href="<?php echo esc_url(get_permalink()); ?>">
-                    <b>
-                        <div class="overlay-text">
-                            <span style="color:#fff"><?php the_title(); ?></span>
-                        </div>
-                    </b>
-                    <br>
-                    <span style="color:#fff">
-                        <?php echo esc_html( wp_strip_all_tags( wp_trim_words(get_the_content(), 30, '...') ) ); ?>
-                    </span>
-                </a>
-            </div>
-        </div>
-
         <div class="thumbwrapper">
+            <div class="girl-overlay">
+                <div class="set-pad">
+                    <a href="<?php echo esc_url(get_permalink()); ?>">
+                        <b>
+                            <div class="overlay-text">
+                                <span style="color:#fff"><?php the_title(); ?></span>
+                            </div>
+                        </b>
+                        <br>
+                        <span style="color:#fff">
+                            <?php echo esc_html( wp_strip_all_tags( wp_trim_words(get_the_content(), 30, '...') ) ); ?>
+                        </span>
+                    </a>
+                </div>
+            </div>
             <a class="escort-card__media" href="<?php echo esc_url(get_permalink()); ?>" title="<?php echo esc_attr($linktitle); ?>">
                 <?php if (!empty($videos)): ?>
                     <span class="label-video">

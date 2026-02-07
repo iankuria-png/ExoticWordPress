@@ -45,14 +45,14 @@ jQuery(document).ready(function() {
 	};
 
 	if(w > 640){
-		jQuery(".bodybox .girl .thumb").on("mouseenter", function(){
+		jQuery(".bodybox .girl .thumbwrapper").on("mouseenter", function(){
 			showOverlay(jQuery(this).closest(".girl"));
 		});
-		jQuery(".bodybox .girl .thumb").on("mouseleave", function(){
+		jQuery(".bodybox .girl .thumbwrapper").on("mouseleave", function(){
 			hideOverlay(jQuery(this).closest(".girl"));
 		});
 	}else{
-		jQuery(".bodybox .girl .thumb").on("click", function(){
+		jQuery(".bodybox .girl .thumbwrapper").on("click", function(){
 			var $card = jQuery(this).closest(".girl");
 			hideOverlay(jQuery(".bodybox .girl"));
 			showOverlay($card);
@@ -61,14 +61,17 @@ jQuery(document).ready(function() {
 
 
 
-	jQuery(".open-country").click(function(){
+jQuery(".open-country").click(function(){
+		jQuery(".mobile-menu-div-content").hide();
+		jQuery(".mobile-login-div-content").hide();
 		jQuery(".slidercountries").show();
 		return false;
 	})
 
 
 
-	jQuery(".open-search").click(function(){
+jQuery(".open-search").click(function(){
+		jQuery(".mobile-menu-div-content").hide();
 		jQuery(".quicksearch").show();
 		return false;
 	})
@@ -88,7 +91,7 @@ jQuery(document).ready(function() {
 	})
 
 	// Ensure phone/tel links are clickable without triggering card overlay
-	jQuery(document).on("click", ".phone-number-box, .call-now-box, .contact-btn", function(e){
+	jQuery(document).on("click touchstart", ".phone-number-box, .call-now-box, .contact-btn", function(e){
 		e.stopPropagation();
 	});
 
@@ -191,7 +194,6 @@ jQuery(window).scroll(function() {
     if (jQuery(this).scrollTop() > 150) { // this refers to window
 
         jQuery(".online-escort-counter-div").addClass("fixed-position");
-        jQuery(".mobile-menu-div").addClass("fixed-position");
 
        
 
@@ -202,7 +204,6 @@ jQuery(window).scroll(function() {
 	if (jQuery(this).scrollTop() < 150) {
 
 	 jQuery(".online-escort-counter-div").removeClass("fixed-position");
-	 jQuery(".mobile-menu-div").removeClass("fixed-position");
 
 	}
 
