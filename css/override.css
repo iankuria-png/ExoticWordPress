@@ -1217,6 +1217,13 @@ header.modern-header {
   position: relative;
 }
 
+.escort-card__media {
+  display: block;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+  overflow: hidden;
+}
+
 /* Card image */
 .escort-card .mobile-ready-img {
   width: 100% !important;
@@ -1233,132 +1240,126 @@ header.modern-header {
 }
 
 /* Model info - positioned at bottom of image with gradient */
-.escort-card .model-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  pointer-events: none;
+/* Card body (info panel under image) */
+.escort-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background: rgba(17, 17, 17, 0.95);
+  border-top: 1px solid var(--border-subtle);
 }
 
-.escort-card .labels {
+.escort-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.escort-card__meta .girl-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff !important;
+  line-height: 1.2;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.escort-card__meta .girl-desc-location {
+  font-size: 12px;
+  color: var(--text-tertiary) !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.escort-card__meta .girl-desc-location .icon-location {
+  font-size: 12px;
+  color: var(--brand-accent);
+}
+
+.escort-card__trust .labels {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 6px;
+  gap: 6px;
 }
 
-.escort-card .labels .label {
-  font-size: 9px;
+.escort-card__trust .labels .label {
+  font-size: 10px;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: 999px;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.escort-card .labels .label-verified {
+.escort-card__trust .labels .label-verified {
   background: rgba(16, 185, 129, 0.2);
   color: #34d399;
   border-color: rgba(16, 185, 129, 0.35);
 }
 
-.escort-card .labels .label-new {
-  background: rgba(236, 72, 153, 0.2);
-  color: #f472b6;
-  border-color: rgba(236, 72, 153, 0.35);
-}
-
-.escort-card .labels .label-private {
-  background: rgba(239, 68, 68, 0.2);
-  color: #fca5a5;
-  border-color: rgba(239, 68, 68, 0.35);
-}
-
-/* Avoid duplicate VIP badge inside labels */
-.escort-card .labels .vip-div.in-loop {
+/* Only show verified chip per priority */
+.escort-card__trust .labels .label:not(.label-verified) {
   display: none;
 }
 
-.escort-card .online-status {
-  margin-top: 4px;
+/* Hide online/status label inside cards */
+.escort-card__trust .online-status {
+  display: none;
 }
 
-.escort-card .online-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #34d399;
+.escort-card__trust .labels .vip-div.in-loop {
+  display: none;
 }
 
-.escort-card .notification-circle {
-  width: 8px;
-  height: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.escort-card .notification-circle-outside {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(16, 185, 129, 0.25);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.escort-card .notification-circle-inside {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #34d399;
-}
-
-.escort-card .text-label {
-  line-height: 1;
-}
-
-.escort-card .desc {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 55%, transparent 100%) !important;
-  padding: var(--spacing-7) var(--spacing-4) var(--spacing-3);
-  color: var(--text-primary);
-}
-
-.escort-card .girl-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3;
-  margin-bottom: 2px;
-}
-
-.escort-card .girl-desc-location {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7) !important;
+.contact-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: 10px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  color: var(--text-primary) !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
 }
 
-.escort-card .girl-desc-location .icon-location {
-  font-size: 12px;
+.contact-btn:hover {
+  background: var(--bg-tertiary);
+  color: #fff !important;
+}
+
+.contact-btn .icon {
+  font-size: 13px;
   color: var(--brand-accent);
+}
+
+.contact-btn__hint {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.contact-btn.is-revealed {
+  background: var(--brand-primary);
+  border-color: transparent;
+  color: #fff !important;
+}
+
+.contact-btn.is-revealed .contact-btn__hint {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Hover overlay (JS-driven via .girl class) */
@@ -1381,6 +1382,11 @@ header.modern-header {
 .escort-card .girl-overlay .overlay-text span {
   font-size: 16px;
   font-weight: 700;
+}
+
+/* Ensure overlay doesn't cover body panel */
+.escort-card .thumb {
+  position: relative;
 }
 
 /* Escort labels (VERIFIED, NEW, REAL PIC etc.) */

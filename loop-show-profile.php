@@ -96,33 +96,12 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
         </div>
 
         <div class="thumbwrapper">
-            <a href="<?php echo esc_url(get_permalink()); ?>" title="<?php echo esc_attr($linktitle); ?>">
+            <a class="escort-card__media" href="<?php echo esc_url(get_permalink()); ?>" title="<?php echo esc_attr($linktitle); ?>">
                 <?php if (!empty($videos)): ?>
                     <span class="label-video">
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/i/video-th-icon.png'); ?>" alt="" />
                     </span>
                 <?php endif; ?>
-
-                <div class="model-info">
-                    <?php
-                    if (function_exists('get_escort_labels')) {
-                        echo get_escort_labels($escort_post_id); // expected to be safe HTML
-                    }
-                    ?>
-                    <div class="clear"></div>
-                    <div class="desc">
-                        <div class="girl-name" title="<?php echo esc_attr($linktitle); ?>" itemprop="name">
-                            <?php the_title(); ?>
-                        </div>
-                        <div class="clear"></div>
-                        <?php if (!empty($location)): ?>
-                            <span class="girl-desc-location" itemprop="homeLocation">
-                                <span class="icon-location"></span>
-                                <?php echo esc_html(implode(', ', $location)); ?>
-                            </span>
-                        <?php endif; ?>
-                    </div>
-                </div>
 
                 <?php
                 // Fallbacks to avoid empty src/srcset
@@ -142,29 +121,46 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
                     alt="<?php echo esc_attr($imagealt); ?>"
                     itemprop="image"
                 />
-
-                <?php if ($premium === '1'): ?>
-                    <div class="premiumlabel rad3">
-                        <span><?php _e('PREMIUM','escortwp'); ?></span>
-                    </div>
-                <?php endif; ?>
             </a>
 
-            <?php if (!empty($phone) && $featured === '1'): ?>
-                <a class="phone-number-box" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>">
-                    <span class="icon icon-phone"></span>
-                    <span class="phone-number-text"><?php echo esc_html($phone); ?></span>
-                </a>
+            <?php if ($premium === '1'): ?>
+                <div class="premiumlabel rad3">
+                    <span><?php _e('PREMIUM','escortwp'); ?></span>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div class="escort-card__body">
+            <div class="escort-card__meta">
+                <div class="girl-name" title="<?php echo esc_attr($linktitle); ?>" itemprop="name">
+                    <?php the_title(); ?>
+                </div>
+                <?php if (!empty($location)): ?>
+                    <span class="girl-desc-location" itemprop="homeLocation">
+                        <span class="icon-location"></span>
+                        <?php echo esc_html(implode(', ', $location)); ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+
+            <?php if (function_exists('get_escort_labels')): ?>
+                <div class="escort-card__trust">
+                    <?php echo get_escort_labels($escort_post_id); ?>
+                </div>
             <?php endif; ?>
 
             <?php if (!empty($phone)): ?>
-                <a class="call-now-box" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>" itemprop="telephone">
+                <a class="contact-btn" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>" itemprop="telephone">
                     <span class="icon icon-phone"></span>
-                    <span class="need-login"><?php printf(__('Call %s','escortwp'), get_the_title()); ?></span>
+                    <span class="contact-btn__label"><?php echo esc_html($phone); ?></span>
+                    <span class="contact-btn__hint"><?php _e('Tap to call','escortwp'); ?></span>
+                </a>
+            <?php else: ?>
+                <a class="contact-btn" href="<?php echo esc_url(get_permalink()); ?>">
+                    <span class="icon icon-user"></span>
+                    <span class="contact-btn__label"><?php _e('View Profile','escortwp'); ?></span>
                 </a>
             <?php endif; ?>
-
-            <div class="clear"></div>
         </div>
 
         <?php if (!empty($agency_manage_escort_buttons)) { echo $agency_manage_escort_buttons; } ?>

@@ -29,40 +29,34 @@ jQuery(document).ready(function() {
 	
 	
 	var w = jQuery(document).width();
+	var showOverlay = function($card){
+		$card.find(".vip-div").hide();
+		$card.find(".premiumlabel").hide();
+		$card.find(".model-info").hide();
+		$card.find(".video-set").hide();
+		$card.find(".girl-overlay").show();
+	};
+	var hideOverlay = function($card){
+		$card.find(".vip-div").show();
+		$card.find(".premiumlabel").show();
+		$card.find(".model-info").show();
+		$card.find(".video-set").show();
+		$card.find(".girl-overlay").hide();
+	};
+
 	if(w > 640){
-	jQuery(".bodybox .girl").mouseover(function(){
-		jQuery(this).find(".vip-div").hide();
-		jQuery(this).find(".premiumlabel").hide();
-		jQuery(this).find(".model-info").hide();
-		jQuery(this).find(".video-set").hide();
-		jQuery(this).find(".girl-overlay").show();
-	})
-	
-	jQuery(".bodybox .girl").mouseout(function(){
-		jQuery(this).find(".vip-div").show();
-		jQuery(this).find(".premiumlabel").show();
-		jQuery(this).find(".model-info").show();
-		jQuery(this).find(".video-set").show();
-		jQuery(this).find(".girl-overlay").hide();
-	})
+		jQuery(".bodybox .girl .thumb").on("mouseenter", function(){
+			showOverlay(jQuery(this).closest(".girl"));
+		});
+		jQuery(".bodybox .girl .thumb").on("mouseleave", function(){
+			hideOverlay(jQuery(this).closest(".girl"));
+		});
 	}else{
-		jQuery(".bodybox .girl").click(function(){
-			
-		jQuery(".bodybox .girl").find(".vip-div").show();
-		jQuery(".bodybox .girl").find(".premiumlabel").show();
-		jQuery(".bodybox .girl").find(".model-info").show();
-		jQuery(".bodybox .girl").find(".video-set").show();
-		jQuery(".bodybox .girl").find(".girl-overlay").hide();
-		
-		
-		jQuery(this).find(".vip-div").hide();
-		jQuery(this).find(".premiumlabel").hide();
-		jQuery(this).find(".model-info").hide();
-		jQuery(this).find(".video-set").hide();
-		jQuery(this).find(".girl-overlay").show();
-	})
-	
-	
+		jQuery(".bodybox .girl .thumb").on("click", function(){
+			var $card = jQuery(this).closest(".girl");
+			hideOverlay(jQuery(".bodybox .girl"));
+			showOverlay($card);
+		});
 	}
 
 
@@ -94,9 +88,11 @@ jQuery(document).ready(function() {
 	})
 
 	// Ensure phone/tel links are clickable without triggering card overlay
-	jQuery(document).on("click", ".phone-number-box, .call-now-box", function(e){
+	jQuery(document).on("click", ".phone-number-box, .call-now-box, .contact-btn", function(e){
 		e.stopPropagation();
 	});
+
+	// Contact button now always shows number; no reveal behavior needed
 
 	// Location sidebar controls (desktop + overlay)
 	jQuery(".location-expand").on("click", function(e){
