@@ -73,7 +73,7 @@ $videos = get_children([
 $thumbclass = ($premium === '1') ? ' girlpremium' : '';
 ?>
 
-<div class="girl" itemscope itemtype="http://schema.org/Person">
+<div class="girl escort-card" itemscope itemtype="http://schema.org/Person">
     <?php if ($featured === '1'): ?>
         <div class="vip-div in-loop">VIP</div>
     <?php endif; ?>

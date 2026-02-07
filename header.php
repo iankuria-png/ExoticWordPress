@@ -42,16 +42,20 @@ generate_demo_data();
 if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options')) escortwp_theme_options();
 ?>
 
-<header>
-    <div class="header-top-bar">
-        <div class="header_top_left">
-            <div class="mobile-menu-icon">
-                <img src="<?php echo get_stylesheet_directory_uri() . '/img/mobile-menu-icon.png'; ?>" />
-            </div>
-            <div class="mobile-login-icon">
-                <img src="<?php echo get_stylesheet_directory_uri() . '/img/login-icon.png'; ?>" />
+<header class="modern-header">
+    <div class="header-top-bar modern-header-top">
+        <div class="header_top_left modern-header-left">
+            <!-- Mobile Controls (preserved for JS) -->
+            <div class="modern-mobile-controls">
+                <div class="mobile-menu-icon">
+                    <img src="<?php echo get_stylesheet_directory_uri() . '/img/mobile-menu-icon.png'; ?>" />
+                </div>
+                <div class="mobile-login-icon">
+                    <img src="<?php echo get_stylesheet_directory_uri() . '/img/login-icon.png'; ?>" />
+                </div>
             </div>
 
+            <!-- Mobile Menu Drawer (preserved for JS) -->
             <div class="mobile-menu-div-content">
                 <a href="#" class="close-menu">Close</a>
                 <h4 class="h-heading">Main Navigation</h4>
@@ -66,6 +70,7 @@ if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options'))
                 ?>
             </div>
 
+            <!-- Mobile Login Overlay (preserved for JS) -->
             <div class="mobile-login-div-content">
                 <div class="subnav-menu-wrapper r">
                     <ul class="subnav-menu vcenter r">
@@ -98,17 +103,21 @@ if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options'))
                 </div>
             </div>
 
-            <?php
-            $h1 = get_option("sitelogo") ? '<img class="l" src="'.get_option('sitelogo').'" alt="'.get_bloginfo('name').'" />' : get_bloginfo('name');
-            ?>
-            <h1 class="l"><?php echo '<a href="'.get_bloginfo("url").'/" title="'.get_bloginfo('name').'">'.$h1.'</a>'; ?></h1>
+            <!-- Logo (SEO: H1 + alt text preserved) -->
+            <div class="modern-logo-container">
+                <?php
+                $h1 = get_option("sitelogo") ? '<img class="l" src="'.get_option('sitelogo').'" alt="'.get_bloginfo('name').'" />' : get_bloginfo('name');
+                ?>
+                <h1 class="l"><?php echo '<a href="'.get_bloginfo("url").'/" title="'.get_bloginfo('name').'">'.$h1.'</a>'; ?></h1>
+            </div>
         </div>
 
         <div class="heager_top_right">
             <?php dynamic_sidebar('sidebar-id-header-ads'); ?>
         </div>
 
-        <nav class="header-nav l">
+        <!-- Desktop Navigation -->
+        <nav class="header-nav l modern-nav-wrapper">
             <?php
             if (has_nav_menu("header-menu")) {
                 wp_nav_menu(array(
@@ -122,7 +131,8 @@ if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options'))
             ?>
         </nav>
 
-        <div class="subnav-menu-wrapper r">
+        <!-- Desktop Actions (Register/Login/Search/Contact) -->
+        <div class="subnav-menu-wrapper r modern-header-actions">
             <ul class="subnav-menu vcenter r">
                 <?php if (!is_user_logged_in() && !get_option("hide31")) { ?>
                     <li class="subnav-menu-btn register-btn"><a href="<?php echo get_permalink(get_option('main_reg_page_id')); ?>"><span class="icon icon-user"></span><?php _e('Register','escortwp'); ?></a></li>

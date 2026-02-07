@@ -31,6 +31,14 @@ function escortwp_child_enqueue_assets() {
 		wp_get_theme()->get( 'Version' )
 	);
 
+	// Inter font for redesign
+	wp_enqueue_style(
+		'escortwp-inter-font',
+		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+		array(),
+		null
+	);
+
 	// Child custom JavaScript
 	wp_enqueue_script(
 		'escortwp-child-custom-script',
@@ -41,6 +49,31 @@ function escortwp_child_enqueue_assets() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'escortwp_child_enqueue_assets' );
+
+/**
+ * Dequeue duplicate child CSS loaded by parent's add_js_css().
+ * Parent line 58: wp_enqueue_style('main-css-file', get_bloginfo('stylesheet_url'))
+ * This loads child style.css a second time. Run at priority 99 (AFTER parent's add_js_css).
+ */
+function escortwp_child_dequeue_duplicate_css() {
+	wp_dequeue_style( 'main-css-file' );
+}
+add_action( 'wp_enqueue_scripts', 'escortwp_child_dequeue_duplicate_css', 99 );
+
+/**
+ * Enqueue override.css LAST with cache busting via filemtime().
+ * Depends on child style + responsive so it loads after both.
+ */
+function escortwp_child_enqueue_override_css() {
+	$override_file = get_stylesheet_directory() . '/css/override.css';
+	wp_enqueue_style(
+		'escortwp-override-css',
+		get_stylesheet_directory_uri() . '/css/override.css',
+		array( 'escortwp-child-style', 'responsive' ),
+		file_exists( $override_file ) ? filemtime( $override_file ) : '1.0.0'
+	);
+}
+add_action( 'wp_enqueue_scripts', 'escortwp_child_enqueue_override_css', 100 );
 
 /**
  * Register additional widget areas.
