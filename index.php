@@ -4,10 +4,174 @@
  */
 get_header();
 $GLOBALS['PROFILE_GRID_NO_SEPARATORS'] = true;
+
+global $taxonomy_location_url, $taxonomy_profile_url;
+
+$term_slug    = get_query_var('term');
+$taxonomyName = get_query_var('taxonomy');
+$current_term = get_term_by('slug', $term_slug, $taxonomyName);
+
+// Build VIP args once (used for VIP section + Online fallback)
+if ($taxonomyName === 'escorts-from') {
+  $vip_args = [
+    'post_type'  => $taxonomy_profile_url,
+    'tax_query'  => [[
+      'taxonomy' => $current_term->taxonomy,
+      'field'    => 'term_id',
+      'terms'    => $current_term->term_id,
+    ]],
+    'meta_query' => [[
+      'key'     => 'featured',
+      'value'   => '1',
+      'compare' => '=',
+      'type'    => 'NUMERIC',
+    ]],
+    'orderby'        => 'rand',
+    'posts_per_page' => get_option('headerslideritems'),
+  ];
+} else {
+  $vip_args = [
+    'post_type'      => $taxonomy_profile_url,
+    'orderby'        => 'rand',
+    'meta_query'     => [[
+      'key'     => 'featured',
+      'value'   => '1',
+      'compare' => '=',
+      'type'    => 'NUMERIC',
+    ]],
+    'posts_per_page' => get_option('headerslideritems'),
+  ];
+}
 ?>
 
 <div class="contentwrapper">
   <div class="body">
+
+    <!-- Ad Carousel (Homepage placement) -->
+    <?php if ( is_active_sidebar('Right Ads') ) : ?>
+      <section class="bodybox bodybox-homepage homepage-ad-carousel">
+        <div class="sidebar-ad-carousel" aria-label="<?php esc_attr_e('Sponsored','escortwp'); ?>">
+          <?php dynamic_sidebar('Right Ads'); ?>
+        </div>
+      </section>
+    <?php else : ?>
+      <?php
+        $register_url = get_permalink(get_option('member_register_page_id')) ?: home_url('/');
+        $premium_url  = get_permalink(get_option('all_premium_profiles_page_id')) ?: home_url('/');
+        $contact_url  = get_permalink(get_option('contact_page_id')) ?: home_url('/contact/');
+      ?>
+      <section class="bodybox bodybox-homepage homepage-ad-carousel">
+        <div class="static-ad-carousel" aria-label="<?php esc_attr_e('Sponsored','escortwp'); ?>">
+          <article class="ad-card ad-card--vip">
+            <div class="ad-card__content">
+              <span class="ad-card__badge">VIP</span>
+              <h3 class="ad-card__title"><?php _e('VIP Experience','escortwp'); ?></h3>
+              <p class="ad-card__copy"><?php _e('Unlock priority visibility and premium exposure today.','escortwp'); ?></p>
+              <a class="ad-card__cta" href="<?php echo esc_url($register_url); ?>">
+                <?php _e('Upgrade to VIP','escortwp'); ?>
+              </a>
+            </div>
+          </article>
+
+          <article class="ad-card ad-card--premium">
+            <div class="ad-card__content">
+              <span class="ad-card__badge"><?php _e('Premium','escortwp'); ?></span>
+              <h3 class="ad-card__title"><?php _e('Premium Profiles','escortwp'); ?></h3>
+              <p class="ad-card__copy"><?php _e('Boost trust and get featured in premium listings.','escortwp'); ?></p>
+              <a class="ad-card__cta" href="<?php echo esc_url($premium_url); ?>">
+                <?php _e('Explore Premium','escortwp'); ?>
+              </a>
+            </div>
+          </article>
+
+          <article class="ad-card ad-card--support">
+            <div class="ad-card__content">
+              <span class="ad-card__badge"><?php _e('Support','escortwp'); ?></span>
+              <h3 class="ad-card__title"><?php _e('Need Help?','escortwp'); ?></h3>
+              <p class="ad-card__copy"><?php _e('Talk to our team for placement or account support.','escortwp'); ?></p>
+              <a class="ad-card__cta" href="<?php echo esc_url($contact_url); ?>">
+                <?php _e('Contact Us','escortwp'); ?>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    <?php endif; ?>
+
+    <?php
+    // ONLINE PROFILES (2025)
+    $online_has_posts = false;
+    $online_query = null;
+    $show_online_section = ( get_option('frontpageshowonline') == 1 );
+
+    if ( $show_online_section ) :
+      $user_args = [
+        'meta_key'     => 'last_online2',
+        'meta_value'   => current_time('timestamp') - 60*5,
+        'meta_compare' => '>=',
+        'fields'       => 'ids',
+      ];
+      $user_query = new WP_User_Query($user_args);
+      $users_arr  = $user_query->get_results();
+
+      if ( count($users_arr) ) :
+        $online_args = [
+          'author__in'     => $users_arr,
+          'post_type'      => $taxonomy_profile_url,
+          'posts_per_page' => get_option('frontpageshowonlinecols') * 5,
+        ];
+        $online_query = new WP_Query($online_args);
+        if ( $online_query->have_posts() ) {
+          $online_has_posts = true;
+        }
+      endif;
+    endif;
+
+    if ( $show_online_section ) :
+      $fallback_query = $online_has_posts ? $online_query : new WP_Query($vip_args);
+      if ( $fallback_query && $fallback_query->have_posts() ) : ?>
+      <!-- Instagram Stories-style Online Now carousel (VIP fallback if no online) -->
+      <section class="bodybox bodybox-homepage online-stories-section">
+        <div class="section-header">
+          <h2 class="l section-heading">
+            <span class="online-pulse"></span>
+            <?php _e('Online Now','escortwp'); ?>
+          </h2>
+          <a class="see-all-top section-see-all"
+             href="<?php echo get_permalink(get_option('all_online_profiles_page_id')); ?>">
+            <?php _e('View All','escortwp'); ?> →
+          </a>
+        </div>
+        <div class="online-stories-carousel">
+          <?php while ( $fallback_query->have_posts() ) : $fallback_query->the_post();
+            $story_id = get_the_ID();
+            $story_name = get_the_title();
+            if (function_exists('get_first_image')) {
+              $story_img = get_first_image($story_id, '5');
+            } else {
+              $story_img = '';
+            }
+          ?>
+          <a href="<?php echo esc_url(get_permalink()); ?>" class="online-story" title="<?php echo esc_attr($story_name); ?>">
+            <div class="online-story__avatar">
+              <img src="<?php echo esc_url($story_img); ?>" alt="<?php echo esc_attr($story_name); ?>" loading="lazy" />
+              <span class="online-story__indicator"></span>
+            </div>
+            <?php
+            $story_label = function_exists('mb_strimwidth')
+              ? mb_strimwidth($story_name, 0, 10, '…')
+              : (strlen($story_name) > 10 ? substr($story_name, 0, 10) . '…' : $story_name);
+            ?>
+            <span class="online-story__name"><?php echo esc_html($story_label); ?></span>
+          </a>
+          <?php endwhile; ?>
+        </div>
+      </section>
+      <?php
+        wp_reset_postdata();
+      endif;
+    endif;
+    ?>
 
     <!-- VIP Escorts (queries featured=1 meta) -->
     <section class="bodybox bodybox-homepage featured-mobile featured-desktop featured-section">
@@ -17,43 +181,6 @@ $GLOBALS['PROFILE_GRID_NO_SEPARATORS'] = true;
       <div class="clear"></div>
       <div class="escort-grid__container">
         <?php
-        global $taxonomy_location_url, $taxonomy_profile_url;
-
-        $term_slug    = get_query_var('term');
-        $taxonomyName = get_query_var('taxonomy');
-        $current_term = get_term_by('slug', $term_slug, $taxonomyName);
-
-        if ($taxonomyName === 'escorts-from') {
-          $vip_args = [
-            'post_type'  => $taxonomy_profile_url,
-            'tax_query'  => [[
-              'taxonomy' => $current_term->taxonomy,
-              'field'    => 'term_id',
-              'terms'    => $current_term->term_id,
-            ]],
-            'meta_query' => [[
-              'key'     => 'featured',
-              'value'   => '1',
-              'compare' => '=',
-              'type'    => 'NUMERIC',
-            ]],
-            'orderby'        => 'rand',
-            'posts_per_page' => get_option('headerslideritems'),
-          ];
-        } else {
-          $vip_args = [
-            'post_type'      => $taxonomy_profile_url,
-            'orderby'        => 'rand',
-            'meta_query'     => [[
-              'key'     => 'featured',
-              'value'   => '1',
-              'compare' => '=',
-              'type'    => 'NUMERIC',
-            ]],
-            'posts_per_page' => get_option('headerslideritems'),
-          ];
-        }
-
         $vip_query = new WP_Query($vip_args);
         $i = 1;
         if ($vip_query->have_posts()) :
@@ -120,95 +247,6 @@ $GLOBALS['PROFILE_GRID_NO_SEPARATORS'] = true;
       <?php
       endif;
       wp_reset_postdata();
-    endif;
-    ?>
-
-    <?php
-    // ONLINE PROFILES (2025)
-    if ( get_option('frontpageshowonline') == 1 ) :
-      $user_args = [
-        'meta_key'     => 'last_online2',
-        'meta_value'   => current_time('timestamp') - 60*5,
-        'meta_compare' => '>=',
-        'fields'       => 'ids',
-      ];
-      $user_query = new WP_User_Query($user_args);
-      $users_arr  = $user_query->get_results();
-
-      if ( count($users_arr) ) :
-        $online_args = [
-          'author__in'     => $users_arr,
-          'post_type'      => $taxonomy_profile_url,
-          'posts_per_page' => get_option('frontpageshowonlinecols') * 5,
-        ];
-        $online_query = new WP_Query($online_args);
-        $i = 1;
-        if ( $online_query->have_posts() ) : ?>
-
-          <!-- Instagram Stories-style Online Now carousel -->
-          <section class="bodybox bodybox-homepage online-stories-section">
-            <div class="section-header">
-              <h2 class="l section-heading">
-                <span class="online-pulse"></span>
-                <?php _e('Online Now','escortwp'); ?>
-              </h2>
-              <a class="see-all-top section-see-all"
-                 href="<?php echo get_permalink(get_option('all_online_profiles_page_id')); ?>">
-                <?php _e('View All','escortwp'); ?> →
-              </a>
-            </div>
-            <div class="online-stories-carousel">
-              <?php while ( $online_query->have_posts() ) : $online_query->the_post();
-                $story_id = get_the_ID();
-                $story_name = get_the_title();
-                if (function_exists('get_first_image')) {
-                  $story_img = get_first_image($story_id, '5');
-                } else {
-                  $story_img = '';
-                }
-              ?>
-              <a href="<?php echo esc_url(get_permalink()); ?>" class="online-story" title="<?php echo esc_attr($story_name); ?>">
-                <div class="online-story__avatar">
-                  <img src="<?php echo esc_url($story_img); ?>" alt="<?php echo esc_attr($story_name); ?>" loading="lazy" />
-                  <span class="online-story__indicator"></span>
-                </div>
-                <span class="online-story__name"><?php echo esc_html( mb_strimwidth($story_name, 0, 10, '…') ); ?></span>
-              </a>
-              <?php endwhile; ?>
-            </div>
-          </section>
-
-          <!-- Online Escorts Grid -->
-          <section class="bodybox bodybox-homepage online-section">
-            <div class="section-header">
-              <h2 class="l section-heading"><?php _e('Online Escorts','escortwp'); ?> <span class="online-indicator"></span></h2>
-              <a class="see-all-top section-see-all"
-                 href="<?php echo get_permalink(get_option('all_online_profiles_page_id')); ?>">
-                <?php printf( esc_html__('All online %s','escortwp'), $taxonomy_profile_name_plural ); ?> →
-              </a>
-            </div>
-            <div class="clear"></div>
-            <div class="escort-grid__container">
-              <?php
-              rewind_posts();
-              $online_query->rewind_posts();
-              while ( $online_query->have_posts() ) : $online_query->the_post();
-                include get_theme_file_path( '/loop-show-profile.php' );
-                if ( $i % 6 === 0 ) {
-                // echo '<div style="width:100%; text-align:center;">';
-                 // dynamic_sidebar('box-ads');
-                 // echo '</div>';
-                }
-                $i++;
-              endwhile;
-              ?>
-            </div>
-            <div class="clear"></div>
-          </section>
-        <?php
-        endif;
-        wp_reset_postdata();
-      endif;
     endif;
     ?>
 
@@ -309,5 +347,7 @@ $GLOBALS['PROFILE_GRID_NO_SEPARATORS'] = true;
 
 <?php
 get_sidebar('left');
-get_sidebar('right');
+if ( !is_front_page() && !is_home() ) {
+  get_sidebar('right');
+}
 get_footer();

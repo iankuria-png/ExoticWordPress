@@ -151,9 +151,10 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
             </a>
 
             <?php if (!empty($phone) && $featured === '1'): ?>
-                <div class="phone-number-box">
-                    <?php echo esc_html($phone); ?>
-                </div>
+                <a class="phone-number-box" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>">
+                    <span class="icon icon-phone"></span>
+                    <span class="phone-number-text"><?php echo esc_html($phone); ?></span>
+                </a>
             <?php endif; ?>
 
             <?php if (!empty($phone)): ?>

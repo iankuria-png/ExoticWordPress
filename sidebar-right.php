@@ -1185,6 +1185,10 @@ if($blog_section == 'yes') { ?>
     </div><!-- SIDEBAR BOX -->
 <?php endif; ?>
 
-<?php dynamic_sidebar('Right Ads'); ?>
+<?php if ( ( !is_front_page() && !is_home() ) && is_active_sidebar('Right Ads') ) : ?>
+    <div class="sidebar-ad-carousel" aria-label="<?php esc_attr_e('Sponsored','escortwp'); ?>">
+        <?php dynamic_sidebar('Right Ads'); ?>
+    </div>
+<?php endif; ?>
 
 </div><!-- SIDEBAR RIGHT -->

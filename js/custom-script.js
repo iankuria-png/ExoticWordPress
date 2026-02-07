@@ -93,6 +93,38 @@ jQuery(document).ready(function() {
 		return false;
 	})
 
+	// Ensure phone/tel links are clickable without triggering card overlay
+	jQuery(document).on("click", ".phone-number-box, .call-now-box", function(e){
+		e.stopPropagation();
+	});
+
+	// Location sidebar controls (desktop + overlay)
+	jQuery(".location-expand").on("click", function(e){
+		e.preventDefault();
+		jQuery(".sidebar-left .country-list li ul").show();
+		jQuery(".sidebar-left .country-list .iconlocation.icon-angle-down")
+			.removeClass("icon-angle-down")
+			.addClass("icon-angle-up");
+	});
+
+	jQuery(".location-collapse").on("click", function(e){
+		e.preventDefault();
+		jQuery(".sidebar-left .country-list li ul").hide();
+		jQuery(".sidebar-left .country-list .iconlocation.icon-angle-up")
+			.removeClass("icon-angle-up")
+			.addClass("icon-angle-down");
+
+		// Keep current category path visible
+		jQuery(".sidebar-left .country-list .current-cat").parentsUntil(".country-list").show();
+		jQuery(".sidebar-left .country-list .current-cat > ul").show();
+		jQuery(".sidebar-left .country-list .current-cat-parent > .icon-angle-down")
+			.removeClass("icon-angle-down")
+			.addClass("icon-angle-up");
+		jQuery(".sidebar-left .country-list .current-cat > .icon-angle-down")
+			.removeClass("icon-angle-down")
+			.addClass("icon-angle-up");
+	});
+
 
 
 
@@ -241,3 +273,58 @@ var interval = 1000 * 1 * 30;
 //setInterval(count_escort_call, interval);
 
 ;
+
+// Sidebar ads carousel (auto-advance, pause on hover/focus)
+jQuery(function() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
+    jQuery('.sidebar-ad-carousel').each(function() {
+        var $carousel = jQuery(this);
+        var $slides = $carousel.find('.widgetadbox');
+        if ($slides.length <= 1) {
+            return;
+        }
+
+        var index = 0;
+        var timer = null;
+        var resumeTimer = null;
+
+        var goTo = function(i) {
+            var el = $carousel.get(0);
+            if (!el || !el.scrollTo) {
+                return;
+            }
+            index = (i + $slides.length) % $slides.length;
+            var target = index * el.clientWidth;
+            el.scrollTo({ left: target, behavior: 'smooth' });
+        };
+
+        var start = function() {
+            if (timer) return;
+            timer = setInterval(function() {
+                goTo(index + 1);
+            }, 4500);
+        };
+
+        var stop = function() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        };
+
+        $carousel.on('mouseenter focusin', stop);
+        $carousel.on('mouseleave focusout', start);
+        $carousel.on('scroll', function() {
+            stop();
+            if (resumeTimer) {
+                clearTimeout(resumeTimer);
+            }
+            resumeTimer = setTimeout(start, 6000);
+        });
+
+        start();
+    });
+});

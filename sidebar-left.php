@@ -9,9 +9,16 @@ global $taxonomy_profile_name_plural, $taxonomy_location_url;
 
 <div class="sidebar-left l">
 
-	<div class="countries sidebarcountries">
-    	<h4>See escorts from</h4>
-        <ul class="country-list">
+	<div class="countries sidebarcountries location-filter">
+		<div class="location-header">
+			<h4>Locations</h4>
+			<p class="location-subcopy">Find escorts by county or city</p>
+			<div class="location-actions">
+				<button type="button" class="location-toggle location-expand">Expand all</button>
+				<button type="button" class="location-toggle location-collapse">Collapse</button>
+			</div>
+		</div>
+        <ul class="country-list location-list">
 			<?php
 			$args = array(
 				'show_option_all' => '',
@@ -79,8 +86,8 @@ global $taxonomy_profile_name_plural, $taxonomy_location_url;
 
 	<div class="countries slidercountries" id="slidercountries" style="display:none;">
 		<a class="close-country">X</a>
-		<h4>Select from Your Town</h4>
-		<ul class="country-list">
+		<h4>Choose a Location</h4>
+		<ul class="country-list location-list">
 			<?php wp_list_categories($args); ?>
 		</ul>
 		<div class="clear"></div>

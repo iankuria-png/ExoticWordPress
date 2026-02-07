@@ -161,8 +161,18 @@ if (defined('escortwp_demo_theme') && function_exists('escortwp_theme_options'))
     </div>
 
     <div class="mobile-menu-div">
-        <div style="padding:10px 15px;"><a href="#" class="open-country">ESCORT LOCATIONS</a></div>
-        <div style="padding:10px 15px;" class="open-search-div"><a href="#" class="open-search">SEARCH</a></div>
+        <div class="mobile-menu-action">
+            <a href="#" class="open-country">
+                <span class="icon icon-location"></span>
+                <span class="mobile-menu-label"><?php _e('Escort Locations','escortwp'); ?></span>
+            </a>
+        </div>
+        <div class="mobile-menu-action open-search-div">
+            <a href="#" class="open-search">
+                <span class="icon icon-search"></span>
+                <span class="mobile-menu-label"><?php _e('Search','escortwp'); ?></span>
+            </a>
+        </div>
     </div>
 
     <?php
