@@ -1,5 +1,6 @@
 <?php
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 /**
  * loop-show-profile.php (hardened)
@@ -34,16 +35,16 @@ global $taxonomy_location_url;
 
 // --- Base data ---
 $escort_post_id = get_the_ID();
-$linktitle      = get_the_title();
-$imagealt       = $linktitle ?: '';
+$linktitle = get_the_title();
+$imagealt = $linktitle ?: '';
 
 // Meta
-$phone    = get_post_meta($escort_post_id, 'phone', true);
+$phone = get_post_meta($escort_post_id, 'phone', true);
 $featured = get_post_meta($escort_post_id, 'featured', true);
-$premium  = get_post_meta($escort_post_id, 'premium', true);
+$premium = get_post_meta($escort_post_id, 'premium', true);
 
 // Location (defensive)
-$location   = [];
+$location = [];
 $city_terms = wp_get_post_terms($escort_post_id, $taxonomy_location_url);
 if (!is_wp_error($city_terms) && !empty($city_terms)) {
     $city = $city_terms[0];
@@ -62,11 +63,11 @@ if (!is_wp_error($city_terms) && !empty($city_terms)) {
 
 // Videos (to show the little "video" label if any)
 $videos = get_children([
-    'post_parent'    => $escort_post_id,
-    'post_status'    => 'inherit',
-    'post_type'      => 'attachment',
+    'post_parent' => $escort_post_id,
+    'post_status' => 'inherit',
+    'post_type' => 'attachment',
     'post_mime_type' => 'video',
-    'numberposts'    => 1,
+    'numberposts' => 1,
 ]);
 
 // Premium class
@@ -90,12 +91,13 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
                         </b>
                         <br>
                         <span style="color:#fff">
-                            <?php echo esc_html( wp_strip_all_tags( wp_trim_words(get_the_content(), 30, '...') ) ); ?>
+                            <?php echo esc_html(wp_strip_all_tags(wp_trim_words(get_the_content(), 30, '...'))); ?>
                         </span>
                     </a>
                 </div>
             </div>
-            <a class="escort-card__media" href="<?php echo esc_url(get_permalink()); ?>" title="<?php echo esc_attr($linktitle); ?>">
+            <a class="escort-card__media" href="<?php echo esc_url(get_permalink()); ?>"
+                title="<?php echo esc_attr($linktitle); ?>">
                 <?php if (!empty($videos)): ?>
                     <span class="label-video">
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/i/video-th-icon.png'); ?>" alt="" />
@@ -112,19 +114,15 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
                     $img_5 = $img_d = $img_4 = '';
                 }
                 ?>
-                <img
-                    class="mobile-ready-img rad3"
-                    src="<?php echo esc_url($img_5); ?>"
+                <img class="mobile-ready-img rad3" src="<?php echo esc_url($img_5); ?>"
                     srcset="<?php echo esc_url($img_5); ?> 170w, <?php echo esc_url($img_d); ?> 280w, <?php echo esc_url($img_4); ?> 400w"
-                    data-responsive-img-url="<?php echo esc_url($img_5); ?>"
-                    alt="<?php echo esc_attr($imagealt); ?>"
-                    itemprop="image"
-                />
+                    data-responsive-img-url="<?php echo esc_url($img_5); ?>" alt="<?php echo esc_attr($imagealt); ?>"
+                    itemprop="image" />
             </a>
 
             <?php if ($premium === '1'): ?>
                 <div class="premiumlabel rad3">
-                    <span><?php _e('PREMIUM','escortwp'); ?></span>
+                    <span><?php _e('PREMIUM', 'escortwp'); ?></span>
                 </div>
             <?php endif; ?>
         </div>
@@ -149,20 +147,22 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
             <?php endif; ?>
 
             <?php if (!empty($phone)): ?>
-                <a class="contact-btn" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>" itemprop="telephone">
+                <a class="contact-btn" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>"
+                    itemprop="telephone">
                     <span class="icon icon-phone"></span>
                     <span class="contact-btn__label"><?php echo esc_html($phone); ?></span>
-                    <span class="contact-btn__hint"><?php _e('Tap to call','escortwp'); ?></span>
                 </a>
             <?php else: ?>
                 <a class="contact-btn" href="<?php echo esc_url(get_permalink()); ?>">
                     <span class="icon icon-user"></span>
-                    <span class="contact-btn__label"><?php _e('View Profile','escortwp'); ?></span>
+                    <span class="contact-btn__label"><?php _e('View Profile', 'escortwp'); ?></span>
                 </a>
             <?php endif; ?>
         </div>
 
-        <?php if (!empty($agency_manage_escort_buttons)) { echo $agency_manage_escort_buttons; } ?>
+        <?php if (!empty($agency_manage_escort_buttons)) {
+            echo $agency_manage_escort_buttons;
+        } ?>
     </div>
 
     <div class="profile_shadow"></div>
@@ -176,10 +176,14 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
  * (e.g., in Recently Viewed or other grid sections) to disable them.
  */
 if (empty($GLOBALS['PROFILE_GRID_NO_SEPARATORS'])) {
-    if (($i % 5) === 0) echo '<div class="show-separator show5profiles clear"></div>';
-    if (($i % 4) === 0) echo '<div class="show-separator show4profiles clear hide"></div>';
-    if (($i % 3) === 0) echo '<div class="show-separator show3profiles clear hide"></div>';
-    if (($i % 2) === 0) echo '<div class="show-separator show2profiles clear hide"></div>';
+    if (($i % 5) === 0)
+        echo '<div class="show-separator show5profiles clear"></div>';
+    if (($i % 4) === 0)
+        echo '<div class="show-separator show4profiles clear hide"></div>';
+    if (($i % 3) === 0)
+        echo '<div class="show-separator show3profiles clear hide"></div>';
+    if (($i % 2) === 0)
+        echo '<div class="show-separator show2profiles clear hide"></div>';
 }
 $i++;
 unset($escort_label, $belongstoescortid, $class);
