@@ -84,13 +84,7 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
             <div class="girl-overlay">
                 <div class="set-pad">
                     <a href="<?php echo esc_url(get_permalink()); ?>">
-                        <b>
-                            <div class="overlay-text">
-                                <span style="color:#fff"><?php the_title(); ?></span>
-                            </div>
-                        </b>
-                        <br>
-                        <span style="color:#fff">
+                        <span class="escort-card__description" style="color:#fff">
                             <?php echo esc_html(wp_strip_all_tags(wp_trim_words(get_the_content(), 30, '...'))); ?>
                         </span>
                     </a>
@@ -121,7 +115,7 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
             </a>
 
             <?php if ($premium === '1'): ?>
-                <div class="premiumlabel rad3">
+                <div class="premium-pill-badge rad3">
                     <span><?php _e('PREMIUM', 'escortwp'); ?></span>
                 </div>
             <?php endif; ?>
@@ -140,11 +134,14 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
                 <?php endif; ?>
             </div>
 
-            <?php if (function_exists('get_escort_labels')): ?>
-                <div class="escort-card__trust">
-                    <?php echo get_escort_labels($escort_post_id); ?>
-                </div>
-            <?php endif; ?>
+            <?php if (function_exists('get_escort_labels')):
+                $labels = get_escort_labels($escort_post_id);
+                if (!empty($labels)): ?>
+                    <div class="escort-card__trust">
+                        <?php echo $labels; ?>
+                    </div>
+                <?php endif;
+            endif; ?>
 
             <?php if (!empty($phone)): ?>
                 <a class="contact-btn" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>"
@@ -164,9 +161,6 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
             echo $agency_manage_escort_buttons;
         } ?>
     </div>
-
-    <div class="profile_shadow"></div>
-    <div class="clear"></div>
 </div>
 
 <?php

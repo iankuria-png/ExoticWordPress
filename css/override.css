@@ -1330,6 +1330,9 @@ header.modern-header {
   float: none !important;
   margin: 0 !important;
   padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .escort-card:hover {
@@ -1338,7 +1341,8 @@ header.modern-header {
 }
 
 /* Hide old separators in grid context */
-.escort-grid__container .show-separator {
+.escort-grid__container .show-separator,
+.escort-grid__container .clear {
   display: none !important;
 }
 
@@ -1347,7 +1351,7 @@ header.modern-header {
   position: absolute;
   top: var(--spacing-3);
   left: var(--spacing-3);
-  z-index: 10;
+  z-index: 20;
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #0e0e0e;
   font-size: 10px;
@@ -1365,8 +1369,8 @@ header.modern-header {
 .escort-card .premiumlabel {
   position: absolute;
   top: var(--spacing-3);
-  right: var(--spacing-3);
-  z-index: 10;
+  right: var(--spacing-3) !important;
+  z-index: 20;
   background: linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 100%) !important;
   color: #0e0e0e !important;
   font-size: 9px;
@@ -1378,6 +1382,54 @@ header.modern-header {
   -webkit-backdrop-filter: blur(8px);
   box-shadow: var(--shadow-sm);
   text-transform: uppercase;
+  transform: none !important;
+  box-shadow: var(--shadow-sm);
+  text-transform: uppercase;
+  transform: none !important;
+  width: auto !important;
+}
+
+.escort-card .premium-pill-badge {
+  position: absolute;
+  top: var(--spacing-3);
+  right: var(--spacing-3) !important;
+  z-index: 20;
+  background: rgba(14, 14, 14, 0.6) !important;
+  color: var(--text-secondary) !important;
+  font-size: 8px;
+  /* Slightly smaller */
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  /* Pill shape */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: none;
+  text-transform: uppercase;
+}
+
+/* Fix "Yellow Dash" - force hide pseudo elements on name */
+.escort-card .girl-name::before,
+.escort-card .girl-name::after,
+.escort-card__meta::before,
+.escort-card__meta::after {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+  background: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+}
+
+.escort-card .girl-name {
+  border: none !important;
+  text-decoration: none !important;
+  background: none !important;
+  position: relative;
+  z-index: 5;
 }
 
 .escort-card .premiumlabel span {
@@ -1434,20 +1486,25 @@ header.modern-header {
 /* Model info - positioned at bottom of image with gradient */
 /* Card body (info panel under image) */
 .escort-card__body {
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
   gap: var(--spacing-2);
   padding: var(--spacing-4);
   background: rgba(17, 17, 17, 0.95);
   border-top: 1px solid var(--border-subtle);
   position: relative;
   z-index: 2;
+  flex: 1 1 auto !important;
+  /* Allow body to grow */
+  min-height: 0;
+  /* Fix flex overflow issues */
 }
 
 .escort-card__meta {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: var(--spacing-2);
 }
 
 .escort-card__meta .girl-name {
@@ -1459,6 +1516,7 @@ header.modern-header {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 
 .escort-card__meta .girl-desc-location {
@@ -1492,6 +1550,10 @@ header.modern-header {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+.escort-card__trust .labels .label:empty {
+  display: none !important;
+}
+
 /* Show verified and real pic badges */
 .escort-card__trust .labels .label-verified {
   display: inline-flex;
@@ -1513,12 +1575,10 @@ header.modern-header {
 }
 
 /* Hide online/status label inside cards */
-.escort-card__trust .online-status {
-  display: none;
-}
-
-.escort-card__trust .labels .vip-div.in-loop {
-  display: none;
+.escort-card__trust .online-status,
+.escort-card__body .vip-div.in-loop,
+.escort-card__trust .vip-div.in-loop {
+  display: none !important;
 }
 
 .contact-btn {
@@ -1540,6 +1600,10 @@ header.modern-header {
   z-index: 3;
   min-height: 44px;
   touch-action: manipulation;
+  margin-top: auto !important;
+  /* Force to bottom */
+  width: 100%;
+  /* Ensure full width */
 }
 
 .contact-btn:hover {
@@ -1579,6 +1643,10 @@ header.modern-header {
   border-radius: var(--radius-md);
 }
 
+.escort-card:hover .girl-overlay {
+  display: block !important;
+}
+
 .escort-card .girl-overlay .set-pad {
   padding: var(--spacing-5);
   color: var(--text-primary);
@@ -1589,6 +1657,16 @@ header.modern-header {
 .escort-card .girl-overlay .overlay-text span {
   font-size: 16px;
   font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.escort-card__description {
+  display: block;
+  line-height: 1.5;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin-top: 8px;
 }
 
 /* Ensure overlay doesn't cover body panel */
@@ -1641,6 +1719,9 @@ header.modern-header {
   min-height: 38px;
   position: relative;
   z-index: 6;
+  margin-top: auto !important;
+  /* Force to bottom */
+  width: 100%;
 }
 
 .escort-card .phone-number-box:hover {
