@@ -76,6 +76,60 @@ function escortwp_child_enqueue_override_css() {
 add_action( 'wp_enqueue_scripts', 'escortwp_child_enqueue_override_css', 100 );
 
 /**
+ * Enqueue auth.css only on registration pages.
+ */
+function escortwp_child_enqueue_auth_css() {
+	$auth_file = get_stylesheet_directory() . '/css/auth.css';
+	$auth_pages = array_filter( array(
+		get_option( 'main_reg_page_id' ),
+		get_option( 'escort_reg_page_id' ),
+		get_option( 'agency_reg_page_id' ),
+		get_option( 'member_register_page_id' ),
+		get_option( 'agency_manage_escorts_page_id' ),
+	) );
+
+	if ( is_page( $auth_pages ) || is_page_template( 'register-main-page.php' ) ) {
+		wp_enqueue_style(
+			'escortwp-auth-css',
+			get_stylesheet_directory_uri() . '/css/auth.css',
+			array( 'escortwp-override-css' ),
+			file_exists( $auth_file ) ? filemtime( $auth_file ) : '1.0.0'
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'escortwp_child_enqueue_auth_css', 110 );
+
+/**
+ * Enqueue auth styles on wp-login.php.
+ */
+function escortwp_child_enqueue_login_css() {
+	$override_file = get_stylesheet_directory() . '/css/override.css';
+	$auth_file = get_stylesheet_directory() . '/css/auth.css';
+
+	wp_enqueue_style(
+		'escortwp-inter-font',
+		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+		array(),
+		null
+	);
+
+	wp_enqueue_style(
+		'escortwp-override-css',
+		get_stylesheet_directory_uri() . '/css/override.css',
+		array(),
+		file_exists( $override_file ) ? filemtime( $override_file ) : '1.0.0'
+	);
+
+	wp_enqueue_style(
+		'escortwp-auth-css-login',
+		get_stylesheet_directory_uri() . '/css/auth.css',
+		array( 'escortwp-override-css' ),
+		file_exists( $auth_file ) ? filemtime( $auth_file ) : '1.0.0'
+	);
+}
+add_action( 'login_enqueue_scripts', 'escortwp_child_enqueue_login_css' );
+
+/**
  * Register additional widget areas.
  */
 function escortwp_child_register_widgets() {

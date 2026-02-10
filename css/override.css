@@ -93,7 +93,7 @@ a:hover {
 header.modern-header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
   background: rgba(14, 14, 14, 0.92) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -175,9 +175,10 @@ header.modern-header {
   margin: 0;
   padding: 0 var(--spacing-5);
   float: none !important;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  /* overflow-x: auto;  <-- CAUSING CLIPPING OF SUBMENUS */
+  overflow: visible;
+  /* scrollbar-width: none; */
+  /* -ms-overflow-style: none; */
 }
 
 .modern-nav-wrapper ul.header-menu::-webkit-scrollbar {
@@ -239,16 +240,37 @@ header.modern-header {
 
 .modern-nav-wrapper ul.header-menu .sub-menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 10px);
+  /* Slightly more spacing */
   left: 0;
-  min-width: 200px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-  padding: var(--spacing-2);
-  z-index: 2500;
+  min-width: 240px;
+  /* Wider for better readability */
+  background: rgba(18, 18, 18, 0.95);
+  /* Deep dark background */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  padding: 8px;
+  z-index: 10000;
   display: none;
+  overflow: hidden;
+  /* Contains hover effects */
+  transform-origin: top center;
+  animation: menuFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .modern-nav-wrapper ul.header-menu li:hover>.sub-menu,
@@ -258,21 +280,35 @@ header.modern-header {
 
 .modern-nav-wrapper ul.header-menu .sub-menu li {
   width: 100%;
+  margin-bottom: 2px;
+}
+
+.modern-nav-wrapper ul.header-menu .sub-menu li:last-child {
+  margin-bottom: 0;
 }
 
 .modern-nav-wrapper ul.header-menu .sub-menu li a {
   display: block;
-  padding: 8px 12px;
-  font-size: 12.5px;
-  color: var(--text-secondary) !important;
-  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  /* More breathing room */
+  font-size: 13px;
+  font-weight: 500;
+  color: #ccc !important;
+  /* Softer text color */
+  border-radius: 8px;
   white-space: nowrap;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .modern-nav-wrapper ul.header-menu .sub-menu li a:hover,
 .modern-nav-wrapper ul.header-menu .sub-menu li.current_page_item>a {
-  background: var(--bg-tertiary) !important;
-  color: var(--text-primary) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+  /* Subtle slide */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .modern-nav-wrapper ul.header-menu .sub-menu .sub-menu {
@@ -1115,105 +1151,303 @@ header.modern-header {
   opacity: 0.9;
 }
 
-/* Static ad carousel (fallback) */
+/* ==============================================
+   PREMIUM AD CARDS - DARK GLASS & NEON
+   ============================================== */
+
 .static-ad-carousel {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(260px, 1fr);
-  gap: var(--spacing-4);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-5);
   padding: var(--spacing-2) 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.static-ad-carousel::-webkit-scrollbar {
-  display: none;
 }
 
 .ad-card {
   position: relative;
-  scroll-snap-align: start;
-  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), rgba(14, 14, 14, 0.9));
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-5);
-  min-height: 170px;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
 }
 
-.ad-card::after {
+/* Hover Effect: Border Glow */
+.ad-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(139, 10, 26, 0.25), rgba(0, 0, 0, 0));
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
 }
 
+.ad-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+  background: rgba(30, 30, 30, 0.7);
+}
+
+/* Background Icon (Giant Faded Icon) */
+.ad-card__bg-icon {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 140px;
+  opacity: 0.03;
+  transform: rotate(15deg);
+  transition: all 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ad-card:hover .ad-card__bg-icon {
+  opacity: 0.08;
+  transform: rotate(0deg) scale(1.1);
+}
+
+/* Content Wrapper */
 .ad-card__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
+  height: 100%;
+}
+
+/* Header: Icon + Badge */
+.ad-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ad-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.ad-card:hover .ad-card__icon {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .ad-card__badge {
-  align-self: flex-start;
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  font-weight: 800;
   text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  background: var(--bg-elevated);
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
 }
 
+/* Typography */
 .ad-card__title {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 10px 0;
   color: #fff;
-  margin: 0;
+  letter-spacing: -0.5px;
 }
 
 .ad-card__copy {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #aaa;
+  margin-bottom: 24px;
+  flex-grow: 1;
 }
 
+/* CTA Button */
 .ad-card__cta {
-  align-self: flex-start;
-  padding: 8px 18px;
-  border-radius: var(--radius-md);
-  background: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
   color: #fff !important;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: var(--shadow-brand);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
-.ad-card__cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(139, 10, 26, 0.35);
+.ad-card__cta i {
+  transition: transform 0.3s ease;
 }
 
-.ad-card--vip .ad-card__badge {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  color: #0e0e0e;
-  border: none;
+.ad-card__cta:hover i {
+  transform: translateX(5px);
 }
 
-.ad-card--premium .ad-card__badge {
-  background: linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 100%);
-  color: #0e0e0e;
-  border: none;
+
+/* ==============================================
+   CARD VARIANTS (THEMES)
+   ============================================== */
+
+/* -- SPA (Pink/Magenta) -- */
+.ad-card--spa {
+  box-shadow: 0 10px 30px -10px rgba(218, 112, 214, 0.15);
+}
+
+.ad-card--spa:hover {
+  border-color: rgba(255, 105, 180, 0.5);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.2);
+}
+
+.ad-card--spa .ad-card__icon {
+  color: #FF69B4;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
+}
+
+.ad-card--spa .ad-card__badge {
+  color: #FFB6C1;
+  background: rgba(255, 105, 180, 0.15);
+  border-color: rgba(255, 105, 180, 0.3);
+}
+
+.ad-card--spa .ad-card__cta {
+  background: linear-gradient(90deg, #C71585, #FF1493);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(199, 21, 133, 0.4);
+}
+
+.ad-card--spa .ad-card__cta:hover {
+  background: linear-gradient(90deg, #D02090, #FF69B4);
+  box-shadow: 0 6px 20px rgba(199, 21, 133, 0.6);
+}
+
+/* -- PILLS (Cyan/Blue) -- */
+.ad-card--pills {
+  box-shadow: 0 10px 30px -10px rgba(0, 191, 255, 0.15);
+}
+
+.ad-card--pills:hover {
+  border-color: rgba(0, 191, 255, 0.5);
+  box-shadow: 0 0 30px rgba(0, 191, 255, 0.2);
+}
+
+.ad-card--pills .ad-card__icon {
+  color: #00BFFF;
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.2);
+}
+
+.ad-card--pills .ad-card__badge {
+  color: #87CEFA;
+  background: rgba(0, 191, 255, 0.15);
+  border-color: rgba(0, 191, 255, 0.3);
+}
+
+.ad-card--pills .ad-card__cta {
+  background: linear-gradient(90deg, #008CB4, #00BFFF);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 140, 180, 0.4);
+}
+
+.ad-card--pills .ad-card__cta:hover {
+  background: linear-gradient(90deg, #009ACD, #00E5FF);
+  box-shadow: 0 6px 20px rgba(0, 140, 180, 0.6);
+}
+
+/* -- CASINO (Gold/Yellow) -- */
+.ad-card--casino {
+  box-shadow: 0 10px 30px -10px rgba(255, 215, 0, 0.15);
+}
+
+.ad-card--casino:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+}
+
+.ad-card--casino .ad-card__icon {
+  color: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.ad-card--casino .ad-card__badge {
+  color: #FFFACD;
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.ad-card--casino .ad-card__cta {
+  background: linear-gradient(90deg, #DAA520, #FFD700);
+  border-color: transparent;
+  color: #000 !important;
+  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+}
+
+.ad-card--casino .ad-card__cta:hover {
+  background: linear-gradient(90deg, #EEB422, #FFEC8B);
+  box-shadow: 0 6px 20px rgba(218, 165, 32, 0.6);
+}
+
+/* ==============================================
+   MOBILE CAROUSEL (HORIZONTAL SCROLL)
+   ============================================== */
+@media screen and (max-width: 768px) {
+  .static-ad-carousel {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 24px;
+    padding-right: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
+  }
+
+  .static-ad-carousel::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar Chrome/Safari */
+  }
+
+  .static-ad-carousel .ad-card {
+    flex: 0 0 85%;
+    min-width: 85%;
+    scroll-snap-align: center;
+    margin-bottom: 0;
+    min-height: 180px;
+    /* Slightly smaller on mobile */
+  }
+
+  /* Adjust typography for mobile cards */
+  .static-ad-carousel .ad-card__title {
+    font-size: 18px;
+  }
+
+  .static-ad-carousel .ad-card__bg-icon {
+    font-size: 100px;
+    right: -10px;
+    top: -10px;
+  }
 }
 
 /* Hide ad carousel on tablet and mobile, keep sidebar content */

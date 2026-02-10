@@ -11,7 +11,7 @@ if ( get_option( "escortid{$current_user->ID}" ) != $taxonomy_agency_url ) {
 }
 
 if ( isset( $_POST['action'] ) && $_POST['action'] === 'register' ) {
-    include get_template_directory() . '/register-independent-personal-info-process.php';
+    include get_stylesheet_directory() . '/register-independent-personal-info-process.php';
 }
 
 get_header(); ?>
@@ -43,7 +43,7 @@ get_header(); ?>
         <?php
           // when admin adds an escort, $agencyid holds the agency's user ID
           $agencyid = $current_user->ID;
-          include get_template_directory() . '/register-independent-personal-information-form.php';
+          include get_stylesheet_directory() . '/register-independent-personal-information-form.php';
         ?>
       </div><!-- ADD NEW ESCORT FORM -->
       <div class="clear"></div>
