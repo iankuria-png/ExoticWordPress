@@ -51,12 +51,6 @@ jQuery(document).ready(function () {
 		jQuery(".bodybox .girl .thumbwrapper").on("mouseleave", function () {
 			hideOverlay(jQuery(this).closest(".girl"));
 		});
-	} else {
-		jQuery(".bodybox .girl .thumbwrapper").on("click", function () {
-			var $card = jQuery(this).closest(".girl");
-			hideOverlay(jQuery(".bodybox .girl"));
-			showOverlay($card);
-		});
 	}
 
 

@@ -358,6 +358,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'register') {
 		}
 	}
 
+	// City name for sticky bar display (independent of $city overwrites)
+	$city_name_display = '';
+	if ($city_data && !is_wp_error($city_data)) {
+		$city_name_display = $city_data[0]->name;
+	}
+
 	$gender = get_post_meta($escort_post_id, "gender", true);
 	$birthday = get_post_meta($escort_post_id, "birthday", true);
 	$age = floor((time() - strtotime($birthday))/31556926);
@@ -584,15 +590,45 @@ get_header(); ?>
 			$videos = get_children( array('post_parent' => get_the_ID(), 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'video', 'order' => 'ASC', 'orderby' => 'menu_order ID') );
 			$videos_left = get_option('maxvideoupload') - count($videos);
 
+			// Hero image URL (simplified — no expensive metadata regeneration)
+			$hero_main_image_id = get_post_meta(get_the_ID(), "main_image_id", true);
+			if ($hero_main_image_id < 1 || !get_post($hero_main_image_id)) {
+				$firstphoto = !empty($photos) ? reset($photos) : null;
+				$hero_main_image_id = $firstphoto ? $firstphoto->ID : 0;
+			}
+			$hero_image_url = $hero_main_image_id
+				? wp_get_attachment_image_url((int)$hero_main_image_id, 'main-image-thumb')
+				: '';
+			if (!$hero_image_url) {
+				$hero_image_url = get_stylesheet_directory_uri() . '/i/no-image.png';
+			}
+
 			if ($profile_author_id == $userid || current_user_can('level_10')) {
 				include (get_template_directory() . '/register-agency-manage-escorts-option-buttons.php');
 			}
 			?>
-		    <div class="girlsingle<?php if(isset($err) && $err && in_array($_POST['action'], array('adminnote', 'addtour', 'edittour', 'register'))) { echo " hide"; } ?>" itemscope itemtype ="http://schema.org/Person">
-		    <div class="profile-header">
-		    	<div class="profile-header-name text-center l">
-			    	<h3 class="profile-title" title="<?php the_title_attribute(); ?>" itemprop="name"><?php the_title(); ?></h3>
-			        <div class="girlsinglelabels">
+		    <!-- Profile Hero Section — Cover + Avatar Layout -->
+		    <section class="profile-hero profile-hero--cover" aria-label="Profile hero">
+		      <!-- Decorative cover band (no user photo) -->
+		      <div class="profile-hero__cover">
+		        <div class="profile-hero__cover-pattern"></div>
+		        <div class="profile-hero__cover-gradient"></div>
+		      </div>
+
+		      <!-- Profile info cluster (overlaps cover bottom) -->
+		      <div class="profile-hero__info">
+		        <!-- Avatar -->
+		        <div class="profile-hero__avatar">
+		          <img src="<?php echo esc_url($hero_image_url); ?>"
+		               alt="<?php the_title_attribute(); ?>"
+		               class="profile-hero__avatar-img" loading="eager" />
+		        </div>
+
+		        <!-- Name + badges + location + stats -->
+		        <div class="profile-hero__details">
+		          <div class="profile-hero__name-row">
+		            <h3 class="profile-title" title="<?php the_title_attribute(); ?>" itemprop="name"><?php the_title(); ?></h3>
+		            <div class="girlsinglelabels">
 						<?php
 							$premium = get_post_meta(get_the_ID(), "premium", true);
 							if ($premium == "1") { echo '<span class="orangebutton rad25">'.__('PREMIUM','escortwp').'</span>'; }
@@ -613,33 +649,44 @@ get_header(); ?>
 							}
 						?>
 					</div> <!-- girlsinglelabels -->
-			    	<?=show_online_label_html($profile_author_id)?>
-				</div> <!-- profile-header-name -->
-				<div class="profile-header-name-info rad5 r">
-					<?php
-		            if($height) {
-		            	if(get_option("heightscale") == "imperial" && $height2 > 0) {
-			            	echo '<div class="section-box"><span class="valuecolumn">'.$height2.'</span><b>'.(get_option("heightscale") == "imperial" ? "in" : "").'</b></div>';
-		            	}
-		            	echo '<div class="section-box"><span class="valuecolumn">'.$height.'</span><b>'.(get_option("heightscale") == "imperial" ? "ft" : "cm").'</b></div>';
-		            }
-		            if($weight) { echo '<div class="section-box"><span class="valuecolumn">'.$weight.'</span><b>'.(get_option("heightscale") == "imperial" ? "lb" : "kg").'</b></div>'; }
-		            ?>
-					<div class="section-box"><span class="valuecolumn"><?=$age?></span><b><?=__('years','escortwp')?></b></div>
-				</div>
+		            <?=show_online_label_html($profile_author_id)?>
+		          </div><!-- /name-row -->
+
+		          <div class="profile-hero__meta">
+		            <?php if ($city_name_display) : ?>
+		              <span class="profile-hero__location">
+		                <span class="icon icon-location"></span>
+		                <?php echo esc_html($city_name_display); ?>
+		              </span>
+		            <?php endif; ?>
+		            <div class="profile-header-name-info">
+						<?php
+			            if($height) {
+			            	if(get_option("heightscale") == "imperial" && $height2 > 0) {
+				            	echo '<div class="section-box"><span class="valuecolumn">'.$height2.'</span><b>'.(get_option("heightscale") == "imperial" ? "in" : "").'</b></div>';
+			            	}
+			            	echo '<div class="section-box"><span class="valuecolumn">'.$height.'</span><b>'.(get_option("heightscale") == "imperial" ? "ft" : "cm").'</b></div>';
+			            }
+			            if($weight) { echo '<div class="section-box"><span class="valuecolumn">'.$weight.'</span><b>'.(get_option("heightscale") == "imperial" ? "lb" : "kg").'</b></div>'; }
+			            ?>
+						<div class="section-box"><span class="valuecolumn"><?=$age?></span><b><?=__('years','escortwp')?></b></div>
+					</div>
+		          </div><!-- /meta -->
+		        </div><!-- /details -->
+
+		        <!-- CTA buttons (right-aligned) -->
+		        <div class="profile-hero__cta">
 				<?php
 				if(payment_plans('vip','extra','hide_contact_info') && !is_user_logged_in()) {
 				} else {
 					if(payment_plans('vip','extra','hide_contact_info') && !get_user_meta($userid, "vip", true) && !current_user_can('level_10') && $profile_author_id != $userid) {
 					} else {
 						if($phone) { ?>
-							<div class="phone-box r">
-								<div class="label"><?=__('call me','escortwp')?></div>
-								<a class="" href="tel:<?=$phone?>" itemprop="telephone"><span class="icon icon-phone"></span><?=$phone?></a>
+							<div class="phone-box">
+								<a href="tel:<?=$phone?>" itemprop="telephone"><span class="icon icon-phone"></span><?=$phone?></a>
 							</div>
 							<?php if(is_array($phone_available_on) && count($phone_available_on) > 0) { ?>
-							<div class="available-on r">
-								<div class="label"><?=__('text me','escortwp')?></div>
+							<div class="available-on">
 								<?php
 								foreach ($phone_available_on as $key => $value) {
 									switch ($value) {
@@ -653,35 +700,61 @@ get_header(); ?>
 									}
 								}
 								?>
-							</div> <!-- available-on -->
+							</div>
 							<?php } ?>
 						<?php }
-					} // if VIP or admin
-				} // if contact section hidden and user not logged in
+					}
+				}
 				?>
-				            <?php
-// Get the profile author ID
-$profile_author_id = $post->post_author;
+				<?php
+				$profile_author_id = $post->post_author;
+				$chat_link = wp_chat_sso_link((int) $profile_author_id);
+				if ($chat_link): ?>
+				    <div class="exotic-chat-link">
+				        <a href="<?php echo esc_url($chat_link); ?>" target="_blank" rel="noopener">
+				            <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/img/exotic_escrots_favicon.ico'); ?>"
+				                 alt="Exotic Chat" width="40" height="40" class="profile-hero__chat-icon" />
+				        </a>
+				    </div>
+				<?php endif; ?>
+		        </div><!-- /cta -->
+		      </div><!-- /info -->
+		    </section> <!-- /profile-hero -->
 
-// Generate the chat link (always returns a link, lazy provisioning)
-$chat_link = wp_chat_sso_link((int) $profile_author_id);
+			<!-- Sticky Contact Bar (JS-controlled, appears after scrolling past hero) -->
+			<div class="profile-stickybar" id="profile-stickybar" aria-label="Sticky contact bar">
+			  <div class="profile-stickybar__inner">
+			    <div class="profile-stickybar__left">
+			      <div class="profile-stickybar__name">
+			        <b><?php the_title(); ?></b>
+			        <span><?php echo esc_html($age); ?><?php if ($city_name_display) { echo ' &bull; ' . esc_html($city_name_display); } ?></span>
+			      </div>
+			    </div>
+			    <nav class="profile-stickybar__nav" aria-label="Profile sections">
+			      <a href="#about" class="is-active">About</a>
+			      <a href="#gallery">Gallery</a>
+			      <a href="#details">Details</a>
+			      <a href="#services">Services</a>
+			      <a href="#rates">Rates</a>
+			      <a href="#tours">Tours</a>
+			      <a href="#reviews">Reviews</a>
+			    </nav>
+			    <div class="profile-stickybar__actions">
+			      <?php if($phone) : ?>
+			      <a class="profile-stickybar__btn profile-stickybar__btn--call" href="tel:<?php echo esc_attr($phone); ?>">
+			        <span class="icon icon-phone"></span> Call
+			      </a>
+			      <?php endif; ?>
+			      <?php if(is_array($phone_available_on) && in_array('1', $phone_available_on)) : ?>
+			      <a class="profile-stickybar__btn profile-stickybar__btn--wa" href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $phone); ?>">
+			        <span class="icon icon-whatsapp"></span> WhatsApp
+			      </a>
+			      <?php endif; ?>
+			    </div>
+			  </div>
+			</div>
 
-if ($chat_link): ?>
-    <div class="exotic-chat-link">
-        <a href="<?php echo esc_url($chat_link); ?>" target="_blank" rel="noopener">
-            <img
-                src="<?php echo esc_url(get_stylesheet_directory_uri() . '/img/exotic_escrots_favicon.ico'); ?>"
-                alt="Exotic Chat"
-                width="40"
-                height="40"
-                style="vertical-align: middle; margin-right: 6px; margin-left: 20px; margin-top:2px; border-radius:10px;"
-            />
-         
-        </a>
-    </div>
-<?php endif; ?>
-				<div class="clear10"></div>
-			</div> <!-- profile-header -->
+		    <div class="girlsingle<?php if(isset($err) && $err && in_array($_POST['action'], array('adminnote', 'addtour', 'edittour', 'register'))) { echo " hide"; } ?>" itemscope itemtype ="http://schema.org/Person">
 
 			<?php
 			if ($adminnote) {
@@ -728,7 +801,7 @@ if ($chat_link): ?>
 				} // if user is author
 			?>
 			<div class="clear10"></div>
-            <div class="thumbs" itemscope itemtype="http://schema.org/ImageGallery">
+            <div class="thumbs" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
 				<?php
 				$nrofphotos = count($photos) - 1; //nr of photos left if we exclude the main big image
 				$nrofvideos = count($videos);
@@ -887,7 +960,7 @@ if ( count( $videos ) > 0 ) {
 				}
 			?>
 			<div class="clear"></div>
-            <div class="aboutme">
+            <div class="aboutme" id="about">
 				<h4><?php _e('About me','escortwp'); ?>:</h4>
 				<b><?=$age?> <?=__('year old','escortwp')?> <span itemprop="gender"><?=__($gender_a[$gender], 'escortwp')?></span> <?=__('from','escortwp')?> <?=implode(", ", $location)?></b>
 				<?php
@@ -919,7 +992,7 @@ if ( count( $videos ) > 0 ) {
 			</div> <!-- ABOUT ME -->
             <div class="clear10"></div>
 
-            <div class="girlinfo l">
+            <div class="girlinfo l" id="details">
 	            <div class="girlinfo-section">
 	            	<?php if(!get_option("hide1")) { ?>
 		                <div class="profilestarrating-wrapper">
@@ -1108,7 +1181,7 @@ if ( count( $videos ) > 0 ) {
 
             <div class="girlinfo r">
             	<?php if($services || $extraservices) { ?>
-	            	<div class="girlinfo-section">
+	            	<div class="girlinfo-section" id="services">
 	            		<?php if($services) { ?>
 			            	<h4><?php _e('Services','escortwp'); ?>:</h4>
 			                <div class="services">
@@ -1149,7 +1222,7 @@ if ( count( $videos ) > 0 ) {
 				$rates_sum_incall = (int)$rate30min_incall + (int)$rate1h_incall + (int)$rate2h_incall + (int)$rate3h_incall + (int)$rate6h_incall + (int)$rate12h_incall + (int)$rate24h_incall;
 				$rates_sum_outcall = (int)$rate30min_outcall + (int)$rate1h_outcall + (int)$rate2h_outcall + (int)$rate3h_outcall + (int)$rate6h_outcall + (int)$rate12h_outcall + (int)$rate24h_outcall;
 				if($rates_sum_incall + $rates_sum_outcall > 0) {
-					echo '<div class="girlinfo-section">';
+					echo '<div class="girlinfo-section" id="rates">';
 	                	echo '<div class="clear20"></div><h4>'.__('Rates','escortwp').':</h4><div class="clear"></div>';
 
 						echo '<table class="rates-table col100">';
@@ -1270,6 +1343,7 @@ if ( count( $videos ) > 0 ) {
 			<div class="clear20"></div>
 			<?php
 			if (isset($_GET['add_tour']) && $_GET['add_tour'] == 'ok') { echo "<div class=\"ok rad5\">".__('The tour has been added','escortwp')."</div>"; }
+			?><div id="tours"><?php
 			$tours_args = array(
 				'post_type' => 'tour',
 				'post_status' => 'publish',
@@ -1456,18 +1530,87 @@ if ( count( $videos ) > 0 ) {
             }
 			?>
 
-			<?php if(!get_option("hide1")) { ?>
-				<div class="clear20"></div>
-				<h4 class="l" id="addreviewsection"><?php _e('Reviews','escortwp'); ?>:</h4>
+			</div> <!-- /tours -->
+			<?php if(!get_option("hide1")) {
+				// Query reviews FIRST so we can conditionally render heading vs empty state
+				$review_args = array(
+					'post_type' => 'review',
+					'posts_per_page' => '-1',
+					'meta_query' => array(
+						array(
+							'key' => 'escortid',
+							'value' => get_the_ID(),
+							'compare' => '='
+						)
+					)
+				);
+				query_posts($review_args);
+				$has_reviews = have_posts();
+			?>
+				<div class="clear20" id="reviews"></div>
+
+				<?php if ( $has_reviews ) : ?>
+					<!-- HAS REVIEWS: heading + buttons + review cards -->
+					<h4 class="l" id="addreviewsection"><?php _e('Reviews','escortwp'); ?>:</h4>
+
+					<?php
+					if ( get_option("escortid".$profile_author_id) == $taxonomy_agency_url && !get_option("hide3")) {
+						echo '<a href="'.get_permalink(get_option("agencypostid".$profile_author_id)).'" class="rad25 pinkbutton r reviewthegency"><span class="icon-plus-circled"></span>'.sprintf(esc_html__('Review the %s','escortwp'),$taxonomy_agency_name).'</a>';
+					}
+					?>
+					<div class="addreview-button rad25 pinkbutton r"><span class="icon-plus-circled"></span><?php _e('Add review','escortwp'); ?></div>
+					<div class="clear"></div>
+
+					<?php
+					while ( have_posts() ) : the_post();
+						if (get_post_meta(get_the_ID(), 'reviewfor', true) == 'agency') {
+							$escort_or_agency = get_post(get_post_meta(get_the_ID(), 'agencyid', true));
+							$rating_number = get_post_meta(get_the_ID(), 'rateagency', true);
+						} elseif (get_post_meta(get_the_ID(), 'reviewfor', true) == 'profile') {
+							$escort_or_agency = get_post(get_post_meta(get_the_ID(), 'escortid', true));
+							$rating_number = get_post_meta(get_the_ID(), 'rateescort', true);
+						}
+						?>
+						<div class="review-wrapper rad5">
+							<div class="starrating l"><div class="starrating_stars star<?php echo $rating_number; ?>"></div></div>&nbsp;&nbsp;<i><?php echo strtolower(__('Added by','escortwp')); ?></i>&nbsp;&nbsp;<b><?php echo substr(get_the_author_meta('display_name'), 0, 2); ?>...</b> <i><?php _e('for','escortwp'); ?></i> <b><?php echo $escort_or_agency->post_title; ?></b> <i><?php _e('on','escortwp'); ?></i> <b><?php echo the_time("d F Y"); ?></b>
+							<?php the_content(); ?>
+							<?php edit_post_link(__('Edit review','escortwp')); ?>
+						</div>
+						<div class="clear30"></div>
+					<?php endwhile; ?>
+
+				<?php else : ?>
+					<!-- EMPTY STATE: illustrated card with CTA -->
+					<div class="profile-empty-state profile-empty-state--reviews" role="status">
+						<div class="profile-empty-state__illustration">
+							<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+								<!-- Large speech bubble -->
+								<rect x="8" y="12" width="52" height="38" rx="10" fill="rgba(139,10,26,0.12)" stroke="rgba(139,10,26,0.25)" stroke-width="1.5"/>
+								<!-- Bubble tail -->
+								<path d="M20 50 L16 60 L28 50" fill="rgba(139,10,26,0.12)" stroke="rgba(139,10,26,0.25)" stroke-width="1.5" stroke-linejoin="round"/>
+								<!-- Star inside bubble -->
+								<path d="M34 24 L36.5 29.1 L42.1 29.9 L38.05 33.85 L38.98 39.42 L34 36.8 L29.02 39.42 L29.95 33.85 L25.9 29.9 L31.5 29.1 Z"
+									  fill="rgba(230,198,106,0.35)" stroke="rgba(230,198,106,0.5)" stroke-width="1"/>
+								<!-- Small decorative bubble -->
+								<rect x="54" y="22" width="20" height="14" rx="7" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+								<!-- Typing dots -->
+								<circle cx="60" cy="29" r="1.5" fill="rgba(255,255,255,0.20)"/>
+								<circle cx="64" cy="29" r="1.5" fill="rgba(255,255,255,0.15)"/>
+								<circle cx="68" cy="29" r="1.5" fill="rgba(255,255,255,0.10)"/>
+							</svg>
+						</div>
+						<h5 class="profile-empty-state__title">No Reviews Yet</h5>
+						<p class="profile-empty-state__text">Be the first to share your experience</p>
+						<button type="button" class="profile-empty-state__cta addreview-button">
+							<span class="icon-plus-circled"></span> Write a Review
+						</button>
+					</div>
+				<?php endif; ?>
+
+				<?php wp_reset_query(); ?>
 
 				<?php
-				if ( get_option("escortid".$profile_author_id) == $taxonomy_agency_url && !get_option("hide3")) {
-					echo '<a href="'.get_permalink(get_option("agencypostid".$profile_author_id)).'" class="rad25 pinkbutton r reviewthegency"><span class="icon-plus-circled"></span>'.sprintf(esc_html__('Review the %s','escortwp'),$taxonomy_agency_name).'</a>';
-				}
-				?>
-				<div class="addreview-button rad25 pinkbutton r"><span class="icon-plus-circled"></span><?php _e('Add review','escortwp'); ?></div>
-				<div class="clear"></div>
-				<?php
+				// Post-review success message (always available)
 				if (isset($_GET['postreview']) && $_GET['postreview'] == "ok") {
 					echo '<div class="clear"></div>';
 					echo '<div class="ok rad25">';
@@ -1478,6 +1621,8 @@ if ( count( $videos ) > 0 ) {
 					echo '</div>';
 				}
 				?>
+
+				<!-- Review form (always rendered — both paths need it) -->
 				<div class="addreviewform registerform<?php if(isset($err) && $_POST['action'] == 'addreview' && $_GET['postreview'] != "ok") { } else { echo ' hide'; } ?>">
 					<?php
 					if (!is_user_logged_in()) {
@@ -1547,50 +1692,12 @@ if ( count( $videos ) > 0 ) {
 					}
 					?>
 				</div> <!-- ADD REVIEW FORM-->
-
-				<?php
-				$args = array(
-					'post_type' => 'review',
-					'posts_per_page' => '-1',
-					'meta_query' => array(
-						array(
-							'key' => 'escortid',
-							'value' => get_the_ID(),
-							'compare' => '='
-						)
-					)
-				);
-				query_posts($args);
-				if ( have_posts() ) : ?>
-				<div class="clear20"></div>
-				<?php
-				while ( have_posts() ) : the_post();
-					if (get_post_meta(get_the_ID(), 'reviewfor', true) == 'agency') {
-						$escort_or_agency = get_post(get_post_meta(get_the_ID(), 'agencyid', true));
-						$rating_number = get_post_meta(get_the_ID(), 'rateagency', true);
-					} elseif (get_post_meta(get_the_ID(), 'reviewfor', true) == 'profile') {
-						$escort_or_agency = get_post(get_post_meta(get_the_ID(), 'escortid', true));
-						$rating_number = get_post_meta(get_the_ID(), 'rateescort', true);
-					}
-					?>
-					<div class="review-wrapper rad5">
-						<div class="starrating l"><div class="starrating_stars star<?php echo $rating_number; ?>"></div></div>&nbsp;&nbsp;<i><?php echo strtolower(__('Added by','escortwp')); ?></i>&nbsp;&nbsp;<b><?php echo substr(get_the_author_meta('display_name'), 0, 2); ?>...</b> <i><?php _e('for','escortwp'); ?></i> <b><?php echo $escort_or_agency->post_title; ?></b> <i><?php _e('on','escortwp'); ?></i> <b><?php echo the_time("d F Y"); ?></b>
-						<?php the_content(); ?>
-						<?php edit_post_link(__('Edit review','escortwp')); ?>
-					</div>
-					<div class="clear30"></div>
-					<?php endwhile; ?>
-
-					<?php
-				else:
-					_e('No reviews yet','escortwp');
-				endif;
-				wp_reset_query();
-			} // if !get_option("hide1")
+			<?php } // if !get_option("hide1") ?>
 
 			if (current_user_can('level_10')) {
-				echo '<div class="clear10"></div>';
+				echo '<div class="admin-edit-link" style="order:9;grid-column:1/-1">';
 				edit_post_link(__('Edit in WordPress','escortwp'));
+				echo '</div>';
 			}
 
 			show_report_profile_button($this_post_id);
@@ -1730,31 +1837,29 @@ if ( count( $videos ) > 0 ) {
 		})();
 		</script>
 
+	<!-- Mobile sticky CTA bar (shown/hidden via CSS media query, not PHP) -->
+	<?php if ($phone) : ?>
+	<div class="profile-mobile-cta">
+	    <div class="profile-mobile-cta__name"><?php the_title(); ?></div>
+	    <div class="profile-mobile-cta__actions">
+	        <?php if (is_array($phone_available_on) && in_array('1', $phone_available_on)) : ?>
+	            <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $phone); ?>"
+	               class="profile-mobile-cta__btn profile-mobile-cta__btn--wa" rel="noopener">
+	                <span class="icon icon-whatsapp"></span> WhatsApp
+	            </a>
+	        <?php endif; ?>
+	        <a href="tel:<?php echo esc_attr($phone); ?>"
+	           class="profile-mobile-cta__btn profile-mobile-cta__btn--call">
+	            <span class="icon icon-phone"></span> Call
+	        </a>
+	    </div>
+	</div>
+	<?php endif; ?>
+
 	</div> <!-- BODY BOX -->
 
     <div class="clear"></div>
 </div> <!-- BODY -->
-
-
-<!-- bottom strip for mobile-->
-
-<?php
-if(wp_is_mobile()){?>
-	<div class="bottom-strip">
-		<div class="float-left name-section"><?php the_title(); ?></div>
-		<div class="float-right">
-			<?php if (is_array($phone_available_on) && in_array('1', $phone_available_on)) { ?>
-				<a href="https://api.whatsapp.com/send?phone=<?=$phone_num;?>&text=I%20saw%20your%20advert%20on%20Exotic.%20Are%20you%20available?" class="fix-bottom-button">WhatsApp</a>
-			<?php } ?>
-			<a href="sms:<?=$phone_num;?>?body=I%20saw%20your%20advert%20on%20Exotic.%20Are%20you%20available?" class="fix-bottom-button">SMS</a>
-			<a href="tel:<?=$phone_num;?>" class="fix-bottom-button">Call</a>
-		</div>
-	</div><!-- bottom strip for mobile-->
-	
-	<style>
-	.underfooter { margin-bottom: 50px; }
-	</style>
-<?php } ?>
 
 </div> <!-- contentwrapper -->
 

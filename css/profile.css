@@ -1,0 +1,1725 @@
+/* ==========================================================================
+   PROFILE PAGE REDESIGN v2 — Luxury Editorial Scroll Layout
+   ExoticKenya.com | Feb 2026
+
+   Scoped under .profile-page (on .bodybox) and body.single-escort (for sidebars).
+   All parent-conflicting properties use !important from line 1.
+
+   DEPENDENCY: Requires override.css to be loaded first (provides --brand-primary,
+   --text-primary, --bg-primary, --gold-accent, --transition-fast, etc.)
+   Enqueued with dependency 'escortwp-override-css' at priority 120.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   S1: LAYOUT CONSTANTS
+   -------------------------------------------------------------------------- */
+.profile-page {
+    --profile-max: 1180px;
+    --profile-pad: clamp(16px, 3vw, 28px);
+    --profile-gap: clamp(16px, 2.2vw, 26px);
+    --profile-r-xl: 28px;
+    --profile-r-lg: 18px;
+    --profile-r-md: 12px;
+    --stickybar-h: 60px;
+}
+
+
+/* --------------------------------------------------------------------------
+   S2: RESET & FOUNDATION — Kill parent's floats, backgrounds, borders
+   -------------------------------------------------------------------------- */
+.profile-page .girlsingle,
+.profile-page .girlinfo,
+.profile-page .girlinfo.l,
+.profile-page .girlinfo.r,
+.profile-page .girlinfo-section,
+.profile-page .aboutme,
+.profile-page .section-box,
+.profile-page .profile-header {
+    float: none !important;
+    clear: both !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    color: var(--text-primary) !important;
+}
+
+/* Kill parent's clearfix floats — hide them in grid context so they
+   don't become stray grid children with order:0 */
+.profile-page .clear,
+.profile-page .clear5,
+.profile-page .clear10,
+.profile-page .clear20:not(#reviews),
+.profile-page .clear30 {
+    display: none !important;
+    float: none !important;
+    clear: both !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Override parent's pink/blue accent colors */
+.profile-page .section-box b {
+    color: var(--text-tertiary) !important;
+    border: none !important;
+}
+.profile-page h4 {
+    border-left: none !important;
+    padding-left: 0 !important;
+    color: var(--text-primary) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: 16px !important;
+}
+.profile-page .aboutme h4 {
+    border-left: none !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S3: HERO — Cover Band + Avatar (Facebook-style)
+   -------------------------------------------------------------------------- */
+
+/* Container — keeps .profile-hero class for IntersectionObserver */
+.profile-page .profile-hero--cover {
+    position: relative !important;
+    width: 100vw !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: block !important;
+    margin: 0 !important;
+}
+
+/* --- Cover Band (decorative, no user photo) --- */
+.profile-page .profile-hero__cover {
+    position: relative !important;
+    width: 100% !important;
+    height: 240px !important;
+    overflow: hidden !important;
+}
+
+/* Topographic contour pattern */
+.profile-page .profile-hero__cover-pattern {
+    position: absolute !important;
+    inset: 0 !important;
+    background:
+        /* Contour rings — left cluster */
+        repeating-radial-gradient(
+            ellipse at 20% 50%,
+            transparent 0px,
+            transparent 40px,
+            rgba(139,10,26,0.06) 41px,
+            transparent 42px
+        ),
+        /* Contour rings — right cluster */
+        repeating-radial-gradient(
+            ellipse at 80% 60%,
+            transparent 0px,
+            transparent 50px,
+            rgba(230,198,106,0.04) 51px,
+            transparent 52px
+        ),
+        /* Contour rings — center, tighter */
+        repeating-radial-gradient(
+            ellipse at 50% 30%,
+            transparent 0px,
+            transparent 30px,
+            rgba(139,10,26,0.04) 31px,
+            transparent 32px
+        ),
+        /* Base warm-dark gradient */
+        linear-gradient(135deg, #0E0E0E 0%, #1A0A12 40%, #12080E 70%, #0E0E0E 100%) !important;
+}
+
+/* Brand color accent glow overlay */
+.profile-page .profile-hero__cover-gradient {
+    position: absolute !important;
+    inset: 0 !important;
+    background:
+        radial-gradient(ellipse at 30% 0%, rgba(139,10,26,0.18), transparent 55%),
+        radial-gradient(ellipse at 75% 100%, rgba(230,198,106,0.10), transparent 50%),
+        linear-gradient(180deg, transparent 60%, rgba(14,14,14,0.40) 100%) !important;
+    pointer-events: none !important;
+}
+
+/* Bottom border accent on cover */
+.profile-page .profile-hero__cover::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 1px !important;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(139,10,26,0.30) 30%,
+        rgba(230,198,106,0.20) 70%,
+        transparent 100%) !important;
+}
+
+/* --- Info Cluster (overlaps cover bottom) --- */
+.profile-page .profile-hero__info {
+    position: relative !important;
+    z-index: 2 !important;
+    max-width: var(--profile-max) !important;
+    margin: -60px auto 0 !important;
+    padding: 0 var(--profile-pad) 24px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    gap: 20px !important;
+}
+
+/* --- Avatar --- */
+.profile-page .profile-hero__avatar {
+    flex-shrink: 0 !important;
+    width: 150px !important;
+    height: 150px !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 3px solid rgba(255,255,255,0.12) !important;
+    box-shadow:
+        0 0 0 1px rgba(139,10,26,0.30),
+        0 8px 24px rgba(0,0,0,0.50),
+        0 0 40px rgba(139,10,26,0.12) !important;
+    background: var(--bg-secondary) !important;
+}
+
+.profile-page .profile-hero__avatar-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* --- Details (name + badges + location + stats) --- */
+.profile-page .profile-hero__details {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding-bottom: 4px !important;
+}
+
+.profile-page .profile-hero__name-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 6px !important;
+}
+
+.profile-page .profile-hero--cover .profile-title {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: clamp(24px, 3.5vw, 36px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.profile-page .profile-hero__meta {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+    margin-top: 4px !important;
+}
+
+.profile-page .profile-hero__location {
+    color: var(--text-secondary) !important;
+    font-size: 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+.profile-page .profile-hero__location .icon {
+    color: var(--text-tertiary) !important;
+    font-size: 13px !important;
+}
+
+/* Stats pills (compact variant for cover hero) */
+.profile-page .profile-hero--cover .profile-header-name-info {
+    float: none !important;
+    display: inline-flex !important;
+    gap: 8px !important;
+    width: auto !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.profile-page .profile-hero--cover .profile-header-name-info .section-box {
+    display: inline-flex !important;
+    align-items: baseline !important;
+    gap: 4px !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    border-radius: 999px !important;
+    padding: 4px 12px !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+
+.profile-page .profile-hero--cover .profile-header-name-info .section-box .valuecolumn {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+}
+
+.profile-page .profile-hero--cover .profile-header-name-info .section-box b {
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    color: var(--text-tertiary) !important;
+    text-transform: lowercase !important;
+}
+
+/* --- CTA Buttons (right-aligned) --- */
+.profile-page .profile-hero__cta {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    align-self: flex-end !important;
+    padding-bottom: 4px !important;
+}
+
+.profile-page .profile-hero__cta .phone-box {
+    float: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: var(--brand-primary) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    border-radius: 999px !important;
+    padding: 9px 18px !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+
+.profile-page .profile-hero__cta .phone-box a {
+    color: #fff !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+}
+
+.profile-page .profile-hero__cta .phone-box a .icon {
+    margin-right: 3px !important;
+}
+
+.profile-page .profile-hero__cta .available-on {
+    float: none !important;
+    display: inline-flex !important;
+    gap: 6px !important;
+    width: auto !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.profile-page .profile-hero__cta .available-on a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(37, 211, 102, 0.18) !important;
+    border: 1px solid rgba(37, 211, 102, 0.35) !important;
+    border-radius: 999px !important;
+    padding: 9px 16px !important;
+    color: #25D366 !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: var(--transition-base) !important;
+}
+
+.profile-page .profile-hero__cta .available-on a:hover {
+    background: rgba(37, 211, 102, 0.28) !important;
+}
+
+.profile-page .profile-hero__cta .exotic-chat-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+}
+
+.profile-page .profile-hero__chat-icon {
+    border-radius: 10px !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+}
+
+/* Gallery: Show .bigimage (avatar is only 150px, users need full gallery view) */
+.profile-page .bigimage {
+    border-radius: var(--profile-r-lg) !important;
+    overflow: hidden !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S4: STICKY CONTACT BAR
+   -------------------------------------------------------------------------- */
+.profile-page .profile-stickybar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: rgba(14,14,14,0.85) !important;
+    backdrop-filter: blur(16px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    transform: translateY(-100%) !important;
+    opacity: 0 !important;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+    pointer-events: none !important;
+}
+
+.profile-page .profile-stickybar.is-visible {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.profile-page .profile-stickybar__inner {
+    max-width: var(--profile-max) !important;
+    margin: 0 auto !important;
+    padding: 0 var(--profile-pad) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: var(--stickybar-h) !important;
+    gap: 16px !important;
+}
+
+.profile-page .profile-stickybar__left {
+    flex-shrink: 0 !important;
+}
+
+.profile-page .profile-stickybar__name b {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+.profile-page .profile-stickybar__name span {
+    color: var(--text-tertiary) !important;
+    font-size: 13px !important;
+    margin-left: 8px !important;
+}
+
+.profile-page .profile-stickybar__nav {
+    display: flex !important;
+    gap: 4px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    flex: 1 !important;
+    justify-content: center !important;
+}
+
+.profile-page .profile-stickybar__nav::-webkit-scrollbar {
+    display: none !important;
+}
+
+.profile-page .profile-stickybar__nav a {
+    padding: 6px 14px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: var(--text-secondary) !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: var(--transition-fast) !important;
+    border: 1px solid transparent !important;
+}
+
+.profile-page .profile-stickybar__nav a:hover {
+    color: var(--text-primary) !important;
+    background: rgba(255,255,255,0.06) !important;
+}
+
+.profile-page .profile-stickybar__nav a.is-active {
+    color: var(--text-primary) !important;
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+}
+
+.profile-page .profile-stickybar__actions {
+    display: flex !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+.profile-page .profile-stickybar__btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 8px 16px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: var(--transition-fast) !important;
+    white-space: nowrap !important;
+}
+
+.profile-page .profile-stickybar__btn--call {
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+.profile-page .profile-stickybar__btn--call:hover {
+    background: #a80d20 !important;
+}
+
+.profile-page .profile-stickybar__btn--wa {
+    background: rgba(37,211,102,0.15) !important;
+    color: #25D366 !important;
+    border: 1px solid rgba(37,211,102,0.30) !important;
+}
+
+.profile-page .profile-stickybar__btn--wa:hover {
+    background: rgba(37,211,102,0.25) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S5: TWO-COLUMN GRID
+   -------------------------------------------------------------------------- */
+.profile-page .girlsingle {
+    display: grid !important;
+    grid-template-columns: 1.15fr 0.85fr !important;
+    gap: var(--profile-gap) !important;
+    max-width: var(--profile-max) !important;
+    margin: 0 auto !important;
+    padding: 28px var(--profile-pad) 60px !important;
+}
+
+/* Full-width spanning sections */
+.profile-page .thumbs {
+    order: 0 !important;
+    grid-column: 1 / -1 !important;
+}
+
+.profile-page .aboutme {
+    order: 1 !important;
+    grid-column: 1 / -1 !important;
+}
+
+/* Left column (visually): Services + Rates (.girlinfo.r in DOM) */
+.profile-page .girlinfo.r {
+    order: 2 !important;
+    grid-column: 1 / 2 !important;
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+/* Right column (visually): Attributes + Contact (.girlinfo.l in DOM) */
+.profile-page .girlinfo.l {
+    order: 3 !important;
+    grid-column: 2 / 3 !important;
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+/* Tours — full width, below columns */
+.profile-page #tours {
+    order: 4 !important;
+    grid-column: 1 / -1 !important;
+    min-height: 0 !important;
+}
+/* Hide tours wrapper when it has no visible content (whitespace only) */
+.profile-page #tours:not(:has(*)) {
+    display: none !important;
+}
+
+/* Reviews anchor — hide the spacer div, keep only as scroll target */
+.profile-page .clear20#reviews {
+    order: 5 !important;
+    grid-column: 1 / -1 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* "No reviews yet" message */
+.profile-page .no-reviews-message {
+    order: 5 !important;
+    grid-column: 1 / -1 !important;
+    color: var(--text-tertiary) !important;
+    font-size: 15px !important;
+    padding: 12px 0 !important;
+}
+
+/* Everything below reviews (review form, report, edit link) — must have
+   order > 5 so they appear AFTER reviews in the grid */
+.profile-page #addreviewsection {
+    order: 6 !important;
+    grid-column: 1 / -1 !important;
+}
+.profile-page .addreview-button,
+.profile-page .reviewthegency {
+    order: 6 !important;
+    grid-column: 1 / -1 !important;
+}
+.profile-page .addreviewform {
+    order: 7 !important;
+    grid-column: 1 / -1 !important;
+}
+.profile-page .report-profile-wrapper {
+    order: 8 !important;
+    grid-column: 1 / -1 !important;
+}
+
+/* Admin elements (upload dropzone, notes) */
+.profile-page .profile-page-no-media-wrapper {
+    grid-column: 1 / -1 !important;
+    float: none !important;
+    width: 100% !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S6: SECTION CARDS — Glassmorphic Panels
+   -------------------------------------------------------------------------- */
+.profile-page .girlinfo-section {
+    border-radius: var(--profile-r-xl) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
+    padding: clamp(16px, 2.4vw, 24px) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    margin-bottom: var(--profile-gap) !important;
+    width: 100% !important;
+}
+
+/* Subtle radial gradient overlay */
+.profile-page .girlinfo-section::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: -1px !important;
+    background:
+        radial-gradient(520px 360px at 12% 20%, rgba(230,210,164,0.05), transparent 60%),
+        radial-gradient(620px 420px at 90% 70%, rgba(139,10,26,0.05), transparent 60%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+    border-radius: inherit !important;
+}
+
+.profile-page .girlinfo-section > * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.profile-page .girlinfo-section h4 {
+    margin-top: 0 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S7: ABOUT ME
+   -------------------------------------------------------------------------- */
+.profile-page .aboutme {
+    border-radius: var(--profile-r-xl) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
+    padding: clamp(20px, 2.8vw, 28px) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.profile-page .aboutme::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: -1px !important;
+    background:
+        radial-gradient(520px 360px at 12% 20%, rgba(230,210,164,0.05), transparent 60%),
+        radial-gradient(620px 420px at 90% 70%, rgba(139,10,26,0.05), transparent 60%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+    border-radius: inherit !important;
+}
+
+.profile-page .aboutme > * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.profile-page .aboutme h4 {
+    font-size: 22px !important;
+    margin-bottom: 12px !important;
+}
+
+.profile-page .aboutme > b {
+    display: block !important;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    margin-bottom: 16px !important;
+}
+
+.profile-page .aboutme > b a {
+    color: var(--gold-accent) !important;
+    text-decoration: none !important;
+}
+
+.profile-page .aboutme > b a:hover {
+    text-decoration: underline !important;
+}
+
+/* About body text */
+.profile-page .aboutme p,
+.profile-page .aboutme {
+    line-height: 1.7 !important;
+    font-size: 15px !important;
+}
+
+/* Tour-in-progress banner */
+.profile-page .currently-on-tour-in {
+    background: rgba(139,10,26,0.12) !important;
+    border: 1px solid rgba(139,10,26,0.30) !important;
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    margin-bottom: 12px !important;
+}
+
+.profile-page .currently-on-tour-in a {
+    color: var(--gold-accent) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S8: ATTRIBUTES GRID (Facts)
+   -------------------------------------------------------------------------- */
+/* First girlinfo-section in .girlinfo.l — contains stat boxes */
+.profile-page .girlinfo.l > .girlinfo-section:first-child {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+}
+
+.profile-page .girlinfo.l > .girlinfo-section:first-child > h4,
+.profile-page .girlinfo.l > .girlinfo-section:first-child > .profilestarrating-wrapper {
+    grid-column: 1 / -1 !important;
+}
+
+.profile-page .girlinfo.l .girlinfo-section .section-box {
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: rgba(255,255,255,0.03) !important;
+    padding: 12px !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+
+.profile-page .girlinfo.l .section-box b {
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.10em !important;
+    color: var(--text-tertiary) !important;
+    font-weight: 500 !important;
+    order: 2 !important;
+    margin-top: 4px !important;
+}
+
+.profile-page .girlinfo.l .section-box .valuecolumn {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    order: 1 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S9: GALLERY
+   -------------------------------------------------------------------------- */
+.profile-page .thumbs {
+    border-radius: var(--profile-r-xl) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
+    padding: clamp(16px, 2.4vw, 24px) !important;
+    overflow: hidden !important;
+}
+
+.profile-page .thumbs h4 {
+    margin-bottom: 16px !important;
+}
+
+/* Photo grid */
+.profile-page .profile-img-thumb-wrapper {
+    display: inline-block !important;
+    width: calc(33.333% - 8px) !important;
+    margin: 4px !important;
+    border-radius: var(--profile-r-md) !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.profile-page .profile-img-thumb {
+    border-radius: var(--profile-r-md) !important;
+    overflow: hidden !important;
+    background: var(--bg-secondary) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    transition: var(--transition-base) !important;
+}
+
+.profile-page .profile-img-thumb:hover {
+    border-color: rgba(255,255,255,0.15) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+}
+
+.profile-page .profile-img-thumb img,
+.profile-page .profile-img-thumb .mobile-ready-img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    border-radius: var(--profile-r-md) !important;
+}
+
+/* Video thumbs */
+.profile-page .profile-video-thumb-wrapper {
+    display: inline-block !important;
+    width: calc(33.333% - 8px) !important;
+    margin: 4px !important;
+    border-radius: var(--profile-r-md) !important;
+    overflow: hidden !important;
+}
+
+.profile-page .profile-video-thumb {
+    border-radius: var(--profile-r-md) !important;
+    overflow: hidden !important;
+    background: var(--bg-secondary) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.profile-page .profile-video-thumb video {
+    border-radius: var(--profile-r-md) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S10: SERVICES — Chip Layout
+   -------------------------------------------------------------------------- */
+.profile-page .services {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.profile-page .services div {
+    padding: 8px 14px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    background: rgba(255,255,255,0.04) !important;
+    font-size: 13px !important;
+    color: var(--text-secondary) !important;
+    transition: var(--transition-fast) !important;
+    line-height: 1.4 !important;
+}
+
+.profile-page .services div .icon-ok {
+    color: #10B981 !important;
+    margin-right: 4px !important;
+}
+
+.profile-page .services div .icon-cancel {
+    display: none !important;
+}
+
+/* Hide unavailable services (with icon-cancel) for cleaner look.
+   :has() fallback: if :has() not supported, icon-cancel is still hidden above,
+   so the service label shows without the X icon — acceptable degradation. */
+@supports selector(:has(*)) {
+    .profile-page .services div:has(.icon-cancel) {
+        display: none !important;
+    }
+}
+
+/* Extra services */
+.profile-page .services .yes {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S11: RATES — Price Grid
+   -------------------------------------------------------------------------- */
+.profile-page .rates-table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
+    background: transparent !important;
+    color: var(--text-primary) !important;
+}
+
+.profile-page .rates-table th {
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: var(--text-tertiary) !important;
+    font-weight: 600 !important;
+    padding: 8px 14px !important;
+    text-align: center !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.profile-page .rates-table th:first-child {
+    text-align: left !important;
+}
+
+.profile-page .rates-table tr {
+    background: transparent !important;
+}
+
+.profile-page .rates-table td {
+    background: rgba(255,255,255,0.03) !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    padding: 12px 14px !important;
+    font-size: 14px !important;
+    color: var(--text-primary) !important;
+    text-align: center !important;
+}
+
+.profile-page .rates-table td:first-child {
+    border-left: 1px solid rgba(255,255,255,0.06) !important;
+    border-radius: 14px 0 0 14px !important;
+    text-align: left !important;
+}
+
+.profile-page .rates-table td:last-child {
+    border-right: 1px solid rgba(255,255,255,0.06) !important;
+    border-radius: 0 14px 14px 0 !important;
+}
+
+.profile-page .rates-table td strong {
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S12: TOURS — Card Treatment
+   -------------------------------------------------------------------------- */
+.profile-page #tours {
+    min-height: 0 !important;
+}
+
+.profile-page .single-profile-tours-title {
+    float: none !important;
+}
+
+.profile-page .addedtours {
+    border-radius: var(--profile-r-xl) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
+    padding: clamp(16px, 2.4vw, 24px) !important;
+    overflow: hidden !important;
+}
+
+.profile-page .tour {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1.5fr 1fr !important;
+    gap: 12px !important;
+    align-items: center !important;
+    padding: 12px 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+}
+
+.profile-page .tour:last-child {
+    border-bottom: none !important;
+}
+
+.profile-page .tourhead {
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: var(--text-tertiary) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+    padding-bottom: 12px !important;
+}
+
+.profile-page .tour-info-mobile {
+    display: none !important;
+}
+
+.profile-page .tour .addedstart,
+.profile-page .tour .addedend,
+.profile-page .tour .addedplace,
+.profile-page .tour .addedphone {
+    float: none !important;
+    width: auto !important;
+    padding: 0 !important;
+}
+
+/* Tour edit/add forms */
+.profile-page .addedtours .registerform {
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: var(--profile-r-lg) !important;
+    padding: 20px !important;
+    margin-top: 16px !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S13: REVIEWS
+   -------------------------------------------------------------------------- */
+.profile-page #addreviewsection {
+    float: none !important;
+    color: var(--text-primary) !important;
+    font-size: 18px !important;
+}
+
+.profile-page .addreview-button,
+.profile-page .reviewthegency {
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    float: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+    cursor: pointer !important;
+    transition: var(--transition-fast) !important;
+}
+
+.profile-page .addreview-button:hover {
+    background: #a80d20 !important;
+}
+
+/* Review wrapper cards — must have order:5 to appear in reviews section */
+.profile-page .review-wrapper,
+.profile-page .review {
+    order: 5 !important;
+    grid-column: 1 / -1 !important;
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: var(--profile-r-lg) !important;
+    padding: 16px !important;
+    margin-bottom: 12px !important;
+    color: var(--text-primary) !important;
+}
+
+.profile-page .review-wrapper b,
+.profile-page .review b {
+    color: var(--text-primary) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S14: CONTACT PANEL (Right Sidebar Column)
+   -------------------------------------------------------------------------- */
+.profile-page .contact {
+    color: var(--text-primary) !important;
+}
+
+.profile-page .contact .b {
+    color: var(--text-tertiary) !important;
+}
+
+.profile-page .contact .b .b-label {
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+
+.profile-page .contact .valuecolumn {
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+}
+
+.profile-page .contact .valuecolumn a {
+    color: var(--gold-accent) !important;
+    text-decoration: none !important;
+}
+
+.profile-page .contact .valuecolumn a:hover {
+    text-decoration: underline !important;
+}
+
+/* Contact section social links */
+.profile-page .girlinfo.l .contact a[href*="instagram"],
+.profile-page .girlinfo.l .contact a[href*="twitter"],
+.profile-page .girlinfo.l .contact a[href*="snapchat"],
+.profile-page .girlinfo.l .contact a[href*="facebook"] {
+    color: var(--text-secondary) !important;
+    transition: var(--transition-fast) !important;
+}
+
+.profile-page .girlinfo.l .contact a:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Email form within contact */
+.profile-page .sendemail {
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 10px 20px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    transition: var(--transition-fast) !important;
+}
+
+.profile-page .sendemail:hover {
+    background: #a80d20 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S15: RELATED & RECENTLY VIEWED (Full-Width Below Grid)
+   -------------------------------------------------------------------------- */
+.profile-page ~ .related_profiles,
+.profile-page .related_profiles,
+.bodybox.profile-page ~ .related_profiles {
+    max-width: var(--profile-max) !important;
+    margin: 0 auto !important;
+    padding: 0 var(--profile-pad) 32px !important;
+}
+
+.profile-page .related_profiles .profile-title,
+.profile-page .recently_viewed_profiles .profile-title {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 22px !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 20px !important;
+}
+
+.profile-page .recently_viewed_profiles {
+    max-width: var(--profile-max) !important;
+    margin: 0 auto !important;
+    padding: 0 var(--profile-pad) 32px !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S16: STAR RATING
+   -------------------------------------------------------------------------- */
+.profile-page .profilestarrating-wrapper {
+    background: rgba(230,210,164,0.06) !important;
+    border: 1px solid rgba(230,210,164,0.15) !important;
+    border-radius: 16px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 12px !important;
+    text-align: center !important;
+}
+
+.profile-page .profilestarrating-wrapper .label {
+    color: var(--text-secondary) !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+
+.profile-page .starrating_stars {
+    filter: hue-rotate(-10deg) saturate(1.3) brightness(1.1) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S17: BADGES — Luxury Pill Treatment
+   -------------------------------------------------------------------------- */
+.profile-page .girlsinglelabels {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+}
+
+.profile-page .girlsinglelabels span {
+    font-size: 11px !important;
+    letter-spacing: 0.10em !important;
+    text-transform: uppercase !important;
+    padding: 6px 14px !important;
+    border-radius: 999px !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    font-weight: 600 !important;
+}
+
+.profile-page .orangebutton {
+    background: rgba(230,210,164,0.10) !important;
+    border: 1px solid rgba(230,210,164,0.42) !important;
+    color: rgba(243,230,199,0.92) !important;
+}
+
+.profile-page .greendegrade {
+    background: rgba(16,185,129,0.14) !important;
+    border: 1px solid rgba(16,185,129,0.35) !important;
+    color: #6EE7B7 !important;
+}
+
+.profile-page .pinkdegrade {
+    background: rgba(139,10,26,0.14) !important;
+    border: 1px solid rgba(139,10,26,0.46) !important;
+    color: var(--text-primary) !important;
+}
+
+.profile-page .pinkbutton {
+    background: rgba(236,72,153,0.14) !important;
+    border: 1px solid rgba(236,72,153,0.35) !important;
+    color: #F472B6 !important;
+}
+
+.profile-page .redbutton {
+    background: rgba(239,68,68,0.14) !important;
+    border: 1px solid rgba(239,68,68,0.35) !important;
+    color: #FCA5A5 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S18: MOBILE CTA BAR
+   -------------------------------------------------------------------------- */
+.profile-page .profile-mobile-cta {
+    display: none !important; /* Hidden on desktop */
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important;
+    background: rgba(14,14,14,0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+    padding: 10px 16px !important;
+}
+
+.profile-page .profile-mobile-cta__name {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.profile-page .profile-mobile-cta__actions {
+    display: flex !important;
+    gap: 8px !important;
+}
+
+.profile-page .profile-mobile-cta__btn {
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 12px 16px !important;
+    border-radius: 999px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: var(--transition-fast) !important;
+}
+
+.profile-page .profile-mobile-cta__btn--call {
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+.profile-page .profile-mobile-cta__btn--wa {
+    background: rgba(37,211,102,0.18) !important;
+    color: #25D366 !important;
+    border: 1px solid rgba(37,211,102,0.30) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S19: LOCKED / VIP SECTIONS
+   -------------------------------------------------------------------------- */
+.profile-page .lockedsection {
+    background: rgba(139,10,26,0.10) !important;
+    border: 1px solid rgba(139,10,26,0.30) !important;
+    border-radius: var(--profile-r-lg) !important;
+    padding: 20px !important;
+    color: var(--text-primary) !important;
+    margin: 12px 0 !important;
+}
+
+.profile-page .lockedsection .icon-lock {
+    color: var(--gold-accent) !important;
+    font-size: 20px !important;
+    float: left !important;
+    margin-right: 10px !important;
+}
+
+.profile-page .lockedsection a {
+    color: var(--gold-accent) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S20: FORMS (Review + Contact)
+   -------------------------------------------------------------------------- */
+.profile-page .addreviewform,
+.profile-page .registerform {
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: var(--profile-r-xl) !important;
+    padding: 20px !important;
+    margin-top: 16px !important;
+}
+
+.profile-page input[type="text"],
+.profile-page input[type="email"],
+.profile-page input[type="number"],
+.profile-page textarea,
+.profile-page select {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+    color: var(--text-primary) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    transition: var(--transition-fast) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.profile-page input[type="text"]:focus,
+.profile-page input[type="email"]:focus,
+.profile-page textarea:focus,
+.profile-page select:focus {
+    border-color: rgba(230,210,164,0.40) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(230,210,164,0.10) !important;
+}
+
+.profile-page textarea {
+    min-height: 100px !important;
+    resize: vertical !important;
+}
+
+.profile-page input[type="submit"],
+.profile-page button[type="submit"] {
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: var(--transition-fast) !important;
+}
+
+.profile-page input[type="submit"]:hover,
+.profile-page button[type="submit"]:hover {
+    background: #a80d20 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S21: ERROR / SUCCESS MESSAGES
+   -------------------------------------------------------------------------- */
+.profile-page .err {
+    background: rgba(239,68,68,0.12) !important;
+    border: 1px solid rgba(239,68,68,0.30) !important;
+    border-radius: var(--profile-r-md) !important;
+    padding: 12px 16px !important;
+    color: #FCA5A5 !important;
+    font-size: 14px !important;
+    margin-bottom: 12px !important;
+}
+
+.profile-page .err a {
+    color: var(--gold-accent) !important;
+}
+
+.profile-page .ok {
+    background: rgba(16,185,129,0.12) !important;
+    border: 1px solid rgba(16,185,129,0.30) !important;
+    border-radius: var(--profile-r-md) !important;
+    padding: 12px 16px !important;
+    color: #6EE7B7 !important;
+    font-size: 14px !important;
+    margin-bottom: 12px !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S22: HIT COUNTER
+   -------------------------------------------------------------------------- */
+.profile-page .esc-page-counter {
+    color: var(--text-tertiary) !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    padding: 8px 0 !important;
+    grid-column: 1 / -1 !important;
+    order: 10 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S23: AD ZONES
+   -------------------------------------------------------------------------- */
+.profile-page .ad-container,
+.bodybox.profile-page + .body + .ad-container {
+    max-width: var(--profile-max) !important;
+    margin: 0 auto !important;
+    padding: 16px var(--profile-pad) !important;
+}
+
+.profile-page .ad-container .ad-item {
+    background: transparent !important;
+    border-radius: var(--profile-r-md) !important;
+    overflow: hidden !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S24: SIDEBAR & LAYOUT OVERRIDES (scoped via body.single-escort)
+   -------------------------------------------------------------------------- */
+
+/*
+ * FULL-BLEED LAYOUT: The parent theme constrains .body to ~940px with
+ * left/right margins for sidebars. We remove those constraints so the
+ * hero can be truly full-width, then re-constrain content via max-width.
+ */
+body.single-escort .contentwrapper {
+    float: none !important;
+    width: 100% !important;
+}
+
+body.single-escort .body {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    float: none !important;
+}
+
+body.single-escort .bodybox.profile-page {
+    overflow: visible !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+
+/* Hide left sidebar on profile pages */
+body.single-escort .sidebar-left {
+    display: none !important;
+}
+
+/* Restyle right sidebar — full width below content */
+body.single-escort .sidebar-right {
+    float: none !important;
+    width: 100% !important;
+    max-width: var(--profile-max) !important;
+    margin: 0 auto !important;
+    padding: 0 var(--profile-pad) 40px !important;
+    background: transparent !important;
+}
+
+body.single-escort .sidebar-right .widgetbox,
+body.single-escort .sidebar-right .sidebar-expire-notice {
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: var(--profile-r-lg) !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 12px !important;
+}
+
+body.single-escort .sidebar-right .sidebar-expire-notice {
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+}
+
+body.single-escort .sidebar-right a {
+    color: var(--gold-accent) !important;
+}
+
+body.single-escort .sidebar-right .widgettitle {
+    color: var(--text-primary) !important;
+}
+
+body.single-escort .body {
+    background: var(--bg-primary) !important;
+}
+
+/* Online status label */
+.profile-page .online-label-container .online-label {
+    background: rgba(16,185,129,0.14) !important;
+    border: 1px solid rgba(16,185,129,0.35) !important;
+    color: #6EE7B7 !important;
+    border-radius: 999px !important;
+    padding: 4px 12px !important;
+    font-size: 12px !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S25: RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+
+/* Tablet: stack to single column */
+@media (max-width: 980px) {
+    .profile-page .girlsingle {
+        grid-template-columns: 1fr !important;
+    }
+
+    .profile-page .girlinfo.r,
+    .profile-page .girlinfo.l {
+        grid-column: 1 / -1 !important;
+    }
+
+    .profile-page .profile-stickybar__nav {
+        display: none !important;
+    }
+
+    .profile-page .profile-stickybar__inner {
+        justify-content: space-between !important;
+    }
+}
+
+/* Small tablet / large phone */
+@media (max-width: 720px) {
+    .profile-page .profile-hero {
+        min-height: 45vh !important;
+    }
+
+    /* Attributes grid: 2 columns instead of 3 */
+    .profile-page .girlinfo.l > .girlinfo-section:first-child {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Gallery: 2 columns */
+    .profile-page .profile-img-thumb-wrapper,
+    .profile-page .profile-video-thumb-wrapper {
+        width: calc(50% - 6px) !important;
+        margin: 3px !important;
+    }
+
+    /* Tours: stack on mobile */
+    .profile-page .tour {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .profile-page .tour-info-mobile {
+        display: inline !important;
+        font-weight: 600 !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        color: var(--text-tertiary) !important;
+    }
+
+    .profile-page .tourhead {
+        display: none !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .profile-page .profile-hero {
+        min-height: 40vh !important;
+    }
+
+    .profile-page .profile-hero .profile-title {
+        font-size: 32px !important;
+    }
+
+    .profile-page .profile-hero .profile-header-name-info .section-box {
+        padding: 5px 10px !important;
+        font-size: 13px !important;
+    }
+
+    /* Gallery: still 2 columns on smallest screens */
+    .profile-page .profile-img-thumb-wrapper,
+    .profile-page .profile-video-thumb-wrapper {
+        width: calc(50% - 4px) !important;
+        margin: 2px !important;
+    }
+
+    .profile-page .girlinfo.l > .girlinfo-section:first-child {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Show mobile CTA */
+    .profile-page .profile-mobile-cta {
+        display: block !important;
+    }
+
+    /* Add bottom padding to avoid mobile CTA overlap */
+    .profile-page {
+        padding-bottom: 80px !important;
+    }
+}
+
+/* Mobile CTA visible below 768px */
+@media (max-width: 768px) {
+    .profile-page .profile-mobile-cta {
+        display: block !important;
+    }
+
+    .profile-page {
+        padding-bottom: 80px !important;
+    }
+
+    .profile-page .profile-stickybar__actions {
+        display: none !important;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   S26: ACCESSIBILITY & MOTION
+   -------------------------------------------------------------------------- */
+.profile-page :focus-visible {
+    outline: 2px solid rgba(230,210,164,0.65) !important;
+    outline-offset: 3px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .profile-page *,
+    .profile-page *::before,
+    .profile-page *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .profile-page .profile-stickybar {
+        transition: none !important;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   S27: MISC CLEANUP
+   -------------------------------------------------------------------------- */
+
+/* Languages section */
+.profile-page .girlinfo.l .girlinfo-section:nth-child(2) .section-box {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 8px 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.profile-page .girlinfo.l .girlinfo-section:nth-child(2) .section-box:last-child {
+    border-bottom: none !important;
+}
+
+/* Report profile button */
+.profile-page .report-profile-button {
+    color: var(--text-tertiary) !important;
+    font-size: 13px !important;
+}
+
+.profile-page .report-profile-button:hover {
+    color: var(--text-secondary) !important;
+}
+
+/* Edit in WordPress link */
+.profile-page .post-edit-link {
+    color: var(--text-tertiary) !important;
+    font-size: 13px !important;
+}
+
+/* Favorite button */
+.profile-page .favoritesbutton {
+    color: var(--text-secondary) !important;
+    transition: var(--transition-fast) !important;
+}
+
+.profile-page .favoritesbutton:hover,
+.profile-page .favoritesbutton.active {
+    color: var(--brand-accent) !important;
+}
+
+/* Image edit buttons (delete, etc.) */
+.profile-page .edit-buttons {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    z-index: 5 !important;
+}
+
+.profile-page .edit-buttons .button-delete {
+    background: rgba(239,68,68,0.85) !important;
+    color: #fff !important;
+    padding: 4px 8px !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+}
+
+/* Payment buttons in locked sections */
+.profile-page .generate-payment-button,
+.profile-page .paypal-button,
+.profile-page .stripe-button {
+    border-radius: 999px !important;
+    font-weight: 600 !important;
+}
+
+/* Breadcrumbs */
+.profile-page #breadcrumbs {
+    color: var(--text-tertiary) !important;
+    font-size: 13px !important;
+    padding: 12px var(--profile-pad) 0 !important;
+    max-width: var(--profile-max) !important;
+    margin: 0 auto !important;
+}
+
+.profile-page #breadcrumbs a {
+    color: var(--text-secondary) !important;
+    text-decoration: none !important;
+}
+
+.profile-page #breadcrumbs a:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Deletemsg (tour delete confirmation) */
+.profile-page .deletemsg {
+    float: none !important;
+    color: var(--text-primary) !important;
+}
+
+/* Smooth scrolling for anchor links */
+html:has(.profile-page) {
+    scroll-behavior: smooth !important;
+    scroll-padding-top: calc(var(--stickybar-h) + 16px) !important;
+}

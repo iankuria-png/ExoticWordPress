@@ -1881,6 +1881,12 @@ header.modern-header {
   display: block !important;
 }
 
+@media screen and (max-width: 640px) {
+  .escort-card .girl-overlay {
+    display: none !important;
+  }
+}
+
 .escort-card .girl-overlay .set-pad {
   padding: var(--spacing-5);
   color: var(--text-primary);

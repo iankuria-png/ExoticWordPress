@@ -334,4 +334,41 @@ add_action( 'wp_footer', function () {
     <?php
 });
 
+/**
+ * Add body class for single escort pages (needed for sidebar CSS scoping).
+ */
+function escortwp_child_profile_body_class( $classes ) {
+    if ( is_singular( 'escort' ) ) {
+        $classes[] = 'single-escort';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'escortwp_child_profile_body_class' );
+
+/**
+ * Enqueue profile page CSS + JS on single escort pages.
+ * Priority 120 ensures it loads after override.css (100) and auth.css (110).
+ */
+function escortwp_child_enqueue_profile_assets() {
+    if ( ! is_singular( 'escort' ) ) return;
+
+    $css_file = get_stylesheet_directory() . '/css/profile.css';
+    wp_enqueue_style(
+        'escortwp-profile-css',
+        get_stylesheet_directory_uri() . '/css/profile.css',
+        array( 'escortwp-override-css' ),
+        file_exists( $css_file ) ? filemtime( $css_file ) : '1.0.0'
+    );
+
+    $js_file = get_stylesheet_directory() . '/js/profile-scroll.js';
+    wp_enqueue_script(
+        'escortwp-profile-scroll',
+        get_stylesheet_directory_uri() . '/js/profile-scroll.js',
+        array(),
+        file_exists( $js_file ) ? filemtime( $js_file ) : '1.0.0',
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'escortwp_child_enqueue_profile_assets', 120 );
+
 ?>
