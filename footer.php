@@ -8,30 +8,34 @@ global $taxonomy_profile_name;
 ?>
 <div class="clear10"></div>
 
-<div class="footer">
-	<?php
-	if (is_front_page() && is_active_sidebar('footer-home-only')) {
-		dynamic_sidebar('footer-home-only');
-	}
+<footer class="footer site-footer" role="contentinfo">
+	<div class="site-footer__container">
+		<?php
+		if (is_front_page() && is_active_sidebar('footer-home-only')) {
+			dynamic_sidebar('footer-home-only');
+		}
+		?>
 
-	if (is_active_sidebar('widget-footer') || current_user_can('level_10')) :
-		if (!dynamic_sidebar('Footer') && current_user_can('level_10')) :
-	?>
-		<div class="widgetbox rad3 placeholder-widgettext">
-			<?php _e('Go to your', 'escortwp'); ?> <a href="<?php echo admin_url('widgets.php'); ?>"><?php _e('widgets page', 'escortwp'); ?></a> <?php _e('to add content here', 'escortwp'); ?>.
-		</div> <!-- widgetbox -->
-	<?php
-		endif;
-	endif;
-	?>
-	<div class="clear"></div>
-</div> <!-- FOOTER -->
-
-<div class="underfooter">
-	<div>
-		&copy; <?php echo date('Y'); ?> <?php bloginfo('site_name'); ?>
+		<?php if (is_active_sidebar('widget-footer') || current_user_can('level_10')) : ?>
+			<div class="site-footer__widgets">
+				<?php if (!dynamic_sidebar('Footer') && current_user_can('level_10')) : ?>
+					<div class="widgetbox rad3 placeholder-widgettext">
+						<?php _e('Go to your', 'escortwp'); ?> <a href="<?php echo admin_url('widgets.php'); ?>"><?php _e('widgets page', 'escortwp'); ?></a> <?php _e('to add content here', 'escortwp'); ?>.
+					</div> <!-- widgetbox -->
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
 	</div>
 	<div class="clear"></div>
+</footer> <!-- FOOTER -->
+
+<div class="underfooter site-footer__bottom">
+	<div class="site-footer__container">
+		<div>
+			&copy; <?php echo date('Y'); ?> <?php bloginfo('site_name'); ?>
+		</div>
+		<div class="clear"></div>
+	</div>
 </div>
 </div> <!-- ALL -->
 

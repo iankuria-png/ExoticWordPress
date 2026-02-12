@@ -68,6 +68,7 @@
     color: var(--text-tertiary) !important;
     border: none !important;
 }
+
 .profile-page h4 {
     border-left: none !important;
     padding-left: 0 !important;
@@ -78,6 +79,7 @@
     letter-spacing: -0.01em !important;
     margin-bottom: 16px !important;
 }
+
 .profile-page .aboutme h4 {
     border-left: none !important;
 }
@@ -90,7 +92,7 @@
 /* Container — keeps .profile-hero class for IntersectionObserver */
 .profile-page .profile-hero--cover {
     position: relative !important;
-    width: 100vw !important;
+    width: 100% !important;
     min-height: auto !important;
     max-height: none !important;
     overflow: visible !important;
@@ -112,29 +114,23 @@
     inset: 0 !important;
     background:
         /* Contour rings — left cluster */
-        repeating-radial-gradient(
-            ellipse at 20% 50%,
+        repeating-radial-gradient(ellipse at 20% 50%,
             transparent 0px,
             transparent 40px,
-            rgba(139,10,26,0.06) 41px,
-            transparent 42px
-        ),
+            rgba(139, 10, 26, 0.06) 41px,
+            transparent 42px),
         /* Contour rings — right cluster */
-        repeating-radial-gradient(
-            ellipse at 80% 60%,
+        repeating-radial-gradient(ellipse at 80% 60%,
             transparent 0px,
             transparent 50px,
-            rgba(230,198,106,0.04) 51px,
-            transparent 52px
-        ),
+            rgba(230, 198, 106, 0.04) 51px,
+            transparent 52px),
         /* Contour rings — center, tighter */
-        repeating-radial-gradient(
-            ellipse at 50% 30%,
+        repeating-radial-gradient(ellipse at 50% 30%,
             transparent 0px,
             transparent 30px,
-            rgba(139,10,26,0.04) 31px,
-            transparent 32px
-        ),
+            rgba(139, 10, 26, 0.04) 31px,
+            transparent 32px),
         /* Base warm-dark gradient */
         linear-gradient(135deg, #0E0E0E 0%, #1A0A12 40%, #12080E 70%, #0E0E0E 100%) !important;
 }
@@ -144,9 +140,9 @@
     position: absolute !important;
     inset: 0 !important;
     background:
-        radial-gradient(ellipse at 30% 0%, rgba(139,10,26,0.18), transparent 55%),
-        radial-gradient(ellipse at 75% 100%, rgba(230,198,106,0.10), transparent 50%),
-        linear-gradient(180deg, transparent 60%, rgba(14,14,14,0.40) 100%) !important;
+        radial-gradient(ellipse at 30% 0%, rgba(139, 10, 26, 0.18), transparent 55%),
+        radial-gradient(ellipse at 75% 100%, rgba(230, 198, 106, 0.10), transparent 50%),
+        linear-gradient(180deg, transparent 60%, rgba(14, 14, 14, 0.40) 100%) !important;
     pointer-events: none !important;
 }
 
@@ -159,10 +155,10 @@
     right: 0 !important;
     height: 1px !important;
     background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(139,10,26,0.30) 30%,
-        rgba(230,198,106,0.20) 70%,
-        transparent 100%) !important;
+            transparent 0%,
+            rgba(139, 10, 26, 0.30) 30%,
+            rgba(230, 198, 106, 0.20) 70%,
+            transparent 100%) !important;
 }
 
 /* --- Info Cluster (overlaps cover bottom) --- */
@@ -184,11 +180,11 @@
     height: 150px !important;
     border-radius: 18px !important;
     overflow: hidden !important;
-    border: 3px solid rgba(255,255,255,0.12) !important;
+    border: 3px solid rgba(255, 255, 255, 0.12) !important;
     box-shadow:
-        0 0 0 1px rgba(139,10,26,0.30),
-        0 8px 24px rgba(0,0,0,0.50),
-        0 0 40px rgba(139,10,26,0.12) !important;
+        0 0 0 1px rgba(139, 10, 26, 0.30),
+        0 8px 24px rgba(0, 0, 0, 0.50),
+        0 0 40px rgba(139, 10, 26, 0.12) !important;
     background: var(--bg-secondary) !important;
 }
 
@@ -264,9 +260,9 @@
     display: inline-flex !important;
     align-items: baseline !important;
     gap: 4px !important;
-    background: rgba(255,255,255,0.06) !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
-    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 8px !important;
     padding: 4px 12px !important;
     margin: 0 !important;
     width: auto !important;
@@ -301,9 +297,9 @@
     align-items: center !important;
     gap: 6px !important;
     background: var(--brand-primary) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
-    border-radius: 999px !important;
-    padding: 9px 18px !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 10px !important;
+    padding: 10px 18px !important;
     margin: 0 !important;
     width: auto !important;
 }
@@ -312,7 +308,10 @@
     color: #fff !important;
     text-decoration: none !important;
     font-weight: 600 !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
 }
 
 .profile-page .profile-hero__cta .phone-box a .icon {
@@ -334,14 +333,15 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    gap: 6px !important;
     background: rgba(37, 211, 102, 0.18) !important;
     border: 1px solid rgba(37, 211, 102, 0.35) !important;
-    border-radius: 999px !important;
-    padding: 9px 16px !important;
+    border-radius: 10px !important;
+    padding: 10px 18px !important;
     color: #25D366 !important;
     text-decoration: none !important;
     font-weight: 600 !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
     transition: var(--transition-base) !important;
 }
 
@@ -355,10 +355,29 @@
     margin: 0 !important;
 }
 
-.profile-page .profile-hero__chat-icon {
+.profile-page .profile-hero__cta .exotic-chat-link a {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: rgba(139, 10, 26, 0.14) !important;
+    border: 1px solid rgba(139, 10, 26, 0.40) !important;
     border-radius: 10px !important;
-    margin: 0 !important;
-    vertical-align: middle !important;
+    padding: 10px 18px !important;
+    color: var(--text-primary) !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    transition: var(--transition-base) !important;
+}
+
+.profile-page .profile-hero__cta .exotic-chat-link a:hover {
+    background: rgba(139, 10, 26, 0.25) !important;
+}
+
+.profile-page .profile-hero__cta .exotic-chat-link .chat-icon-svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
 }
 
 /* Gallery: Show .bigimage (avatar is only 150px, users need full gallery view) */
@@ -377,10 +396,10 @@
     left: 0 !important;
     right: 0 !important;
     z-index: 1000 !important;
-    background: rgba(14,14,14,0.85) !important;
+    background: rgba(14, 14, 14, 0.85) !important;
     backdrop-filter: blur(16px) saturate(1.4) !important;
     -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     transform: translateY(-100%) !important;
     opacity: 0 !important;
     transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -448,13 +467,13 @@
 
 .profile-page .profile-stickybar__nav a:hover {
     color: var(--text-primary) !important;
-    background: rgba(255,255,255,0.06) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
 }
 
 .profile-page .profile-stickybar__nav a.is-active {
     color: var(--text-primary) !important;
-    background: rgba(255,255,255,0.08) !important;
-    border-color: rgba(255,255,255,0.12) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 .profile-page .profile-stickybar__actions {
@@ -468,7 +487,7 @@
     align-items: center !important;
     gap: 6px !important;
     padding: 8px 16px !important;
-    border-radius: 999px !important;
+    border-radius: 10px !important;
     font-size: 13px !important;
     font-weight: 600 !important;
     text-decoration: none !important;
@@ -479,7 +498,7 @@
 .profile-page .profile-stickybar__btn--call {
     background: var(--brand-primary) !important;
     color: #fff !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 .profile-page .profile-stickybar__btn--call:hover {
@@ -487,13 +506,13 @@
 }
 
 .profile-page .profile-stickybar__btn--wa {
-    background: rgba(37,211,102,0.15) !important;
+    background: rgba(37, 211, 102, 0.15) !important;
     color: #25D366 !important;
-    border: 1px solid rgba(37,211,102,0.30) !important;
+    border: 1px solid rgba(37, 211, 102, 0.30) !important;
 }
 
 .profile-page .profile-stickybar__btn--wa:hover {
-    background: rgba(37,211,102,0.25) !important;
+    background: rgba(37, 211, 102, 0.25) !important;
 }
 
 
@@ -542,6 +561,7 @@
     grid-column: 1 / -1 !important;
     min-height: 0 !important;
 }
+
 /* Hide tours wrapper when it has no visible content (whitespace only) */
 .profile-page #tours:not(:has(*)) {
     display: none !important;
@@ -556,13 +576,15 @@
     margin: 0 !important;
 }
 
-/* "No reviews yet" message */
-.profile-page .no-reviews-message {
+/* Empty state cards (reviews, tours) — grid ordering */
+.profile-page .profile-empty-state {
     order: 5 !important;
     grid-column: 1 / -1 !important;
-    color: var(--text-tertiary) !important;
-    font-size: 15px !important;
-    padding: 12px 0 !important;
+}
+
+/* Legacy fallback — hide old message if still rendered */
+.profile-page .no-reviews-message {
+    display: none !important;
 }
 
 /* Everything below reviews (review form, report, edit link) — must have
@@ -571,15 +593,18 @@
     order: 6 !important;
     grid-column: 1 / -1 !important;
 }
+
 .profile-page .addreview-button,
 .profile-page .reviewthegency {
     order: 6 !important;
     grid-column: 1 / -1 !important;
 }
+
 .profile-page .addreviewform {
     order: 7 !important;
     grid-column: 1 / -1 !important;
 }
+
 .profile-page .report-profile-wrapper {
     order: 8 !important;
     grid-column: 1 / -1 !important;
@@ -598,10 +623,10 @@
    -------------------------------------------------------------------------- */
 .profile-page .girlinfo-section {
     border-radius: var(--profile-r-xl) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
-    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
-    padding: clamp(16px, 2.4vw, 24px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: linear-gradient(180deg, rgba(18, 20, 28, 0.62), rgba(18, 20, 28, 0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30) !important;
+    padding: clamp(20px, 3vw, 32px) !important;
     position: relative !important;
     overflow: hidden !important;
     margin-bottom: var(--profile-gap) !important;
@@ -614,14 +639,14 @@
     position: absolute !important;
     inset: -1px !important;
     background:
-        radial-gradient(520px 360px at 12% 20%, rgba(230,210,164,0.05), transparent 60%),
-        radial-gradient(620px 420px at 90% 70%, rgba(139,10,26,0.05), transparent 60%) !important;
+        radial-gradient(520px 360px at 12% 20%, rgba(230, 210, 164, 0.05), transparent 60%),
+        radial-gradient(620px 420px at 90% 70%, rgba(139, 10, 26, 0.05), transparent 60%) !important;
     pointer-events: none !important;
     z-index: 0 !important;
     border-radius: inherit !important;
 }
 
-.profile-page .girlinfo-section > * {
+.profile-page .girlinfo-section>* {
     position: relative !important;
     z-index: 1 !important;
 }
@@ -636,9 +661,9 @@
    -------------------------------------------------------------------------- */
 .profile-page .aboutme {
     border-radius: var(--profile-r-xl) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
-    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: linear-gradient(180deg, rgba(18, 20, 28, 0.62), rgba(18, 20, 28, 0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30) !important;
     padding: clamp(20px, 2.8vw, 28px) !important;
     position: relative !important;
     overflow: hidden !important;
@@ -649,14 +674,14 @@
     position: absolute !important;
     inset: -1px !important;
     background:
-        radial-gradient(520px 360px at 12% 20%, rgba(230,210,164,0.05), transparent 60%),
-        radial-gradient(620px 420px at 90% 70%, rgba(139,10,26,0.05), transparent 60%) !important;
+        radial-gradient(520px 360px at 12% 20%, rgba(230, 210, 164, 0.05), transparent 60%),
+        radial-gradient(620px 420px at 90% 70%, rgba(139, 10, 26, 0.05), transparent 60%) !important;
     pointer-events: none !important;
     z-index: 0 !important;
     border-radius: inherit !important;
 }
 
-.profile-page .aboutme > * {
+.profile-page .aboutme>* {
     position: relative !important;
     z-index: 1 !important;
 }
@@ -666,7 +691,7 @@
     margin-bottom: 12px !important;
 }
 
-.profile-page .aboutme > b {
+.profile-page .aboutme>b {
     display: block !important;
     color: var(--text-secondary) !important;
     font-weight: 500 !important;
@@ -674,12 +699,12 @@
     margin-bottom: 16px !important;
 }
 
-.profile-page .aboutme > b a {
+.profile-page .aboutme>b a {
     color: var(--gold-accent) !important;
     text-decoration: none !important;
 }
 
-.profile-page .aboutme > b a:hover {
+.profile-page .aboutme>b a:hover {
     text-decoration: underline !important;
 }
 
@@ -692,8 +717,8 @@
 
 /* Tour-in-progress banner */
 .profile-page .currently-on-tour-in {
-    background: rgba(139,10,26,0.12) !important;
-    border: 1px solid rgba(139,10,26,0.30) !important;
+    background: rgba(139, 10, 26, 0.12) !important;
+    border: 1px solid rgba(139, 10, 26, 0.30) !important;
     border-radius: 12px !important;
     padding: 10px 16px !important;
     color: var(--text-primary) !important;
@@ -710,14 +735,14 @@
    S8: ATTRIBUTES GRID (Facts)
    -------------------------------------------------------------------------- */
 /* First girlinfo-section in .girlinfo.l — contains stat boxes */
-.profile-page .girlinfo.l > .girlinfo-section:first-child {
+.profile-page .girlinfo.l>.girlinfo-section:first-child {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 10px !important;
 }
 
-.profile-page .girlinfo.l > .girlinfo-section:first-child > h4,
-.profile-page .girlinfo.l > .girlinfo-section:first-child > .profilestarrating-wrapper {
+.profile-page .girlinfo.l>.girlinfo-section:first-child>h4,
+.profile-page .girlinfo.l>.girlinfo-section:first-child>.profilestarrating-wrapper {
     grid-column: 1 / -1 !important;
 }
 
@@ -725,8 +750,8 @@
     display: flex !important;
     flex-direction: column !important;
     border-radius: 16px !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
-    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
     padding: 12px !important;
     margin: 0 !important;
     width: auto !important;
@@ -751,71 +776,126 @@
 
 
 /* --------------------------------------------------------------------------
-   S9: GALLERY
+   S9: GALLERY — Horizontal Scroll Strip
    -------------------------------------------------------------------------- */
 .profile-page .thumbs {
     border-radius: var(--profile-r-xl) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
-    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: linear-gradient(180deg, rgba(18, 20, 28, 0.62), rgba(18, 20, 28, 0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30) !important;
     padding: clamp(16px, 2.4vw, 24px) !important;
     overflow: hidden !important;
 }
 
 .profile-page .thumbs h4 {
-    margin-bottom: 16px !important;
+    margin-bottom: 12px !important;
 }
 
-/* Photo grid */
+/* Scroll container for photos + videos */
+.profile-page .thumbs .girlsinglethumbs {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 12px !important;
+    padding-bottom: 6px !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+.profile-page .thumbs .girlsinglethumbs::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Photo cards */
 .profile-page .profile-img-thumb-wrapper {
-    display: inline-block !important;
-    width: calc(33.333% - 8px) !important;
-    margin: 4px !important;
+    display: block !important;
+    flex: 0 0 240px !important;
+    max-width: 240px !important;
+    width: 240px !important;
+    scroll-snap-align: start !important;
     border-radius: var(--profile-r-md) !important;
     overflow: hidden !important;
     position: relative !important;
+    float: none !important;
+    margin: 0 !important;
 }
 
 .profile-page .profile-img-thumb {
     border-radius: var(--profile-r-md) !important;
     overflow: hidden !important;
     background: var(--bg-secondary) !important;
-    border: 1px solid rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
     transition: var(--transition-base) !important;
+    aspect-ratio: 3 / 4 !important;
 }
 
 .profile-page .profile-img-thumb:hover {
-    border-color: rgba(255,255,255,0.15) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
 .profile-page .profile-img-thumb img,
 .profile-page .profile-img-thumb .mobile-ready-img {
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
+    object-fit: cover !important;
     display: block !important;
     border-radius: var(--profile-r-md) !important;
 }
 
-/* Video thumbs */
+/* Video cards */
 .profile-page .profile-video-thumb-wrapper {
-    display: inline-block !important;
-    width: calc(33.333% - 8px) !important;
-    margin: 4px !important;
+    display: block !important;
+    flex: 0 0 320px !important;
+    max-width: 320px !important;
+    width: 320px !important;
+    scroll-snap-align: start !important;
     border-radius: var(--profile-r-md) !important;
     overflow: hidden !important;
+    float: none !important;
+    margin: 0 !important;
 }
 
 .profile-page .profile-video-thumb {
     border-radius: var(--profile-r-md) !important;
     overflow: hidden !important;
     background: var(--bg-secondary) !important;
-    border: 1px solid rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
 .profile-page .profile-video-thumb video {
     border-radius: var(--profile-r-md) !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+/* Gallery placeholders in scroll */
+.profile-page .profile-gallery-placeholder {
+    flex: 0 0 240px !important;
+    max-width: 240px !important;
+    scroll-snap-align: start !important;
+}
+
+/* Mobile gallery cards */
+@media (max-width: 480px) {
+    .profile-page .profile-img-thumb-wrapper {
+        flex: 0 0 180px !important;
+        max-width: 180px !important;
+        width: 180px !important;
+    }
+
+    .profile-page .profile-video-thumb-wrapper {
+        flex: 0 0 260px !important;
+        max-width: 260px !important;
+        width: 260px !important;
+    }
+
+    .profile-page .profile-gallery-placeholder {
+        flex: 0 0 180px !important;
+        max-width: 180px !important;
+    }
 }
 
 
@@ -825,14 +905,15 @@
 .profile-page .services {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 8px !important;
+    gap: 10px !important;
+    margin-bottom: 24px !important;
 }
 
 .profile-page .services div {
     padding: 8px 14px !important;
-    border-radius: 999px !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
-    background: rgba(255,255,255,0.04) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
     font-size: 13px !important;
     color: var(--text-secondary) !important;
     transition: var(--transition-fast) !important;
@@ -900,9 +981,9 @@
 }
 
 .profile-page .rates-table td {
-    background: rgba(255,255,255,0.03) !important;
-    border-top: 1px solid rgba(255,255,255,0.06) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
     padding: 12px 14px !important;
     font-size: 14px !important;
     color: var(--text-primary) !important;
@@ -910,13 +991,13 @@
 }
 
 .profile-page .rates-table td:first-child {
-    border-left: 1px solid rgba(255,255,255,0.06) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.06) !important;
     border-radius: 14px 0 0 14px !important;
     text-align: left !important;
 }
 
 .profile-page .rates-table td:last-child {
-    border-right: 1px solid rgba(255,255,255,0.06) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
     border-radius: 0 14px 14px 0 !important;
 }
 
@@ -939,9 +1020,9 @@
 
 .profile-page .addedtours {
     border-radius: var(--profile-r-xl) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
-    background: linear-gradient(180deg, rgba(18,20,28,0.62), rgba(18,20,28,0.40)) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.30) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: linear-gradient(180deg, rgba(18, 20, 28, 0.62), rgba(18, 20, 28, 0.40)) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30) !important;
     padding: clamp(16px, 2.4vw, 24px) !important;
     overflow: hidden !important;
 }
@@ -952,7 +1033,7 @@
     gap: 12px !important;
     align-items: center !important;
     padding: 12px 0 !important;
-    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
     color: var(--text-primary) !important;
     font-size: 14px !important;
 }
@@ -967,7 +1048,7 @@
     text-transform: uppercase !important;
     letter-spacing: 0.08em !important;
     color: var(--text-tertiary) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
     padding-bottom: 12px !important;
 }
 
@@ -986,8 +1067,8 @@
 
 /* Tour edit/add forms */
 .profile-page .addedtours .registerform {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: var(--profile-r-lg) !important;
     padding: 20px !important;
     margin-top: 16px !important;
@@ -1007,7 +1088,8 @@
 .profile-page .reviewthegency {
     background: var(--brand-primary) !important;
     color: #fff !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 10px !important;
     float: none !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -1015,6 +1097,16 @@
     margin-top: 8px !important;
     cursor: pointer !important;
     transition: var(--transition-fast) !important;
+}
+
+.profile-page .addtofavorites,
+.profile-page .removefromfavorites {
+    border-radius: 10px !important;
+}
+
+.profile-page .report-profile-button {
+    border-radius: 10px !important;
+    padding: 10px 18px !important;
 }
 
 .profile-page .addreview-button:hover {
@@ -1026,8 +1118,8 @@
 .profile-page .review {
     order: 5 !important;
     grid-column: 1 / -1 !important;
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: var(--profile-r-lg) !important;
     padding: 16px !important;
     margin-bottom: 12px !important;
@@ -1041,72 +1133,306 @@
 
 
 /* --------------------------------------------------------------------------
-   S14: CONTACT PANEL (Right Sidebar Column)
+   S13b: EMPTY STATE CARDS (Reviews, Tours)
+   Glassmorphic illustrated panels shown when no content exists.
    -------------------------------------------------------------------------- */
+.profile-empty-state {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 48px 24px !important;
+    margin: 16px 0 !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    border-radius: var(--profile-r-lg) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* Illustration container */
+.profile-empty-state__illustration {
+    margin-bottom: 20px !important;
+    opacity: 0.85 !important;
+    transition: var(--transition-base) !important;
+}
+
+.profile-empty-state:hover .profile-empty-state__illustration {
+    opacity: 1 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* SVG gentle float animation */
+.profile-empty-state__illustration svg {
+    animation: emptyStateFloat 4s ease-in-out infinite !important;
+}
+
+@keyframes emptyStateFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* Title */
+.profile-empty-state__title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    margin: 0 0 6px 0 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* Description text */
+.profile-empty-state__text {
+    font-size: 14px !important;
+    color: var(--text-tertiary) !important;
+    margin: 0 0 20px 0 !important;
+    line-height: 1.5 !important;
+}
+
+/* CTA button — reuses .addreview-button class for jQuery binding */
+.profile-empty-state__cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 10px 22px !important;
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: var(--transition-fast) !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.profile-empty-state__cta:hover {
+    background: #a80d20 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 14px rgba(139, 10, 26, 0.35) !important;
+}
+
+.profile-empty-state__cta .icon-plus-circled {
+    font-size: 14px !important;
+}
+
+/* Reviews-specific empty state */
+.profile-empty-state--reviews {
+    order: 5 !important;
+    grid-column: 1 / -1 !important;
+}
+
+/* Tours-specific empty state (if added later) */
+.profile-empty-state--tours {
+    order: 4 !important;
+    grid-column: 1 / -1 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S14: CONTACT PANEL — Polished Card Layout
+   -------------------------------------------------------------------------- */
+.profile-page .girlinfo-section:has(.contact) {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.profile-page .girlinfo-section:has(.contact)>h4 {
+    padding: clamp(20px, 3vw, 28px) clamp(20px, 3vw, 28px) 0 !important;
+    margin-bottom: 0 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: var(--text-tertiary) !important;
+}
+
 .profile-page .contact {
     color: var(--text-primary) !important;
+    padding: 16px clamp(20px, 3vw, 28px) clamp(20px, 3vw, 28px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.profile-page .contact .clear,
+.profile-page .contact>br {
+    display: none !important;
+}
+
+/* Location grid — 2 columns */
+.profile-page .contact [itemprop="address"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2px 16px !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.profile-page .contact [itemprop="address"]>.clear {
+    display: none !important;
 }
 
 .profile-page .contact .b {
     color: var(--text-tertiary) !important;
+    display: block !important;
+    margin-top: 8px !important;
 }
 
 .profile-page .contact .b .b-label {
-    font-size: 12px !important;
+    font-size: 10px !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
+    letter-spacing: 0.10em !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+    display: block !important;
+    margin-bottom: 2px !important;
 }
 
 .profile-page .contact .valuecolumn {
     color: var(--text-primary) !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    display: block !important;
+    margin-bottom: 0 !important;
+    min-height: 24px !important;
+    /* Prevent collapse if empty */
 }
 
 .profile-page .contact .valuecolumn a {
-    color: var(--gold-accent) !important;
+    color: var(--text-primary) !important;
     text-decoration: none !important;
+    transition: var(--transition-fast) !important;
 }
 
 .profile-page .contact .valuecolumn a:hover {
-    text-decoration: underline !important;
+    color: var(--gold-accent) !important;
 }
 
-/* Contact section social links */
-.profile-page .girlinfo.l .contact a[href*="instagram"],
-.profile-page .girlinfo.l .contact a[href*="twitter"],
-.profile-page .girlinfo.l .contact a[href*="snapchat"],
-.profile-page .girlinfo.l .contact a[href*="facebook"] {
+/* --------------------------------------------------------------------------
+   S18: HEADER ALIGNMENT
+   -------------------------------------------------------------------------- */
+.profile-page .profile-title {
+    text-align: left !important;
+}
+
+/* Phone number — prominent display */
+
+.profile-page .contact .valuecolumn a[itemprop="telephone"] {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* Text-me / WhatsApp icon row */
+.profile-page .contact .available-on {
+    display: flex !important;
+    gap: 8px !important;
+    margin: 8px 0 12px !important;
+}
+
+.profile-page .contact .available-on a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     color: var(--text-secondary) !important;
+    font-size: 20px !important;
+    transition: var(--transition-fast) !important;
+    text-decoration: none !important;
+}
+
+.profile-page .contact .available-on a:hover {
+    background: rgba(37, 211, 102, 0.12) !important;
+    border-color: rgba(37, 211, 102, 0.30) !important;
+    color: #25D366 !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Social links — icon tile row */
+.profile-page .contact .social-icons-contact-info {
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    filter: brightness(0.7) !important;
     transition: var(--transition-fast) !important;
 }
 
-.profile-page .girlinfo.l .contact a:hover {
-    color: var(--text-primary) !important;
+.profile-page .contact span.b:has(.social-icons-contact-info) {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
 }
 
-/* Email form within contact */
+/* Divider before CTA area */
+.profile-page .contact>a[name="contactform"]~.text-center {
+    margin-top: 8px !important;
+}
+
+/* Send email CTA — secondary style */
 .profile-page .sendemail {
-    background: var(--brand-primary) !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 999px !important;
-    padding: 10px 20px !important;
+    background: transparent !important;
+    color: var(--text-primary) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 10px !important;
+    padding: 12px 20px !important;
     cursor: pointer !important;
     font-weight: 600 !important;
+    font-size: 14px !important;
     transition: var(--transition-fast) !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
 }
 
 .profile-page .sendemail:hover {
-    background: #a80d20 !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.20) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Add review / Favorites — button row below contact */
+.profile-page .contact~.clear+.text-center,
+.profile-page .contact .text-center {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    justify-content: stretch !important;
+    padding-top: 12px !important;
+}
+
+.profile-page .contact .text-center>.addreview-button,
+.profile-page .contact .text-center>.addtofavorites,
+.profile-page .contact .text-center>.removefromfavorites {
+    flex: 1 !important;
+    justify-content: center !important;
+    font-size: 13px !important;
+    padding: 10px 14px !important;
 }
 
 
 /* --------------------------------------------------------------------------
    S15: RELATED & RECENTLY VIEWED (Full-Width Below Grid)
    -------------------------------------------------------------------------- */
-.profile-page ~ .related_profiles,
+.profile-page~.related_profiles,
 .profile-page .related_profiles,
-.bodybox.profile-page ~ .related_profiles {
+.bodybox.profile-page~.related_profiles {
     max-width: var(--profile-max) !important;
     margin: 0 auto !important;
     padding: 0 var(--profile-pad) 32px !important;
@@ -1132,8 +1458,8 @@
    S16: STAR RATING
    -------------------------------------------------------------------------- */
 .profile-page .profilestarrating-wrapper {
-    background: rgba(230,210,164,0.06) !important;
-    border: 1px solid rgba(230,210,164,0.15) !important;
+    background: rgba(230, 210, 164, 0.06) !important;
+    border: 1px solid rgba(230, 210, 164, 0.15) !important;
     border-radius: 16px !important;
     padding: 12px 16px !important;
     margin-bottom: 12px !important;
@@ -1168,38 +1494,39 @@
     text-transform: uppercase !important;
     padding: 6px 14px !important;
     border-radius: 999px !important;
+    /* Badges stay pill-shaped intentionally */
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     font-weight: 600 !important;
 }
 
 .profile-page .orangebutton {
-    background: rgba(230,210,164,0.10) !important;
-    border: 1px solid rgba(230,210,164,0.42) !important;
-    color: rgba(243,230,199,0.92) !important;
+    background: rgba(230, 210, 164, 0.10) !important;
+    border: 1px solid rgba(230, 210, 164, 0.42) !important;
+    color: rgba(243, 230, 199, 0.92) !important;
 }
 
 .profile-page .greendegrade {
-    background: rgba(16,185,129,0.14) !important;
-    border: 1px solid rgba(16,185,129,0.35) !important;
+    background: rgba(16, 185, 129, 0.14) !important;
+    border: 1px solid rgba(16, 185, 129, 0.35) !important;
     color: #6EE7B7 !important;
 }
 
 .profile-page .pinkdegrade {
-    background: rgba(139,10,26,0.14) !important;
-    border: 1px solid rgba(139,10,26,0.46) !important;
+    background: rgba(139, 10, 26, 0.14) !important;
+    border: 1px solid rgba(139, 10, 26, 0.46) !important;
     color: var(--text-primary) !important;
 }
 
 .profile-page .pinkbutton {
-    background: rgba(236,72,153,0.14) !important;
-    border: 1px solid rgba(236,72,153,0.35) !important;
+    background: rgba(236, 72, 153, 0.14) !important;
+    border: 1px solid rgba(236, 72, 153, 0.35) !important;
     color: #F472B6 !important;
 }
 
 .profile-page .redbutton {
-    background: rgba(239,68,68,0.14) !important;
-    border: 1px solid rgba(239,68,68,0.35) !important;
+    background: rgba(239, 68, 68, 0.14) !important;
+    border: 1px solid rgba(239, 68, 68, 0.35) !important;
     color: #FCA5A5 !important;
 }
 
@@ -1208,16 +1535,17 @@
    S18: MOBILE CTA BAR
    -------------------------------------------------------------------------- */
 .profile-page .profile-mobile-cta {
-    display: none !important; /* Hidden on desktop */
+    display: none !important;
+    /* Hidden on desktop */
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     z-index: 999 !important;
-    background: rgba(14,14,14,0.92) !important;
+    background: rgba(14, 14, 14, 0.92) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
-    border-top: 1px solid rgba(255,255,255,0.08) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
     padding: 10px 16px !important;
 }
 
@@ -1243,7 +1571,7 @@
     justify-content: center !important;
     gap: 6px !important;
     padding: 12px 16px !important;
-    border-radius: 999px !important;
+    border-radius: 10px !important;
     font-size: 14px !important;
     font-weight: 600 !important;
     text-decoration: none !important;
@@ -1253,13 +1581,13 @@
 .profile-page .profile-mobile-cta__btn--call {
     background: var(--brand-primary) !important;
     color: #fff !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 .profile-page .profile-mobile-cta__btn--wa {
-    background: rgba(37,211,102,0.18) !important;
+    background: rgba(37, 211, 102, 0.18) !important;
     color: #25D366 !important;
-    border: 1px solid rgba(37,211,102,0.30) !important;
+    border: 1px solid rgba(37, 211, 102, 0.30) !important;
 }
 
 
@@ -1267,8 +1595,8 @@
    S19: LOCKED / VIP SECTIONS
    -------------------------------------------------------------------------- */
 .profile-page .lockedsection {
-    background: rgba(139,10,26,0.10) !important;
-    border: 1px solid rgba(139,10,26,0.30) !important;
+    background: rgba(139, 10, 26, 0.10) !important;
+    border: 1px solid rgba(139, 10, 26, 0.30) !important;
     border-radius: var(--profile-r-lg) !important;
     padding: 20px !important;
     color: var(--text-primary) !important;
@@ -1292,8 +1620,8 @@
    -------------------------------------------------------------------------- */
 .profile-page .addreviewform,
 .profile-page .registerform {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: var(--profile-r-xl) !important;
     padding: 20px !important;
     margin-top: 16px !important;
@@ -1304,8 +1632,8 @@
 .profile-page input[type="number"],
 .profile-page textarea,
 .profile-page select {
-    background: rgba(255,255,255,0.05) !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 10px !important;
     padding: 10px 14px !important;
     color: var(--text-primary) !important;
@@ -1320,9 +1648,9 @@
 .profile-page input[type="email"]:focus,
 .profile-page textarea:focus,
 .profile-page select:focus {
-    border-color: rgba(230,210,164,0.40) !important;
+    border-color: rgba(230, 210, 164, 0.40) !important;
     outline: none !important;
-    box-shadow: 0 0 0 3px rgba(230,210,164,0.10) !important;
+    box-shadow: 0 0 0 3px rgba(230, 210, 164, 0.10) !important;
 }
 
 .profile-page textarea {
@@ -1335,7 +1663,7 @@
     background: var(--brand-primary) !important;
     color: #fff !important;
     border: none !important;
-    border-radius: 999px !important;
+    border-radius: 10px !important;
     padding: 12px 24px !important;
     font-weight: 600 !important;
     font-size: 14px !important;
@@ -1353,8 +1681,8 @@
    S21: ERROR / SUCCESS MESSAGES
    -------------------------------------------------------------------------- */
 .profile-page .err {
-    background: rgba(239,68,68,0.12) !important;
-    border: 1px solid rgba(239,68,68,0.30) !important;
+    background: rgba(239, 68, 68, 0.12) !important;
+    border: 1px solid rgba(239, 68, 68, 0.30) !important;
     border-radius: var(--profile-r-md) !important;
     padding: 12px 16px !important;
     color: #FCA5A5 !important;
@@ -1367,8 +1695,8 @@
 }
 
 .profile-page .ok {
-    background: rgba(16,185,129,0.12) !important;
-    border: 1px solid rgba(16,185,129,0.30) !important;
+    background: rgba(16, 185, 129, 0.12) !important;
+    border: 1px solid rgba(16, 185, 129, 0.30) !important;
     border-radius: var(--profile-r-md) !important;
     padding: 12px 16px !important;
     color: #6EE7B7 !important;
@@ -1394,7 +1722,7 @@
    S23: AD ZONES
    -------------------------------------------------------------------------- */
 .profile-page .ad-container,
-.bodybox.profile-page + .body + .ad-container {
+.bodybox.profile-page+.body+.ad-container {
     max-width: var(--profile-max) !important;
     margin: 0 auto !important;
     padding: 16px var(--profile-pad) !important;
@@ -1451,8 +1779,8 @@ body.single-escort .sidebar-right {
 
 body.single-escort .sidebar-right .widgetbox,
 body.single-escort .sidebar-right .sidebar-expire-notice {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: var(--profile-r-lg) !important;
     color: var(--text-primary) !important;
     margin-bottom: 12px !important;
@@ -1477,8 +1805,8 @@ body.single-escort .body {
 
 /* Online status label */
 .profile-page .online-label-container .online-label {
-    background: rgba(16,185,129,0.14) !important;
-    border: 1px solid rgba(16,185,129,0.35) !important;
+    background: rgba(16, 185, 129, 0.14) !important;
+    border: 1px solid rgba(16, 185, 129, 0.35) !important;
     color: #6EE7B7 !important;
     border-radius: 999px !important;
     padding: 4px 12px !important;
@@ -1501,6 +1829,15 @@ body.single-escort .body {
         grid-column: 1 / -1 !important;
     }
 
+    /* Hero info wraps: avatar + details stack above CTA */
+    .profile-page .profile-hero__info {
+        flex-wrap: wrap !important;
+    }
+
+    .profile-page .profile-hero__cta {
+        margin-left: auto !important;
+    }
+
     .profile-page .profile-stickybar__nav {
         display: none !important;
     }
@@ -1512,12 +1849,40 @@ body.single-escort .body {
 
 /* Small tablet / large phone */
 @media (max-width: 720px) {
-    .profile-page .profile-hero {
-        min-height: 45vh !important;
+
+    /* Hero: smaller cover & avatar */
+    .profile-page .profile-hero__cover {
+        height: 180px !important;
+    }
+
+    .profile-page .profile-hero__avatar {
+        width: 120px !important;
+        height: 120px !important;
+        margin-top: -50px !important;
+    }
+
+    .profile-page .profile-hero__info {
+        margin-top: -50px !important;
+        padding: 0 16px 24px !important;
+    }
+
+    .profile-page .profile-hero__details {
+        min-width: 0 !important;
+    }
+
+    .profile-page .profile-hero__name-row {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    .profile-page .profile-hero__cta {
+        flex-wrap: wrap !important;
+        margin-left: 0 !important;
+        margin-top: 12px !important;
     }
 
     /* Attributes grid: 2 columns instead of 3 */
-    .profile-page .girlinfo.l > .girlinfo-section:first-child {
+    .profile-page .girlinfo.l>.girlinfo-section:first-child {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 
@@ -1544,21 +1909,68 @@ body.single-escort .body {
     .profile-page .tourhead {
         display: none !important;
     }
+
+    /* Empty state: compact padding */
+    .profile-empty-state {
+        padding: 36px 20px !important;
+    }
 }
 
 /* Mobile */
 @media (max-width: 480px) {
-    .profile-page .profile-hero {
-        min-height: 40vh !important;
+
+    /* Hero: column layout on mobile */
+    .profile-page .profile-hero__cover {
+        height: 140px !important;
+    }
+
+    .profile-page .profile-hero__avatar {
+        width: 100px !important;
+        height: 100px !important;
+        margin-top: -40px !important;
+        border-radius: 14px !important;
+    }
+
+    .profile-page .profile-hero__info {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        margin-top: -40px !important;
+        padding: 0 12px 20px !important;
+    }
+
+    .profile-page .profile-hero__details {
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .profile-page .profile-hero__meta {
+        justify-content: flex-start !important;
+        flex-wrap: wrap !important;
+    }
+
+    .profile-page .profile-hero__name-row {
+        justify-content: flex-start !important;
+    }
+
+    .profile-page .profile-hero__cta {
+        justify-content: flex-start !important;
+        width: 100% !important;
+    }
+
+    .profile-page .profile-hero__cta .phone-box,
+    .profile-page .profile-hero__cta .available-on,
+    .profile-page .profile-hero__cta .exotic-chat-link {
+        flex: 1 !important;
+        justify-content: center !important;
     }
 
     .profile-page .profile-hero .profile-title {
-        font-size: 32px !important;
+        font-size: 24px !important;
     }
 
     .profile-page .profile-hero .profile-header-name-info .section-box {
-        padding: 5px 10px !important;
-        font-size: 13px !important;
+        padding: 4px 8px !important;
+        font-size: 12px !important;
     }
 
     /* Gallery: still 2 columns on smallest screens */
@@ -1568,7 +1980,7 @@ body.single-escort .body {
         margin: 2px !important;
     }
 
-    .profile-page .girlinfo.l > .girlinfo-section:first-child {
+    .profile-page .girlinfo.l>.girlinfo-section:first-child {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 
@@ -1580,6 +1992,24 @@ body.single-escort .body {
     /* Add bottom padding to avoid mobile CTA overlap */
     .profile-page {
         padding-bottom: 80px !important;
+    }
+
+    /* Empty state: smaller SVG & text */
+    .profile-empty-state {
+        padding: 32px 16px !important;
+    }
+
+    .profile-empty-state__illustration svg {
+        width: 64px !important;
+        height: 64px !important;
+    }
+
+    .profile-empty-state__title {
+        font-size: 15px !important;
+    }
+
+    .profile-empty-state__text {
+        font-size: 13px !important;
     }
 }
 
@@ -1603,11 +2033,12 @@ body.single-escort .body {
    S26: ACCESSIBILITY & MOTION
    -------------------------------------------------------------------------- */
 .profile-page :focus-visible {
-    outline: 2px solid rgba(230,210,164,0.65) !important;
+    outline: 2px solid rgba(230, 210, 164, 0.65) !important;
     outline-offset: 3px !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .profile-page *,
     .profile-page *::before,
     .profile-page *::after {
@@ -1631,7 +2062,7 @@ body.single-escort .body {
     justify-content: space-between !important;
     align-items: center !important;
     padding: 8px 0 !important;
-    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
     background: transparent !important;
     border-radius: 0 !important;
     margin: 0 !important;
@@ -1678,7 +2109,7 @@ body.single-escort .body {
 }
 
 .profile-page .edit-buttons .button-delete {
-    background: rgba(239,68,68,0.85) !important;
+    background: rgba(239, 68, 68, 0.85) !important;
     color: #fff !important;
     padding: 4px 8px !important;
     border-radius: 50% !important;
@@ -1690,7 +2121,7 @@ body.single-escort .body {
 .profile-page .generate-payment-button,
 .profile-page .paypal-button,
 .profile-page .stripe-button {
-    border-radius: 999px !important;
+    border-radius: 10px !important;
     font-weight: 600 !important;
 }
 
@@ -1722,4 +2153,81 @@ body.single-escort .body {
 html:has(.profile-page) {
     scroll-behavior: smooth !important;
     scroll-padding-top: calc(var(--stickybar-h) + 16px) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S15: GALLERY PLACEHOLDERS — Empty Slots
+   -------------------------------------------------------------------------- */
+.profile-gallery-placeholder {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    aspect-ratio: 3 / 4 !important;
+    border: 2px dashed rgba(255, 255, 255, 0.10) !important;
+    border-radius: var(--profile-r-md) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    color: rgba(255, 255, 255, 0.15) !important;
+    font-size: 28px !important;
+    transition: var(--transition-base) !important;
+}
+
+.profile-gallery-placeholder:hover {
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: rgba(255, 255, 255, 0.25) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   S16: HORIZONTAL SCROLL — Related & Recently Viewed
+   -------------------------------------------------------------------------- */
+.profile-related-scroll,
+.rv-scroll-wrapper #rv-cards {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 16px !important;
+    padding-bottom: 8px !important;
+}
+
+/* Hide scrollbar */
+.profile-related-scroll::-webkit-scrollbar,
+.rv-scroll-wrapper #rv-cards::-webkit-scrollbar {
+    display: none !important;
+}
+
+.profile-related-scroll,
+.rv-scroll-wrapper #rv-cards {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+/* Card sizing inside scroll */
+.profile-related-scroll .girl,
+.rv-scroll-wrapper #rv-cards .girl {
+    flex: 0 0 220px !important;
+    max-width: 220px !important;
+    scroll-snap-align: start !important;
+    float: none !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 480px) {
+
+    .profile-related-scroll .girl,
+    .rv-scroll-wrapper #rv-cards .girl {
+        flex: 0 0 180px !important;
+        max-width: 180px !important;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   S17: CHAT ICON SVG — Inline Styling
+   -------------------------------------------------------------------------- */
+.exotic-chat-link .chat-icon-svg {
+    vertical-align: middle !important;
+    margin-right: 2px !important;
 }

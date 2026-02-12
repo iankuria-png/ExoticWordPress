@@ -179,9 +179,103 @@ jQuery(document).ready(function () {
 
 
 
-})
+	})
 
 
+
+	// Footer: mobile accordions for widget columns (scoped to .site-footer)
+	jQuery(function () {
+		var $footer = jQuery('.site-footer');
+		if (!$footer.length) return;
+
+		var mq = window.matchMedia ? window.matchMedia('(max-width: 768px)') : null;
+		var isMobile = function () {
+			if (mq) return mq.matches;
+			return jQuery(window).width() <= 768;
+		};
+
+		var $widgets = $footer.find('.site-footer__widgets > .widgetbox');
+		$widgets.each(function (index) {
+			var $widget = jQuery(this);
+			var $title = $widget.children('.widgettitle').first();
+			if (!$title.length) return;
+
+			// Create/move panel wrapper once
+			var $panel = $widget.children('.footer-accordion__panel').first();
+			if (!$panel.length) {
+				$panel = jQuery('<div class="footer-accordion__panel"></div>');
+				var $content = $title.nextAll();
+				$panel.append($content);
+				$title.after($panel);
+			}
+
+			// Ensure panel has an ID for aria-controls
+			if (!$panel.attr('id')) {
+				var panelIdBase = ($widget.attr('id') ? $widget.attr('id') : 'footer-widget-' + index) + '-panel';
+				var panelId = panelIdBase;
+				if (document.getElementById(panelId)) {
+					panelId = panelIdBase + '-' + (index + 1);
+				}
+				$panel.attr('id', panelId);
+			}
+
+			// Convert title into a button trigger once
+			var $btn = $title.find('button.footer-accordion__trigger').first();
+			if (!$btn.length) {
+				var labelText = jQuery.trim($title.text());
+				$title.empty();
+
+				$btn = jQuery('<button type="button" class="footer-accordion__trigger" aria-expanded="false"></button>');
+				$btn.append(jQuery('<span class="footer-accordion__label"></span>').text(labelText));
+				$btn.append('<span class="footer-accordion__icon" aria-hidden="true"></span>');
+				$btn.attr('aria-controls', $panel.attr('id'));
+
+				$title.append($btn);
+			} else if (!$btn.attr('aria-controls')) {
+				$btn.attr('aria-controls', $panel.attr('id'));
+			}
+
+			// Bind click once
+			if (!$btn.data('footer-accordion-bound')) {
+				$btn.data('footer-accordion-bound', true);
+				$btn.on('click', function () {
+					if (!isMobile()) return;
+					var expanded = $btn.attr('aria-expanded') === 'true';
+					$btn.attr('aria-expanded', expanded ? 'false' : 'true');
+					$panel.prop('hidden', expanded);
+				});
+			}
+		});
+
+		// Apply default state (collapsed on mobile, expanded on desktop)
+		var applyState = function () {
+			var mobile = isMobile();
+			$widgets.each(function () {
+				var $widget = jQuery(this);
+				var $btn = $widget.find('button.footer-accordion__trigger').first();
+				var $panel = $widget.children('.footer-accordion__panel').first();
+				if (!$btn.length || !$panel.length) return;
+
+				if (mobile) {
+					$btn.attr('aria-expanded', 'false');
+					$panel.prop('hidden', true);
+				} else {
+					$btn.attr('aria-expanded', 'true');
+					$panel.prop('hidden', false);
+				}
+			});
+		};
+
+		applyState();
+
+		if (mq) {
+			if (mq.addEventListener) {
+				mq.addEventListener('change', applyState);
+			} else if (mq.addListener) {
+				mq.addListener(applyState);
+			}
+		}
+	});
 
 jQuery(window).scroll(function () {
 
