@@ -194,17 +194,23 @@ jQuery(document).ready(function () {
 			return jQuery(window).width() <= 768;
 		};
 
-		var $widgets = $footer.find('.site-footer__widgets > .widgetbox');
-		$widgets.each(function (index) {
-			var $widget = jQuery(this);
-			var $title = $widget.children('.widgettitle').first();
-			if (!$title.length) return;
+			var $widgets = $footer.find('.site-footer__widgets > .widgetbox');
+			$widgets.each(function (index) {
+				var $widget = jQuery(this);
+				var $title = $widget.children('.widgettitle').first();
+				var titleText = $title.length ? jQuery.trim($title.text()) : '';
+				var widgetText = titleText || jQuery.trim($widget.text());
+				var normalizedTitle = widgetText.toLowerCase();
+				if (normalizedTitle.indexOf('follow us on social') !== -1 || (normalizedTitle.indexOf('follow') !== -1 && normalizedTitle.indexOf('social') !== -1)) {
+					$widget.addClass('site-footer__widget--social');
+				}
+				if (!$title.length) return;
 
-			// Create/move panel wrapper once
-			var $panel = $widget.children('.footer-accordion__panel').first();
-			if (!$panel.length) {
-				$panel = jQuery('<div class="footer-accordion__panel"></div>');
-				var $content = $title.nextAll();
+				// Create/move panel wrapper once
+				var $panel = $widget.children('.footer-accordion__panel').first();
+				if (!$panel.length) {
+					$panel = jQuery('<div class="footer-accordion__panel"></div>');
+					var $content = $title.nextAll();
 				$panel.append($content);
 				$title.after($panel);
 			}
@@ -219,19 +225,18 @@ jQuery(document).ready(function () {
 				$panel.attr('id', panelId);
 			}
 
-			// Convert title into a button trigger once
-			var $btn = $title.find('button.footer-accordion__trigger').first();
-			if (!$btn.length) {
-				var labelText = jQuery.trim($title.text());
-				$title.empty();
+				// Convert title into a button trigger once
+				var $btn = $title.find('button.footer-accordion__trigger').first();
+				if (!$btn.length) {
+					$title.empty();
 
-				$btn = jQuery('<button type="button" class="footer-accordion__trigger" aria-expanded="false"></button>');
-				$btn.append(jQuery('<span class="footer-accordion__label"></span>').text(labelText));
-				$btn.append('<span class="footer-accordion__icon" aria-hidden="true"></span>');
-				$btn.attr('aria-controls', $panel.attr('id'));
+					$btn = jQuery('<button type="button" class="footer-accordion__trigger" aria-expanded="false"></button>');
+					$btn.append(jQuery('<span class="footer-accordion__label"></span>').text(titleText));
+					$btn.append('<span class="footer-accordion__icon" aria-hidden="true"></span>');
+					$btn.attr('aria-controls', $panel.attr('id'));
 
-				$title.append($btn);
-			} else if (!$btn.attr('aria-controls')) {
+					$title.append($btn);
+				} else if (!$btn.attr('aria-controls')) {
 				$btn.attr('aria-controls', $panel.attr('id'));
 			}
 

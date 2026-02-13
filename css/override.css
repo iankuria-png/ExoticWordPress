@@ -1637,6 +1637,80 @@ header.modern-header {
   color: #FFFFFF;
 }
 
+/* Align social section to the right on desktop */
+@media (min-width: 1024px) {
+  .site-footer .footer-hero {
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+
+  .site-footer .footer-hero__logo,
+  .site-footer .footer-hero__tagline,
+  .site-footer .footer-hero__copy,
+  .site-footer .footer-hero__trust {
+    grid-column: 1;
+  }
+
+  .site-footer .footer-hero__copy {
+    max-width: 720px;
+  }
+
+  .site-footer .footer-hero__social {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+    justify-content: flex-end;
+    align-self: start;
+    margin-top: 0;
+  }
+}
+
+/* Align "Follow us on Social" widget content to the right on desktop */
+@media (min-width: 1024px) {
+  .site-footer .site-footer__widget--social {
+    text-align: left;
+    grid-column: 4 / 5;
+    align-self: start;
+    padding-right: clamp(12px, 2vw, 24px);
+    box-sizing: border-box;
+  }
+
+  .site-footer .site-footer__widget--social .footer-accordion__trigger {
+    justify-content: flex-start;
+  }
+
+  .site-footer .site-footer__widget--social > *:not(.widgettitle) {
+    text-align: left !important;
+  }
+
+  .site-footer .site-footer__widget--social table {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 0;
+    margin-right: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .site-footer .site-footer__widget--social table tbody,
+  .site-footer .site-footer__widget--social table tr {
+    display: contents;
+  }
+
+  .site-footer .site-footer__widget--social table td {
+    padding: 0;
+  }
+
+  .site-footer .site-footer__widget--social img.aligncenter {
+    margin: 0 !important;
+    display: inline-block;
+  }
+}
+
 /* Locations */
 .site-footer .footer-locations {
   color: #6B6B6B;

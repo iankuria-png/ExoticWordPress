@@ -40,187 +40,190 @@ global $taxonomy_profile_name;
 </div> <!-- ALL -->
 
 <?php wp_footer(); ?>
-      <?php
-      
-/*    $allowed_test_user_id = 33891;
-if (get_current_user_id() !== $allowed_test_user_id) {
-    return;
-} */
 
-$current_user_id = get_current_user_id();
-$has_chat = $current_user_id
-    ? (bool) get_user_meta($current_user_id, 'chat_user_id', true)
-    : false;
+<?php
+// Legacy "Activate Chat" FAB temporarily disabled (replacing with Support Board).
+if (false) :
+	/*    $allowed_test_user_id = 33891;
+	if (get_current_user_id() !== $allowed_test_user_id) {
+		return;
+	} */
 
-$chat_label = $has_chat ? 'Open Chat' : 'Activate Chat';
-?>
+	$current_user_id = get_current_user_id();
+	$has_chat = $current_user_id
+		? (bool) get_user_meta($current_user_id, 'chat_user_id', true)
+		: false;
 
-<button
-    id="chat-fab"
-    class="floating-chat <?php echo $has_chat ? 'chat-active' : 'chat-inactive'; ?>"
-    aria-haspopup="true"
-    aria-expanded="false"
-    aria-label="Chat options"
->
-    <span class="chat-text"><?php echo esc_html($chat_label); ?></span>
-</button>
+	$chat_label = $has_chat ? 'Open Chat' : 'Activate Chat';
+	?>
 
-<div id="chat-menu" class="chat-menu" role="menu" aria-hidden="true">
+	<button
+		id="chat-fab"
+		class="floating-chat <?php echo $has_chat ? 'chat-active' : 'chat-inactive'; ?>"
+		aria-haspopup="true"
+		aria-expanded="false"
+		aria-label="Chat options"
+	>
+		<span class="chat-text"><?php echo esc_html($chat_label); ?></span>
+	</button>
 
-    <!-- Admin chat -->
-    <a
-        href="<?php echo esc_url( add_query_arg([
-            'laravel-sso' => 1,
-            'target' => '/chat/13',
-        ], home_url('/')) ); ?>"
-        class="chat-menu-item primary"
-        role="menuitem"
-    >
-        💬 Chat with Admin
-        <small>Get help instantly</small>
-    </a>
+	<div id="chat-menu" class="chat-menu" role="menu" aria-hidden="true">
 
-    <!-- User chat -->
-    <a
-        href="https://www.exotickenya.com/?laravel-sso=1"
-        class="chat-menu-item"
-        role="menuitem"
-    >
-        💬 My Chats
-        <small>Open your conversations</small>
-    </a>
+		<!-- Admin chat -->
+		<a
+			href="<?php echo esc_url( add_query_arg([
+				'laravel-sso' => 1,
+				'target' => '/chat/13',
+			], home_url('/')) ); ?>"
+			class="chat-menu-item primary"
+			role="menuitem"
+		>
+			💬 Chat with Admin
+			<small>Get help instantly</small>
+		</a>
 
-</div>
+		<!-- User chat -->
+		<a
+			href="https://www.exotickenya.com/?laravel-sso=1"
+			class="chat-menu-item"
+			role="menuitem"
+		>
+			💬 My Chats
+			<small>Open your conversations</small>
+		</a>
 
-<style>
-    /* Floating Chat Base */
-.floating-chat {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    padding: 14px 22px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #e11d48, #be123c);
-    color: #fff;
-    font-weight: 700;
-    font-size: 15px;
-    text-decoration: none;
-    z-index: 999999;
-    box-shadow: 0 10px 30px rgba(225,29,72,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform .2s ease, box-shadow .2s ease;
-}
+	</div>
 
-/* Hover effect */
-.floating-chat:hover {
-    transform: scale(1.08);
-    box-shadow: 0 18px 45px rgba(225,29,72,0.6);
-}
+	<style>
+		/* Floating Chat Base */
+	.floating-chat {
+		position: fixed;
+		right: 20px;
+		bottom: 20px;
+		padding: 14px 22px;
+		border-radius: 999px;
+		background: linear-gradient(135deg, #e11d48, #be123c);
+		color: #fff;
+		font-weight: 700;
+		font-size: 15px;
+		text-decoration: none;
+		z-index: 999999;
+		box-shadow: 0 10px 30px rgba(225,29,72,0.4);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: transform .2s ease, box-shadow .2s ease;
+	}
 
-/* Ã°Å¸Å¡Â¨ Attention-grabbing pulse (NOT activated yet) */
-.chat-inactive {
-    animation: chatPulse 1.2s infinite;
-}
+	/* Hover effect */
+	.floating-chat:hover {
+		transform: scale(1.08);
+		box-shadow: 0 18px 45px rgba(225,29,72,0.6);
+	}
 
-/* Calm state once activated */
-.chat-active {
-    animation: none;
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    box-shadow: 0 10px 30px rgba(22,163,74,0.35);
-}
+	/* Ã°Å¸Å¡Â¨ Attention-grabbing pulse (NOT activated yet) */
+	.chat-inactive {
+		animation: chatPulse 1.2s infinite;
+	}
 
-.chat-menu {
-    position: fixed;
-    right: 20px;
-    bottom: 90px;
-    width: 240px;
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 20px 45px rgba(0,0,0,0.18);
-    padding: 8px;
-    z-index: 999999;
-    display: none;
-}
+	/* Calm state once activated */
+	.chat-active {
+		animation: none;
+		background: linear-gradient(135deg, #16a34a, #15803d);
+		box-shadow: 0 10px 30px rgba(22,163,74,0.35);
+	}
 
-.chat-menu.open {
-    display: block;
-}
+	.chat-menu {
+		position: fixed;
+		right: 20px;
+		bottom: 90px;
+		width: 240px;
+		background: #fff;
+		border-radius: 14px;
+		box-shadow: 0 20px 45px rgba(0,0,0,0.18);
+		padding: 8px;
+		z-index: 999999;
+		display: none;
+	}
 
-.chat-menu-item {
-    display: block;
-    padding: 12px 14px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #111;
-    font-weight: 600;
-    transition: background .15s ease;
-}
+	.chat-menu.open {
+		display: block;
+	}
 
-.chat-menu-item small {
-    display: block;
-    font-weight: 400;
-    font-size: 12px;
-    color: #666;
-}
+	.chat-menu-item {
+		display: block;
+		padding: 12px 14px;
+		border-radius: 10px;
+		text-decoration: none;
+		color: #111;
+		font-weight: 600;
+		transition: background .15s ease;
+	}
 
-.chat-menu-item:hover {
-    background: #f3f4f6;
-}
+	.chat-menu-item small {
+		display: block;
+		font-weight: 400;
+		font-size: 12px;
+		color: #666;
+	}
 
-.chat-menu-item.primary {
-    background: #e11d48;
-    color: #fff;
-}
+	.chat-menu-item:hover {
+		background: #f3f4f6;
+	}
 
-.chat-menu-item.primary small {
-    color: #ffe4e6;
-}
+	.chat-menu-item.primary {
+		background: #e11d48;
+		color: #fff;
+	}
 
-.chat-menu-item.primary:hover {
-    background: #be123c;
-}
+	.chat-menu-item.primary small {
+		color: #ffe4e6;
+	}
+
+	.chat-menu-item.primary:hover {
+		background: #be123c;
+	}
 
 
-/* Pulse animation */
-@keyframes chatPulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(225,29,72,0.7);
-    }
-    70% {
-        transform: scale(1.08);
-        box-shadow: 0 0 0 20px rgba(225,29,72,0);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(225,29,72,0);
-    }
-}
+	/* Pulse animation */
+	@keyframes chatPulse {
+		0% {
+			transform: scale(1);
+			box-shadow: 0 0 0 0 rgba(225,29,72,0.7);
+		}
+		70% {
+			transform: scale(1.08);
+			box-shadow: 0 0 0 20px rgba(225,29,72,0);
+		}
+		100% {
+			transform: scale(1);
+			box-shadow: 0 0 0 0 rgba(225,29,72,0);
+		}
+	}
 
-</style>
-<script>
-(function () {
-    const fab = document.getElementById('chat-fab');
-    const menu = document.getElementById('chat-menu');
+	</style>
+	<script>
+	(function () {
+		const fab = document.getElementById('chat-fab');
+		const menu = document.getElementById('chat-menu');
 
-    if (!fab || !menu) return;
+		if (!fab || !menu) return;
 
-    fab.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const open = menu.classList.toggle('open');
-        fab.setAttribute('aria-expanded', open);
-        menu.setAttribute('aria-hidden', !open);
-    });
+		fab.addEventListener('click', function (e) {
+			e.stopPropagation();
+			const open = menu.classList.toggle('open');
+			fab.setAttribute('aria-expanded', open);
+			menu.setAttribute('aria-hidden', !open);
+		});
 
-    document.addEventListener('click', function () {
-        menu.classList.remove('open');
-        fab.setAttribute('aria-expanded', 'false');
-        menu.setAttribute('aria-hidden', 'true');
-    });
-})();
-</script>
+		document.addEventListener('click', function () {
+			menu.classList.remove('open');
+			fab.setAttribute('aria-expanded', 'false');
+			menu.setAttribute('aria-hidden', 'true');
+		});
+	})();
+	</script>
+<?php endif; ?>
 <?php
 if ($_COOKIE['tos18'] != "yes" && get_option("tos18") == "1") {
 ?>
@@ -2032,6 +2035,10 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 </script>
+<?php if ( is_front_page() ) : ?>
+<!-- Support Board -->
+<script id="chat-init" src="https://cloud.board.support/account/js/init.js?id=1369683147"></script>
+<?php endif; ?>
 </body>
 </html>
 <!--
