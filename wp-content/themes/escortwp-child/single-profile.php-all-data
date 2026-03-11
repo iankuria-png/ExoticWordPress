@@ -1,0 +1,1133 @@
+<?php
+global $post, $taxonomy_location_url, $gender_a, $ethnicity_a, $haircolor_a, $hairlength_a, $bustsize_a, $build_a, $looks_a, $smoker_a, $availability_a, $languagelevel_a, $services_a, $currency_a, $taxonomy_profile_name, $taxonomy_agency_name, $taxonomy_profile_name_plural, $taxonomy_profile_url, $taxonomy_agency_url, $payment_duration_a;
+
+$current_user = wp_get_current_user();
+if ( is_user_logged_in() ) {
+    $userid     = $current_user->ID;
+    $userstatus = get_option( "escortid{$userid}" );
+} else {
+    $userid     = 'none';
+    $userstatus = 'none';
+}
+
+$profile_author_id = $post->post_author;
+$this_post_id      = get_the_ID();
+
+//===================
+// Admin Actions
+//===================
+if ( current_user_can( 'level_10' ) ) {
+    // Escort upgrade (premium/featured/verified/expire)
+    if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'escortupgrade' ) {
+        $body_email = '';
+
+        // Remove premium
+        if ( isset( $_POST['delpremium'] ) ) {
+            update_post_meta( $this_post_id, 'premium', '0' );
+            delete_post_meta( $this_post_id, 'premium_expire' );
+            delete_post_meta( $this_post_id, 'premium_renew' );
+            delete_post_meta( $this_post_id, 'premium_since' );
+
+            $body_email = sprintf(
+                "%s<br/><br/>%s<br/><br/>%s:<br/><a href=\"%s\">%s</a>",
+                __( 'Hello', 'escortwp' ),
+                __( 'The PREMIUM status has been removed from your profile.', 'escortwp' ),
+                __( 'You can view your profile here', 'escortwp' ),
+                esc_url( get_permalink( $this_post_id ) ),
+                esc_url( get_permalink( $this_post_id ) )
+            );
+        }
+
+        // Add/update premium
+        if ( isset( $_POST['premium'] ) ) {
+            update_post_meta( $this_post_id, 'premium', '1' );
+            update_post_meta( $this_post_id, 'premium_since', time() );
+
+            if ( ! empty( $_POST['premiumduration'] ) && isset( $payment_duration_a[ $_POST['premiumduration'] ] ) ) {
+                $duration = $payment_duration_a[ $_POST['premiumduration'] ][2];
+                $expire   = strtotime( "+{$duration}" );
+
+                if ( $existing = get_post_meta( $this_post_id, 'premium_expire', true ) ) {
+                    if ( $existing > time() ) {
+                        $expire += ( $existing - time() );
+                    }
+                }
+                update_post_meta( $this_post_id, 'premium_expire', $expire );
+            }
+
+            $body_email = sprintf(
+                "%s<br/><br/>%s<br/><br/>%s:<br/><a href=\"%s\">%s</a>",
+                __( 'Hello', 'escortwp' ),
+                __( 'Your profile has been upgraded to PREMIUM.', 'escortwp' ),
+                __( 'You can view your profile here', 'escortwp' ),
+                esc_url( get_permalink( $this_post_id ) ),
+                esc_url( get_permalink( $this_post_id ) )
+            );
+        }
+
+        // Remove featured
+        if ( isset( $_POST['delfeatured'] ) ) {
+            update_post_meta( $this_post_id, 'featured', '0' );
+            delete_post_meta( $this_post_id, 'featured_expire' );
+            delete_post_meta( $this_post_id, 'featured_renew' );
+
+            $body_email = sprintf(
+                "%s<br/><br/>%s<br/><br/>%s:<br/><a href=\"%s\">%s</a>",
+                __( 'Hello', 'escortwp' ),
+                __( 'The FEATURED status has been removed from your profile.', 'escortwp' ),
+                __( 'You can view your profile here', 'escortwp' ),
+                esc_url( get_permalink( $this_post_id ) ),
+                esc_url( get_permalink( $this_post_id ) )
+            );
+        }
+
+        // Add/update featured
+        if ( isset( $_POST['featured'] ) ) {
+            if ( ! get_post_meta( $this_post_id, 'featured', true ) ) {
+                update_post_meta( $this_post_id, 'featured', '1' );
+            }
+
+            if ( ! empty( $_POST['featuredduration'] ) && isset( $payment_duration_a[ $_POST['featuredduration'] ] ) ) {
+                $duration = $payment_duration_a[ $_POST['featuredduration'] ][2];
+                $expire   = strtotime( "+{$duration}" );
+
+                if ( $existing = get_post_meta( $this_post_id, 'featured_expire', true ) ) {
+                    if ( $existing > time() ) {
+                        $expire += ( $existing - time() );
+                    }
+                }
+                update_post_meta( $this_post_id, 'featured_expire', $expire );
+            }
+
+            $body_email = sprintf(
+                "%s<br/><br/>%s<br/><br/>%s:<br/><a href=\"%s\">%s</a>",
+                __( 'Hello', 'escortwp' ),
+                __( 'Your profile has been upgraded to FEATURED.', 'escortwp' ),
+                __( 'You can view your profile here', 'escortwp' ),
+                esc_url( get_permalink( $this_post_id ) ),
+                esc_url( get_permalink( $this_post_id ) )
+            );
+        }
+
+        // Delete expiration → mark private & needs payment
+        if ( isset( $_POST['delexpiration'] ) ) {
+            delete_post_meta( $this_post_id, 'escort_expire' );
+            delete_post_meta( $this_post_id, 'escort_renew' );
+
+            $plan_name = ( get_option( "escortid{$profile_author_id}" ) === $taxonomy_agency_url )
+                ? 'agescortreg'
+                : 'indescreg';
+
+            if ( payment_plans( $plan_name, 'price' ) ) {
+                update_post_meta( $this_post_id, 'needs_payment', '1' );
+                wp_update_post( [ 'ID' => $this_post_id, 'post_status' => 'private' ] );
+            }
+        }
+
+        // Add/update expiration period
+        if ( isset( $_POST['expirationperiod'] ] ) && ! empty( $_POST['profileduration'] ) ) {
+            $duration = $payment_duration_a[ $_POST['profileduration'] ][2];
+            $expire   = strtotime( "+{$duration}" );
+
+            if ( $existing = get_post_meta( $this_post_id, 'escort_expire', true ) ) {
+                if ( $existing > time() ) {
+                    $expire += ( $existing - time() );
+                }
+            }
+            update_post_meta( $this_post_id, 'escort_expire', $expire );
+        }
+
+        // Toggle verified
+        if ( isset( $_POST['verified'] ) ) {
+            $current = get_post_meta( $this_post_id, 'verified', true ) === '1';
+            $new     = $current ? '0' : '1';
+            update_post_meta( $this_post_id, 'verified', $new );
+
+            $first_text  = $current ? __( 'VERIFIED', 'escortwp' ) : __( 'NOT verified', 'escortwp' );
+            $second_text = $current ? __( 'NOT verified', 'escortwp' ) : __( 'VERIFIED', 'escortwp' );
+
+            $body_email = sprintf(
+                "%s<br/><br/>" .
+                __( 'The status of your profile has changed from %1$s to %2$s on %3$s.', 'escortwp' ) .
+                "<br/><br/>%4$s:<br/><a href=\"%5\$s\">%5\$s</a>",
+                __( 'Hello', 'escortwp' ),
+                "<b>{$first_text}</b>",
+                "<b>{$second_text}</b>",
+                get_option( 'email_sitename' ),
+                esc_url( get_permalink( $this_post_id ) )
+            );
+        }
+
+        // Send notification email if enabled
+        if ( ! empty( $body_email ) && get_option( 'ifemail9' ) === '1' ) {
+            dolce_email(
+                '',
+                '',
+                get_the_author_meta( 'user_email', $profile_author_id ),
+                sprintf( __( 'Profile status changed on %s', 'escortwp' ), get_option( 'email_sitename' ) ),
+                $body_email
+            );
+        }
+
+        wp_redirect( get_permalink( $this_post_id ) );
+        exit;
+    }
+
+    // Admin note
+    if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'adminnote' ) {
+        update_post_meta( $this_post_id, 'adminnote', sanitize_text_field( $_POST['adminnote'] ) );
+        wp_redirect( get_permalink( $this_post_id ) );
+        exit;
+    }
+
+    // Activate private profile
+    if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'activateprivateprofile' ) {
+        delete_post_meta( $this_post_id, 'notactive' );
+        wp_update_post( [ 'ID' => $this_post_id, 'post_status' => 'publish' ] );
+        wp_redirect( get_permalink( $this_post_id ) );
+        exit;
+    }
+
+    // Activate unpaid profile
+    if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'activateunpaidprofile' ) {
+        if ( ! empty( $_POST['profileduration'] ) ) {
+            $duration = $payment_duration_a[ $_POST['profileduration'] ][2];
+            $expire   = strtotime( "+{$duration}" );
+
+            if ( $existing = get_post_meta( $this_post_id, 'escort_expire', true ) ) {
+                if ( $existing > time() ) {
+                    $expire += ( $existing - time() );
+                }
+            }
+            update_post_meta( $this_post_id, 'escort_expire', $expire );
+        }
+
+        delete_post_meta( $this_post_id, 'needs_payment' );
+        wp_update_post( [ 'ID' => $this_post_id, 'post_status' => 'publish' ] );
+        wp_redirect( get_permalink( $this_post_id ) );
+        exit;
+    }
+}
+
+//===================
+// Member / Reviewer
+//===================
+if ( $userstatus === 'member' || current_user_can( 'level_10' ) ) {
+    if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'addreview' ) {
+        $err        = '';
+        $rateescort = intval( $_POST['rateescort'] );
+
+        if ( $rateescort < 1 || $rateescort > 6 ) {
+            $err .= sprintf( __( 'The %s rating is wrong. Please select again.', 'escortwp' ), $taxonomy_profile_name ) . '<br />';
+        }
+
+        $reviewtext = wp_kses( stripslashes( $_POST['reviewtext'] ), [] );
+        $reviewtext = substr( $reviewtext, 0, 5000 );
+        if ( empty( $reviewtext ) ) {
+            $err .= __( 'You didn\'t write a review', 'escortwp' ) . '<br />';
+        }
+
+        if ( ! $err ) {
+            $reviewstatus = get_option( 'manactivesc' ) === '1' ? 'draft' : 'publish';
+            $term         = term_exists( 'Reviews', 'category' );
+            if ( ! $term ) {
+                wp_insert_term( 'Reviews', 'category', [ 'description' => 'Reviews' ] );
+                $term = term_exists( 'Reviews', 'category' );
+            }
+            $cat_id = $term['term_id'];
+
+            $add = [
+                'post_title'   => sprintf( __( 'Review for %s', 'escortwp' ), get_the_title() ),
+                'post_content' => $reviewtext,
+                'post_status'  => $reviewstatus,
+                'post_author'  => $userid,
+                'post_category'=> [ $cat_id ],
+                'post_type'    => 'review',
+                'ping_status'  => 'closed',
+            ];
+            $rid = wp_insert_post( $add );
+            update_post_meta( $rid, 'rateescort', $rateescort );
+            update_post_meta( $rid, 'escortid', $this_post_id );
+            update_post_meta( $rid, 'reviewfor', 'profile' );
+
+            // Notification email
+            $title = get_option( 'manactivesc' ) === '1'
+                ? sprintf( __( 'A new review is waiting for approval on %s', 'escortwp' ), get_option( 'email_sitename' ) )
+                : sprintf( __( 'Someone wrote a %s review on %s', 'escortwp' ), $taxonomy_profile_name, get_option( 'email_sitename' ) );
+            $body  = sprintf(
+                "%s,<br/><br/>%s:<br/><a href=\"%s\">%s</a><br/>%s",
+                __( 'Hello', 'escortwp' ),
+                __( 'Read/Edit the review here', 'escortwp' ),
+                esc_url( admin_url( "post.php?post={$rid}&action=edit" ) ),
+                esc_url( admin_url( "post.php?post={$rid}&action=edit" ) ),
+                __( '(to activate the review simply click the "Publish" button)', 'escortwp' )
+            );
+            if ( get_option( 'ifemail6' ) === '1' || get_option( 'manactivag' ) === '1' ) {
+                dolce_email( null, null, get_bloginfo( 'admin_email' ), $title, $body );
+            }
+
+            // Redirect
+            $sep = get_option( 'permalink_structure' ) ? '?' : '&';
+            wp_redirect( get_permalink() . "{$sep}postreview=ok" );
+            exit;
+        }
+    }
+}
+
+//===================
+// Delete / Private
+//===================
+if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'deleteescort' && ( $profile_author_id === $userid || current_user_can( 'level_10' ) ) ) {
+    delete_profile( $this_post_id );
+    $agency = get_option( "agencypostid{$profile_author_id}" );
+    wp_redirect( $agency ? get_permalink( $agency ) : home_url() );
+    exit;
+}
+
+if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'settoprivate' ) {
+    $new = get_post_status( $this_post_id ) === 'publish' ? 'private' : 'publish';
+    if ( current_user_can( 'level_10' ) ) {
+        if ( get_post_status( $this_post_id ) === 'publish' ) {
+            update_post_meta( $this_post_id, 'notactive', '1' );
+        } else {
+            delete_post_meta( $this_post_id, 'notactive' );
+        }
+        wp_update_post( [ 'ID' => $this_post_id, 'post_status' => $new ] );
+    }
+    if ( $profile_author_id === $userid && ! get_post_meta( $this_post_id, 'notactive', true ) && ! get_post_meta( $this_post_id, 'needs_payment', true ) ) {
+        wp_update_post( [ 'ID' => $this_post_id, 'post_status' => $new ] );
+    }
+    wp_redirect( get_permalink( $this_post_id ) );
+    exit;
+}
+
+//===================
+// Agency Register/Edit
+//===================
+if ( ! empty( $_POST['action'] ) && $_POST['action'] === 'register' ) {
+    if ( $profile_author_id === $userid || current_user_can( 'level_10' ) ) {
+        $escort_post_id = $this_post_id;
+        include get_template_directory() . '/register-independent-personal-info-process.php';
+    }
+}
+
+//===================
+// Load Profile Data
+//===================
+$escort          = get_post( $this_post_id );
+$aboutyou        = nl2br( do_shortcode( $escort->post_content ) );
+$yourname        = $escort->post_title;
+$phone           = get_post_meta( $this_post_id, 'phone', true );
+$phone_available = get_post_meta( $this_post_id, 'phone_available_on', true );
+$escortemail     = get_post_meta( $this_post_id, 'escortemail', true );
+$website         = get_post_meta( $this_post_id, 'website', true );
+$instagram       = get_post_meta( $this_post_id, 'instagram', true );
+$snapchat        = get_post_meta( $this_post_id, 'snapchat', true );
+$twitter         = get_post_meta( $this_post_id, 'twitter', true );
+$facebook        = get_post_meta( $this_post_id, 'facebook', true );
+
+// Location terms
+$city_data = wp_get_post_terms( $this_post_id, $taxonomy_location_url );
+if ( is_array( $city_data ) && $city_data ) {
+    $city_term    = $city_data[0];
+    $city         = get_option( 'locationdropdown' ) === '1' ? $city_term->term_id : $city_term->name;
+    if ( $state_term = get_term( $city_term->parent, $taxonomy_location_url ) ) {
+        $state   = get_option( 'locationdropdown' ) === '1' ? $state_term->term_id : $state_term->name;
+        if ( $country_term = get_term( $state_term->parent, $taxonomy_location_url ) ) {
+            $country = $country_term->term_id;
+        }
+    }
+}
+
+// Profile fields
+$gender           = get_post_meta( $this_post_id, 'gender', true );
+$birthday         = get_post_meta( $this_post_id, 'birthday', true );
+$age              = $birthday ? floor( ( time() - strtotime( $birthday ) ) / 31556926 ) : '';
+$ethnicity        = get_post_meta( $this_post_id, 'ethnicity', true );
+$haircolor        = get_post_meta( $this_post_id, 'haircolor', true );
+$hairlength       = get_post_meta( $this_post_id, 'hairlength', true );
+$bustsize         = get_post_meta( $this_post_id, 'bustsize', true );
+$height           = get_post_meta( $this_post_id, 'height', true );
+$height2          = get_post_meta( $this_post_id, 'height2', true );
+$weight           = get_post_meta( $this_post_id, 'weight', true );
+$build            = get_post_meta( $this_post_id, 'build', true );
+$looks            = get_post_meta( $this_post_id, 'looks', true );
+$smoker           = get_post_meta( $this_post_id, 'smoker', true );
+$availability     = get_post_meta( $this_post_id, 'availability', true );
+$language1        = get_post_meta( $this_post_id, 'language1', true );
+$language1level   = get_post_meta( $this_post_id, 'language1level', true );
+$language2        = get_post_meta( $this_post_id, 'language2', true );
+$language2level   = get_post_meta( $this_post_id, 'language2level', true );
+$language3        = get_post_meta( $this_post_id, 'language3', true );
+$language3level   = get_post_meta( $this_post_id, 'language3level', true );
+$currency         = get_post_meta( $this_post_id, 'currency', true );
+$services         = get_post_meta( $this_post_id, 'services', true );
+$extraservices    = get_post_meta( $this_post_id, 'extraservices', true );
+$adminnote        = get_post_meta( $this_post_id, 'adminnote', true );
+$education        = get_post_meta( $this_post_id, 'education', true );
+$sports           = get_post_meta( $this_post_id, 'sports', true );
+$hobbies          = get_post_meta( $this_post_id, 'hobbies', true );
+$zodiacsign       = get_post_meta( $this_post_id, 'zodiacsign', true );
+$sexualorientation= get_post_meta( $this_post_id, 'sexualorientation', true );
+$occupation       = get_post_meta( $this_post_id, 'occupation', true );
+
+// Rates
+foreach ( [ '30min', '1h', '2h', '3h', '6h', '12h', '24h' ] as $t ) {
+    ${"rate{$t}_incall"}  = get_post_meta( $this_post_id, "rate{$t}_incall", true );
+    ${"rate{$t}_outcall"} = get_post_meta( $this_post_id, "rate{$t}_outcall", true );
+}
+
+// Photos & Videos
+$photos       = get_children( [
+    'post_parent'    => $this_post_id,
+    'post_type'      => 'attachment',
+    'post_mime_type' => 'image',
+    'orderby'        => 'menu_order ID',
+    'order'          => 'ASC',
+] );
+$photos_left  = max( 0, get_option( 'maximgupload' ) - count( $photos ) );
+
+$videos       = get_children( [
+    'post_parent'    => $this_post_id,
+    'post_type'      => 'attachment',
+    'post_mime_type' => 'video',
+    'orderby'        => 'menu_order ID',
+    'order'          => 'ASC',
+] );
+$videos_left  = max( 0, get_option( 'maxvideoupload' ) - count( $videos ) );
+
+// Current Tour
+$current_tour = get_user_current_tour( $this_post_id );
+
+// Render Page
+get_header(); ?>
+<div class="contentwrapper">
+  <div class="body">
+    <div class="bodybox profile-page">
+
+      <?php
+      // Unpaid Tour Notice
+      if ( isset( $_GET['unpaid_tour'] ) && $profile_author_id === $userid ) {
+          $tid = absint( $_GET['unpaid_tour'] );
+          if ( $tour = get_post( $tid ) ) {
+              if ( get_post_meta( $tid, 'needs_payment', true ) ) {
+                  echo '<div class="err rad25">';
+                  echo '<div class="clear10"></div>';
+                  printf(
+                      __( '%s has been added, but it\'s not visible yet.', 'escortwp' ),
+                      esc_html( $tour->post_title )
+                  );
+                  if ( payment_plans( 'tours', 'price' ) ) {
+                      echo '<br/>' . __( 'To activate the tour you must pay', 'escortwp' ) . ' '
+                           . format_price( 'tours', 'small' ) . '<br/>';
+                      echo '<div class="clear20"></div>';
+                      echo generate_payment_buttons( 'tours', $tid, __( 'Activate tour', 'escortwp' ) );
+                      echo '<small>' . format_price( 'tours' ) . '</small>';
+                  }
+                  echo '<div class="clear10"></div>';
+                  echo '</div>';
+              }
+          }
+      }
+
+      // Success Messages
+      if ( isset( $_GET['postreview'] ) && $_GET['postreview'] === 'ok' ) {
+          echo '<div class="ok rad25">';
+          if ( get_option( 'manactivesc' ) === '1' ) {
+              echo __( 'Your review will be published after approval.', 'escortwp' ) . '<br/>';
+          }
+          echo __( 'Thank you for posting.', 'escortwp' );
+          echo '</div>';
+      }
+      if ( isset( $_GET['add_tour'] ) && $_GET['add_tour'] === 'ok' ) {
+          echo '<div class="ok rad25">' . __( 'The tour has been added.', 'escortwp' ) . '</div>';
+      }
+      ?>
+
+      <script>
+      jQuery(function($){
+        // Favorites toggle
+        $('.favbutton').on('click', function(){
+          $('.favbutton').toggle();
+          $.get("<?php bloginfo('template_url');?>/ajax/add-remove-favorites.php", {
+            id: $(this).attr('id')
+          });
+        });
+
+        // Add review form
+        $('.addreview-button').click(function(){
+          $('.addreviewform').slideDown();
+          $('html,body').animate({scrollTop:$('#addreviewsection').offset().top},'slow');
+        });
+        $('.addreviewform .closebtn').click(function(){
+          $('.addreviewform').slideUp();
+        });
+
+        // Contact form
+        $('.sendemail').click(function(){
+          $('.escortcontact').slideToggle();
+        });
+        $('.escortcontact .closebtn').click(function(){
+          $('.escortcontact').slideToggle();
+          $('.sendemail').slideToggle();
+        });
+
+        // Hide unavailable rates
+        <?php if ( is_array( $availability ) ) {
+            if ( ! in_array( '1', $availability, true ) ) echo "$('.girlinfo .hide-incall').hide();";
+            if ( ! in_array( '2', $availability, true ) ) echo "$('.girlinfo .hide-outcall').hide();";
+        } ?>
+      });
+      </script>
+
+      <?php
+      // Agency management buttons
+      if ( $profile_author_id === $userid || current_user_can( 'level_10' ) ) {
+          include get_template_directory() . '/register-agency-manage-escorts-option-buttons.php';
+      }
+      ?>
+
+      <div class="girlsingle<?php if ( ! empty( $err ) && in_array( $_POST['action'], ['adminnote','addtour','edittour','register'], true ) ) echo ' hide'; ?>" itemscope itemtype="http://schema.org/Person">
+
+        <div class="profile-header">
+          <div class="profile-header-name text-center l">
+            <h3 class="profile-title" title="<?php the_title_attribute(); ?>" itemprop="name"><?php the_title(); ?></h3>
+            <div class="girlsinglelabels">
+              <?php
+              if ( get_post_meta( $this_post_id, 'premium', true ) === '1' ) {
+                  echo '<span class="orangebutton rad25">' . __( 'PREMIUM', 'escortwp' ) . '</span>';
+              }
+              if ( get_post_meta( $this_post_id, 'featured', true ) === '1' ) {
+                  echo '<span class="pinkdegrade rad25">' . strtoupper( __( 'FEATURED', 'escortwp' ) ) . '</span>';
+              }
+              if ( get_post_meta( $this_post_id, 'verified', true ) === '1' ) {
+                  echo '<span class="greendegrade rad25">' . __( 'VERIFIED', 'escortwp' ) . '</span>';
+              }
+              $daysago = date( 'Y-m-d H:i:s', strtotime( '-' . get_option( 'newlabelperiod' ) . ' days' ) );
+              if ( get_the_time( 'Y-m-d H:i:s' ) > $daysago ) {
+                  echo '<span class="pinkbutton rad25">' . __( 'NEW', 'escortwp' ) . '</span>';
+              }
+              if ( get_post_status( $this_post_id ) === 'private' ) {
+                  echo '<span class="redbutton rad25">' . strtoupper( __( 'Private', 'escortwp' ) ) . '</span>';
+              }
+              ?>
+            </div>
+            <?php echo function_exists( 'show_online_label_html' ) ? show_online_label_html( $profile_author_id ) : ''; ?>
+          </div>
+          <div class="profile-header-name-info rad5 r text-center">
+            <?php if ( $height ) : ?>
+              <?php if ( get_option( 'heightscale' ) === 'imperial' && $height2 ) : ?>
+                <div class="section-box"><span class="valuecolumn"><?php echo esc_html( $height2 ); ?></span><b>in</b></div>
+              <?php endif; ?>
+              <div class="section-box"><span class="valuecolumn"><?php echo esc_html( $height ); ?></span><b><?php echo get_option( 'heightscale' ) === 'imperial' ? 'ft' : 'cm'; ?></b></div>
+            <?php endif; ?>
+            <?php if ( $weight ) : ?>
+              <div class="section-box"><span class="valuecolumn"><?php echo esc_html( $weight ); ?></span><b><?php echo get_option( 'heightscale' ) === 'imperial' ? 'lb' : 'kg'; ?></b></div>
+            <?php endif; ?>
+            <?php if ( $age ) : ?>
+              <div class="section-box"><span class="valuecolumn"><?php echo esc_html( $age ); ?></span><b><?php _e( 'years', 'escortwp' ); ?></b></div>
+            <?php endif; ?>
+          </div>
+          <?php
+          // Contact phone
+          if ( ! ( payment_plans( 'vip','extra','hide_contact_info' ) && ! is_user_logged_in() ) ) {
+              if ( ! ( payment_plans( 'vip','extra','hide_contact_info' ) && ! get_user_meta( $userid, 'vip', true ) && ! current_user_can( 'level_10' ) && $profile_author_id !== $userid ) ) {
+                  if ( $phone ) : ?>
+                    <div class="phone-box r">
+                      <div class="label"><?php _e( 'call me', 'escortwp' ); ?></div>
+                      <a href="tel:<?php echo esc_attr( $phone ); ?>" itemprop="telephone"><span class="icon icon-phone"></span><?php echo esc_html( $phone ); ?></a>
+                    </div>
+                    <?php if ( is_array( $phone_available ) && $phone_available ) : ?>
+                      <div class="available-on r">
+                        <div class="label"><?php _e( 'text me', 'escortwp' ); ?></div>
+                        <?php foreach ( $phone_available as $opt ) : ?>
+                          <?php if ( $opt === '1' ) : // WhatsApp ?>
+                            <a href="https://wa.me/<?php echo preg_replace( '/\D+/', '', $phone ); ?>?text=<?php echo rawurlencode( sprintf( __( 'Hi, I saw your profile on %s', 'escortwp' ), home_url() ) ); ?>"><span class="icon icon-whatsapp"></span></a>
+                          <?php elseif ( $opt === '2' ) : // Viber ?>
+                            <a href="viber://chat?number=<?php echo preg_replace( '/\D+/', '', $phone ); ?>"><span class="icon icon-viber"></span></a>
+                          <?php endif; ?>
+                        <?php endforeach; ?>
+                      </div>
+                    <?php endif; ?>
+                  <?php endif;
+              }
+          }
+          ?>
+          <div class="clear10"></div>
+        </div><!-- .profile-header -->
+
+        <?php if ( $adminnote ) : ?>
+          <div class="clear"></div>
+          <div class="err rad25"><?php echo esc_html( $adminnote ); ?></div>
+        <?php endif; ?>
+
+        <?php if ( $profile_author_id === $userid || current_user_can( 'level_10' ) ) : ?>
+          <div class="clear10"></div>
+          <div class="profile-page-no-media-wrapper profile-page-no-media-wrapper-photos <?php echo ( get_option( 'allowvideoupload' ) === '1' ) ? 'col50 l' : 'col100'; ?>">
+            <div class="profile-page-no-media profile-page-no-photos-click rad3 text-center">
+              <div class="icon icon-picture"></div>
+              <div class="for-browsers" data-mobile-text="<?php esc_attr_e( 'Tap here to upload your images', 'escortwp' ); ?>">
+                <p><?php esc_html_e( 'Drag your images here to upload them', 'escortwp' ); ?> <?php esc_html_e( 'or <u>Select from a folder</u>', 'escortwp' ); ?></p>
+              </div>
+              <p class="max-photos"><?php printf( esc_html__( 'You can upload a maximum of %s images', 'escortwp' ), '<b>' . esc_html( $photos_left ) . '</b>' ); ?></p>
+            </div>
+            <div class="profile_photos_button_container hide"><input id="profile_photos_upload" type="file" /></div>
+          </div>
+          <?php if ( get_option( 'allowvideoupload' ) === '1' ) : ?>
+            <div class="profile-page-no-media-wrapper profile-page-no-media-wrapper-videos col50 r">
+              <div class="profile-page-no-media profile-page-no-videos-click rad3 text-center">
+                <div class="icon icon-film"></div>
+                <div class="for-browsers" data-mobile-text="<?php esc_attr_e( 'Tap here to upload your videos', 'escortwp' ); ?>">
+                  <p><?php esc_html_e( 'Drag your videos here to upload them', 'escortwp' ); ?> <?php esc_html_e( 'or <u>Select from a folder</u>', 'escortwp' ); ?></p>
+                </div>
+                <p class="max-videos"><?php printf( esc_html__( 'You can upload a maximum of %s videos', 'escortwp' ), '<b>' . esc_html( $videos_left ) . '</b>' ); ?></p>
+              </div>
+              <div class="profile_videos_button_container hide"><input id="profile_videos_upload" type="file" /></div>
+            </div>
+          <?php endif; ?>
+          <div class="clear20"></div>
+        <?php endif; ?>
+
+        <?php
+        // Thumbnails & main image
+        if ( $photos || $videos ) :
+            if ( $profile_author_id === $userid || current_user_can( 'level_10' ) ) {
+                echo '<div class="image-buttons-legend">
+                        <div><span class="button-main-image icon-ok"></span> ' . __( 'Mark as main image', 'escortwp' ) . '</div>
+                        <div><span class="button-delete icon-cancel"></span> ' . __( 'Delete image', 'escortwp' ) . '</div>
+                      </div>';
+            }
+            echo '<div class="clear10"></div><div class="thumbs" itemscope itemtype="http://schema.org/ImageGallery">';
+            
+            // Main image
+            $main_id  = get_post_meta( $this_post_id, 'main_image_id', true );
+            if ( ! $main_id || ! get_post( $main_id ) ) {
+                if ( $first = reset( $photos ) ) {
+                    $main_id = $first->ID;
+                    update_post_meta( $this_post_id, 'main_image_id', $main_id );
+                }
+            }
+            $main_url = wp_get_attachment_image_src( $main_id, 'main-image-thumb' );
+            if ( empty( $main_url[0] ) ) {
+                $main_url[0] = get_template_directory_uri() . '/i/no-image.png';
+            }
+            echo '<div class="bigimage"><img src="' . esc_url( $main_url[0] ) . '" class="rad3" alt="' . esc_attr( get_the_title() ) . '" /></div>';
+            echo '<div class="clear"></div>';
+
+            // Locked section if not VIP
+            if ( payment_plans( 'vip','extra','hide_photos' ) && ! is_user_logged_in() ) {
+                $n = count( $photos ) - 1;
+                echo '<div class="lockedsection rad5">
+                        <div class="icon icon-lock vcenter l"></div>
+                        ' . sprintf( __( 'This %s has %s more photos', 'escortwp' ), $taxonomy_profile_name, "<span class=\"nr rad5 greendegrade\">{$n}</span>" ) . '.
+                        <br/>' . __( 'You need to', 'escortwp' ) . ' <a href="' . esc_url( get_permalink( get_option( 'main_reg_page_id' ) ) ) . '">' . __( 'register', 'escortwp' ) . '</a> ' . __( 'or', 'escortwp' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'login', 'escortwp' ) . '</a> ' . __( 'to view more photos.', 'escortwp' ) . '
+                        <div class="clear"></div>
+                      </div>';
+            } else {
+                // Video thumbs
+                foreach ( $videos as $v ) {
+                    $thumb = esc_url( $v->guid . '.jpg' );
+                    echo '<div class="profile-video-thumb-wrapper"><div class="profile-img-thumb profile-video-thumb rad3" style="background:url(' . $thumb . ') center/cover;">';
+                    if ( $profile_author_id === $userid || current_user_can( 'level_10' ) ) {
+                        echo '<span class="icon button-delete icon-cancel rad50"></span>';
+                    }
+                    echo '<a href="#video' . esc_attr( sanitize_title( $v->post_title ) ) . '" data-fancybox="profile-video">
+                            <img src="' . esc_url( get_template_directory_uri() . '/i/video-placeholder.svg' ) . '" class="video-image-play" />
+                          </a>';
+                    echo '</div></div>';
+                }
+                if ( $videos ) echo '<div class="clear10"></div>';
+
+                // Photo thumbs
+                foreach ( $photos as $p ) {
+                    $thumb = wp_get_attachment_image_src( $p->ID, 'profile-thumb' );
+                    $thumb = $thumb[0] ?: get_template_directory_uri() . '/i/no-image.png';
+                    $style_main = ( $p->ID == $main_id ) ? 'style="display:none;"' : '';
+                    echo '<div class="profile-img-thumb-wrapper"><div class="profile-img-thumb rad3" id="' . esc_attr( $p->ID ) . '">';
+                    if ( $profile_author_id === $userid || current_user_can( 'level_10' ) ) {
+                        echo '<span class="icon button-delete icon-cancel rad50"></span>
+                              <span class="icon button-main-image icon-ok rad50" ' . $style_main . '></span>';
+                    }
+                    echo '<a href="' . esc_url( $p->guid ) . '" data-fancybox="profile-photo">
+                            <img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '" />
+                          </a>
+                          </div></div>';
+                }
+            }
+
+            echo '</div><!-- .thumbs -->';
+        endif;
+        ?>
+
+        <div class="clear20"></div>
+
+        <?php
+        // Location breadcrumb
+        $loc = [];
+        if ( $city_data && ! is_wp_error( $city_data ) ) {
+            $loc[] = '<a href="' . esc_url( get_term_link( $city_data[0] ) ) . '">' . esc_html( $city_data[0]->name ) . '</a>';
+            if ( $parent = get_term( $city_data[0]->parent, $taxonomy_location_url ) ) {
+                $loc[] = '<a href="' . esc_url( get_term_link( $parent ) ) . '">' . esc_html( $parent->name ) . '</a>';
+                if ( $grand = get_term( $parent->parent, $taxonomy_location_url ) ) {
+                    $loc[] = '<a href="' . esc_url( get_term_link( $grand ) ) . '">' . esc_html( $grand->name ) . '</a>';
+                }
+            }
+        }
+        ?>
+
+        <div class="aboutme">
+          <h4><?php _e( 'About me', 'escortwp' ); ?>:</h4>
+          <b><?php echo esc_html( $age ); ?> <?php _e( 'year old', 'escortwp' ); ?> <span itemprop="gender"><?php echo esc_html( $gender_a[ $gender ] ); ?></span> <?php _e( 'from', 'escortwp' ); ?> <?php echo implode( ', ', $loc ); ?></b>
+          <?php if ( $current_tour ) : ?>
+            <div class="clear"></div>
+            <div class="currently-on-tour-in rad5">
+              <?php _e( 'Currently on tour in:', 'escortwp' ); ?>
+              <?php
+              $tl = [];
+              foreach ( [ 'city', 'state', 'country' ] as $k ) {
+                  if ( ! empty( $current_tour[ $k ] ) ) {
+                      $t = $current_tour[ $k ];
+                      $tl[] = '<a href="' . esc_url( get_term_link( $t ) ) . '">' . esc_html( $t->name ) . '</a>';
+                  }
+              }
+              echo ' ' . implode( ', ', $tl );
+              ?>
+            </div>
+          <?php endif; ?>
+          <div class="clear5"></div>
+          <?php echo wp_kses_post( $aboutyou ); ?>
+          <div class="clear"></div>
+        </div><!-- .aboutme -->
+
+        <div class="clear10"></div>
+
+        <div class="girlinfo l">
+          <div class="girlinfo-section">
+            <?php if ( ! get_option( 'hide1' ) ) : ?>
+              <div class="profilestarrating-wrapper">
+                <div class="starrating"><div class="starrating_stars star<?php echo get_escort_rating( $this_post_id, false ); ?>"></div></div>
+                <div class="clear5"></div>
+                <div class="label"><?php printf( __( '%s rating', 'escortwp' ), ucfirst( $taxonomy_profile_name ) ); ?></div>
+                <div class="clear"></div>
+                <i><?php echo get_escort_rating( $this_post_id, true ) . ' ' . strtolower( __( 'reviews', 'escortwp' ) ); ?></i>
+              </div>
+              <div class="clear10"></div>
+            <?php endif; ?>
+
+            <?php
+            // Favorites & Add Review
+            $favs = get_user_meta( $userid, 'favorites', true );
+            $favs = $favs ? array_unique( explode( ',', $favs ) ) : [];
+            if ( $userstatus === 'member' || current_user_can( 'level_10' ) ) :
+                $in_fav = in_array( $this_post_id, $favs, true );
+            ?>
+              <div class="text-center">
+                <?php if ( ! get_option( 'hide1' ) ) : ?>
+                  <div class="addreview-button rad25 pinkbutton"><span class="icon-plus-circled"></span><?php _e( 'Add Review', 'escortwp' ); ?></div>
+                <?php endif; ?>
+                <div class="removefromfavorites rad25 pinkbutton favbutton"<?php if ( ! $in_fav ) echo ' style="display:none;"'; ?> id="rem<?php echo esc_attr( $this_post_id ); ?>"><span class="icon-heart"></span><?php _e( 'Remove Favorite', 'escortwp' ); ?></div>
+                <div class="addtofavorites rad25 pinkbutton favbutton"<?php if ( $in_fav ) echo ' style="display:none;"'; ?> id="add<?php echo esc_attr( $this_post_id ); ?>"><span class="icon-heart"></span><?php _e( 'Add to Favorites', 'escortwp' ); ?></div>
+              </div>
+            <?php endif; ?>
+
+            <div class="clear"></div>
+
+            <?php if ( $availability ) : ?>
+              <?php $show = array_map( 'esc_html', array_intersect_key( $availability_a, array_flip( $availability ) ) ); ?>
+              <div class="section-box"><b><?php _e( 'Availability', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo implode( ', ', $show ); ?></span></div>
+            <?php endif; ?>
+
+            <?php if ( $ethnicity ) : ?><div class="section-box"><b><?php _e( 'Ethnicity', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $ethnicity_a[ $ethnicity ] ); ?></span></div><?php endif; ?>
+            <?php if ( $haircolor ) : ?><div class="section-box"><b><?php _e( 'Hair color', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $haircolor_a[ $haircolor ] ); ?></span></div><?php endif; ?>
+            <?php if ( $hairlength ) : ?><div class="section-box"><b><?php _e( 'Hair length', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $hairlength_a[ $hairlength ] ); ?></span></div><?php endif; ?>
+            <?php if ( $bustsize ) : ?><div class="section-box"><b><?php _e( 'Bust size', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $bustsize_a[ $bustsize ] ); ?></span></div><?php endif; ?>
+            <?php if ( $height ) : ?><div class="section-box"><b itemprop="height"><?php _e( 'Height', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $height ) . ( get_option( 'heightscale' ) === 'imperial' ? "ft{$height2}in" : 'cm' ); ?></span></div><?php endif; ?>
+            <?php if ( $weight ) : ?><div class="section-box"><b itemprop="weight"><?php _e( 'Weight', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $weight ) . ( get_option( 'heightscale' ) === 'imperial' ? 'lb' : 'kg' ); ?></span></div><?php endif; ?>
+            <?php if ( $build ) : ?><div class="section-box"><b><?php _e( 'Build', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $build_a[ $build ] ); ?></span></div><?php endif; ?>
+            <?php if ( $looks ) : ?><div class="section-box"><b><?php _e( 'Looks', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $looks_a[ $looks ] ); ?></span></div><?php endif; ?>
+            <?php if ( $smoker ) : ?><div class="section-box"><b><?php _e( 'Smoker', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $smoker_a[ $smoker ] ); ?></span></div><?php endif; ?>
+
+            <?php if ( $education ) : ?><div class="section-box"><b><?php _e( 'Education', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $education ); ?></span></div><?php endif; ?>
+            <?php if ( $sports ) : ?><div class="section-box"><b><?php _e( 'Sports', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $sports ); ?></span></div><?php endif; ?>
+            <?php if ( $hobbies ) : ?><div class="section-box"><b><?php _e( 'Hobbies', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $hobbies ); ?></span></div><?php endif; ?>
+            <?php if ( $zodiacsign ) : ?><div class="section-box"><b><?php _e( 'Zodiac sign', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $zodiacsign ); ?></span></div><?php endif; ?>
+            <?php if ( $sexualorientation ) : ?><div class="section-box"><b><?php _e( 'Sexual orientation', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $sexualorientation ); ?></span></div><?php endif; ?>
+            <?php if ( $occupation ) : ?><div class="section-box"><b><?php _e( 'Occupation', 'escortwp' ); ?></b><span class="valuecolumn"><?php echo esc_html( $occupation ); ?></span></div><?php endif; ?>
+          </div><!-- .girlinfo-section -->
+
+          <?php if ( $language1 || $language2 || $language3 ) : ?>
+            <div class="girlinfo-section">
+              <h4><?php _e( 'Languages spoken', 'escortwp' ); ?>:</h4>
+              <div class="clear"></div>
+              <?php if ( $language1 ) : ?><div class="section-box"><b><?php echo esc_html( ucfirst( $language1 ) ); ?>:</b><span class="valuecolumn"><?php echo esc_html( $languagelevel_a[ $language1level ] ); ?></span></div><?php endif; ?>
+              <?php if ( $language2 ) : ?><div class="section-box"><b><?php echo esc_html( ucfirst( $language2 ) ); ?>:</b><span class="valuecolumn"><?php echo esc_html( $languagelevel_a[ $language2level ] ); ?></span></div><?php endif; ?>
+              <?php if ( $language3 ) : ?><div class="section-box"><b><?php echo esc_html( ucfirst( $language3 ) ); ?>:</b><span class="valuecolumn"><?php echo esc_html( $languagelevel_a[ $language3level ] ); ?></span></div><?php endif; ?>
+            </div>
+          <?php endif; ?>
+
+          <div class="girlinfo-section">
+            <h4><?php _e( 'Contact info', 'escortwp' ); ?>:</h4>
+            <div class="clear"></div>
+            <div class="contact">
+              <?php if ( isset( $currently_on_tour_box ) ) echo $currently_on_tour_box; ?>
+              <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <?php if ( $loc ) echo implode( '<div class="clear"></div>', $loc ) . '<div class="clear"></div>'; ?>
+              </div>
+
+              <?php
+              if ( payment_plans( 'vip','extra','hide_contact_info' ) && ! is_user_logged_in() ) {
+                  echo '<div class="lockedsection rad5">'
+                       . __( 'You need to', 'escortwp' ) . ' <a href="' . esc_url( get_permalink( get_option( 'main_reg_page_id' ) ) ) . '">' . __( 'register', 'escortwp' ) . '</a> '
+                       . __( 'or', 'escortwp' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'login', 'escortwp' ) . '</a> '
+                       . sprintf( __( 'to see contact info of this %s.', 'escortwp' ), $taxonomy_profile_name )
+                       . '</div>';
+              } else {
+                  if ( payment_plans( 'vip','extra','hide_contact_info' ) && ! get_user_meta( $userid, 'vip', true ) && ! current_user_can( 'level_10' ) && $profile_author_id !== $userid ) {
+                      echo '<div class="lockedsection rad5">'
+                           . sprintf( __( 'You need to be VIP to see contact info of this %s.', 'escortwp' ), $taxonomy_profile_name )
+                           . '<br/>' . __( 'VIP status costs', 'escortwp' ) . ' <strong>' . format_price( 'vip','small' ) . '</strong><br/>';
+                      if ( payment_plans( 'vip','duration' ) ) {
+                          echo __( 'VIP status active for', 'escortwp' ) . ' <strong>' . $payment_duration_a[ payment_plans( 'vip','duration' ) ][0 ] . '</strong>';
+                      }
+                      echo '<div class="clear20"></div>'
+                           . '<div class="text-center">' . generate_payment_buttons( 'vip', $userid, __( 'Upgrade to VIP', 'escortwp') ) . '</div>'
+                           . '<small>' . format_price( 'vip' ) . '</small>'
+                           . '</div>';
+                  } else {
+                      if ( $website ) {
+                          $w = str_replace( [ 'http://', 'https://' ], '', $website );
+                          echo '<div><b>' . __( 'Website', 'escortwp' ) . ':</b> <a href="' . esc_url( $website ) . '" target="_blank">' . esc_html( $w ) . '</a></div>';
+                      }
+                      if ( $snapchat ) {
+                          echo '<div><b>' . __( 'Snapchat', 'escortwp' ) . ':</b> @' . esc_html( $snapchat ) . '</div>';
+                      }
+                      if ( $instagram ) {
+                          echo '<div><b>' . __( 'Instagram', 'escortwp' ) . ':</b> <a href="https://instagram.com/' . esc_attr( $instagram ) . '" target="_blank">@' . esc_html( $instagram ) . '</a></div>';
+                      }
+                      if ( $twitter ) {
+                          $t = '@' . ltrim( str_replace( [ 'http://', 'https://', 'twitter.com/' ], '', $twitter ), '@' );
+                          echo '<div><b>' . __( 'Twitter', 'escortwp' ) . ':</b> <a href="' . esc_url( $twitter ) . '" target="_blank">' . esc_html( $t ) . '</a></div>';
+                      }
+                      if ( $facebook ) {
+                          $f = '@' . ltrim( str_replace( [ 'http://', 'https://', 'facebook.com/' ], '', $facebook ), '@' );
+                          echo '<div><b>' . __( 'Facebook', 'escortwp' ) . ':</b> <a href="' . esc_url( $facebook ) . '" target="_blank">' . esc_html( $f ) . '</a></div>';
+                      }
+                      if ( $phone ) {
+                          echo '<div><b>' . __( 'Phone', 'escortwp' ) . ':</b> <a href="tel:' . esc_attr( $phone ) . '">' . esc_html( $phone ) . '</a></div>';
+                          if ( is_array( $phone_available ) ) {
+                              echo '<div><b>' . __( 'Text me', 'escortwp' ) . ':</b> ';
+                              foreach ( $phone_available as $opt ) {
+                                  if ( $opt === '1' ) {
+                                      echo '<a href="https://wa.me/' . preg_replace( '/\D+/', '', $phone ) . '?text=' . rawurlencode( sprintf( __( 'Hi, I saw your profile on %s', 'escortwp' ), home_url() ) ) . '"><span class="icon icon-whatsapp"></span></a> ';
+                                  } elseif ( $opt === '2' ) {
+                                      echo '<a href="viber://chat?number=' . preg_replace( '/\D+/', '', $phone ) . '"><span class="icon icon-viber"></span></a> ';
+                                  }
+                              }
+                              echo '</div>';
+                          }
+                      }
+                      echo '<div class="clear10"></div><a name="contactform"></a>';
+                      echo '<div class="text-center"><div class="sendemail rad25 pinkbutton"><span class="icon-mail"></span>' . __( 'Send me an email', 'escortwp' ) . '</div></div>';
+                      echo '<div class="clear"></div>';
+                      if ( ! empty( $err ) && $_POST['action'] === 'contactform' ) {
+                          echo '<div class="err rad25">' . esc_html( $err ) . '</div>';
+                      }
+                      if ( ! empty( $ok ) && $_POST['action'] === 'contactform' ) {
+                          echo '<div class="ok rad25">' . esc_html( $ok ) . '</div>';
+                      }
+                      include get_template_directory() . '/send-email-form.php';
+                  }
+              }
+              ?>
+            </div>
+          </div><!-- .girlinfo-section -->
+
+        </div><!-- .girlinfo l -->
+
+        <div class="girlinfo r">
+
+          <?php if ( $services || $extraservices ) : ?>
+            <div class="girlinfo-section">
+              <?php if ( $services ) : ?>
+                <h4><?php _e( 'Services', 'escortwp' ); ?>:</h4>
+                <div class="services">
+                  <?php
+                  foreach ( $services_a as $key => $svc ) {
+                      $label = esc_html( $svc );
+                      if ( in_array( $key, (array) $services, true ) ) {
+                          echo "<div><span class=\"icon-ok\"></span>{$label}</div>";
+                      } elseif ( get_option( 'hideunchedkedservices' ) !== '2' ) {
+                          echo "<div><span class=\"icon-cancel\"></span>{$label}</div>";
+                      }
+                  }
+                  ?>
+                </div>
+              <?php endif; ?>
+
+              <?php if ( $extraservices ) : ?>
+                <h4><?php _e( 'Extra Services', 'escortwp' ); ?>:</h4>
+                <div class="services"><div class="yes"><?php echo wp_kses_post( $extraservices ); ?></div></div>
+              <?php endif; ?>
+            </div>
+          <?php endif; ?>
+
+          <?php
+          // Rates table
+          if ( (int) ${'rate30min_incall'} + (int) ${'rate1h_incall'} + (int) ${'rate2h_incall'} + (int) ${'rate3h_incall'} + (int) ${'rate6h_incall'} + (int) ${'rate12h_incall'} + (int) ${'rate24h_incall'} + (int) ${'rate30min_outcall'} + (int) ${'rate1h_outcall'} + (int) ${'rate2h_outcall'} + (int) ${'rate3h_outcall'} + (int) ${'rate6h_outcall'} + (int) ${'rate12h_outcall'} + (int) ${'rate24h_outcall'} > 0 ) :
+              $curr = $currency ? $currency_a[ $currency ][0] : $currency_a['1'][0];
+          ?>
+            <div class="girlinfo-section">
+              <h4><?php _e( 'Rates', 'escortwp' ); ?>:</h4>
+              <div class="clear"></div>
+              <table class="rates-table col100">
+                <tr>
+                  <th></th>
+                  <?php if ( ${'rate30min_incall'} + ${'rate1h_incall'} + ${'rate2h_incall'} + ${'rate3h_incall'} + ${'rate6h_incall'} + ${'rate12h_incall'} + ${'rate24h_incall'} ) : ?><th class="hide-incall"><?php _e( 'Incall', 'escortwp' ); ?></th><?php endif; ?>
+                  <?php if ( ${'rate30min_outcall'} + ${'rate1h_outcall'} + ${'rate2h_outcall'} + ${'rate3h_outcall'} + ${'rate6h_outcall'} + ${'rate12h_outcall'} + ${'rate24h_outcall'} ) : ?><th class="hide-outcall"><?php _e( 'Outcall', 'escortwp' ); ?></th><?php endif; ?>
+                </tr>
+                <?php foreach ( [ '30min'=>'30 ' . __( 'minutes', 'escortwp' ), '1h'=>'1 ' . __( 'hour', 'escortwp' ), '2h'=>'2 ' . __( 'hours', 'escortwp' ), '3h'=>'3 ' . __( 'hours', 'escortwp' ), '6h'=>'6 ' . __( 'hours', 'escortwp' ), '12h'=>'12 ' . __( 'hours', 'escortwp' ), '24h'=>'24 ' . __( 'hours', 'escortwp' ) ] as $key => $label ) :
+                    $in  = ${"rate{$key}_incall"};
+                    $out = ${"rate{$key}_outcall"};
+                    if ( $in || $out ) :
+                ?>
+                  <tr>
+                    <td><strong><?php echo esc_html( $label ); ?></strong></td>
+                    <td class="text-center hide-incall"><?php echo $in ? esc_html( "{$in} {$curr}" ) : ''; ?></td>
+                    <td class="text-center hide-outcall"><?php echo $out ? esc_html( "{$out} {$curr}" ) : ''; ?></td>
+                  </tr>
+                <?php
+                    endif;
+                endforeach;
+                ?>
+              </table>
+            </div>
+          <?php endif; ?>
+
+        </div><!-- .girlinfo r -->
+
+        <div class="clear20"></div>
+
+        <?php
+        // Tours
+        $common_tours_args = [
+            'post_type'      => 'tour',
+            'posts_per_page' => -1,
+            'order'          => 'ASC',
+            'orderby'        => 'meta_value_num',
+            'meta_key'       => 'start',
+            'meta_query'     => [
+                [
+                    'key'     => 'belongstoescortid',
+                    'value'   => $this_post_id,
+                    'compare' => '=',
+                    'type'    => 'NUMERIC',
+                ],
+                [
+                    'key'     => 'end',
+                    'value'   => mktime( 23, 59, 59, date( 'm' ), date( 'd' ), date( 'Y' ) ),
+                    'compare' => '>=',
+                    'type'    => 'NUMERIC',
+                ],
+            ],
+        ];
+        $tours = new WP_Query( $common_tours_args );
+        if ( $tours->have_posts() ) : ?>
+          <div class="clear30"></div>
+          <h4 class="single-profile-tours-title"><?php _e( 'Tours', 'escortwp' ); ?>:</h4>
+          <div class="clear"></div>
+          <div class="addedtours">
+            <div class="tour tourhead">
+              <div class="addedstart"><?php _e( 'Start', 'escortwp' ); ?></div>
+              <div class="addedend"><?php _e( 'End', 'escortwp' ); ?></div>
+              <div class="addedplace"><?php _e( 'Place', 'escortwp' ); ?></div>
+              <div class="addedphone"><?php _e( 'Phone', 'escortwp' ); ?></div>
+            </div>
+            <?php while ( $tours->have_posts() ) : $tours->the_post(); 
+                $locs = [];
+                foreach ( [ 'city', 'state', 'country' ] as $k ) {
+                    if ( $term_id = get_post_meta( get_the_ID(), $k, true ) ) {
+                        if ( $t = get_term( $term_id, $taxonomy_location_url ) ) {
+                            $locs[] = esc_html( $t->name );
+                        }
+                    }
+                }
+            ?>
+              <div class="tour" id="tour<?php the_ID(); ?>">
+                <div class="addedstart"><?php echo date( 'd M Y', get_post_meta( get_the_ID(), 'start', true ) ); ?></div>
+                <div class="addedend"><?php echo date( 'd M Y', get_post_meta( get_the_ID(), 'end', true ) ); ?></div>
+                <div class="addedplace"><?php echo implode( ', ', $locs ); ?></div>
+                <div class="addedphone"><a href="tel:<?php echo esc_attr( get_post_meta( get_the_ID(), 'phone', true ) ); ?>"><?php echo esc_html( get_post_meta( get_the_ID(), 'phone', true ) ); ?></a></div>
+              </div>
+            <?php endwhile; wp_reset_postdata(); ?>
+          </div>
+        <?php endif; ?>
+
+        <?php
+        // Unpaid tours (for owner)
+        if ( $profile_author_id === $userid ) {
+            $common_tours_args['post_status'] = 'private';
+            $common_tours_args['meta_query'][] = [
+                'key'     => 'needs_payment',
+                'value'   => '1',
+                'compare' => '=',
+            ];
+            $up_tours = new WP_Query( $common_tours_args );
+            if ( $up_tours->have_posts() ) : ?>
+              <div class="clear30"></div>
+              <h4 class="single-profile-tours-title"><?php _e( 'Unpaid Tours', 'escortwp' ); ?>:</h4>
+              <div class="clear"></div>
+              <div class="addedtours">
+                <div class="tour tourhead">
+                  <div class="addedstart"><?php _e( 'Start', 'escortwp' ); ?></div>
+                  <div class="addedend"><?php _e( 'End', 'escortwp' ); ?></div>
+                  <div class="addedplace"><?php _e( 'Place', 'escortwp' ); ?></div>
+                  <div class="addedphone"><?php _e( 'Phone', 'escortwp' ); ?></div>
+                </div>
+                <?php while ( $up_tours->have_posts() ) : $up_tours->the_post();
+                    $locs = [];
+                    foreach ( [ 'city', 'state', 'country' ] as $k ) {
+                        if ( $term_id = get_post_meta( get_the_ID(), $k, true ) ) {
+                            if ( $t = get_term( $term_id, $taxonomy_location_url ) ) {
+                                $locs[] = esc_html( $t->name );
+                            }
+                        }
+                    }
+                ?>
+                  <div class="tour" id="tour<?php the_ID(); ?>">
+                    <div class="addedstart"><?php echo date( 'd M Y', get_post_meta( get_the_ID(), 'start', true ) ); ?></div>
+                    <div class="addedend"><?php echo date( 'd M Y', get_post_meta( get_the_ID(), 'end', true ) ); ?></div>
+                    <div class="addedplace"><?php echo implode( ', ', $locs ); ?></div>
+                    <div class="addedphone"><a href="tel:<?php echo esc_attr( get_post_meta( get_the_ID(), 'phone', true ) ); ?>"><?php echo esc_html( get_post_meta( get_the_ID(), 'phone', true ) ); ?></a></div>
+                    <div class="addedbuttons">
+                      <a class="greenbutton rad25" href="<?php echo esc_url( get_permalink() . '?unpaid_tour=' . get_the_ID() ); ?>"><?php _e( 'Pay for tour', 'escortwp' ); ?></a>
+                    </div>
+                  </div>
+                <?php endwhile; wp_reset_postdata(); ?>
+              </div>
+            <?php endif;
+        }
+        ?>
+
+        <?php if ( get_option( 'hitcounter1' ) ) echo esc_page_hit_counter( $this_post_id ); ?>
+
+        <?php if ( ! get_option( 'hide1' ) ) : ?>
+          <div class="clear20"></div>
+          <h4 id="addreviewsection"><?php _e( 'Reviews', 'escortwp' ); ?>:</h4>
+          <?php if ( get_option( "escortid{$profile_author_id}" ) === $taxonomy_agency_url && ! get_option( 'hide3' ) ) : ?>
+            <a href="<?php echo esc_url( get_permalink( get_option( "agencypostid{$profile_author_id}" ) ) ); ?>" class="rad25 pinkbutton r">
+              <span class="icon-plus-circled"></span><?php printf( __( 'Review the %s', 'escortwp' ), $taxonomy_agency_name ); ?>
+            </a>
+          <?php endif; ?>
+          <div class="addreview-button rad25 pinkbutton r"><span class="icon-plus-circled"></span><?php _e( 'Add review', 'escortwp' ); ?></div>
+          <div class="clear"></div>
+
+          <div class="addreviewform registerform hide">
+            <?php
+            if ( ! is_user_logged_in() ) {
+                echo '<div class="err rad25">' . sprintf(
+                    __( 'You need to %sregister%s or %slogin%s to post a review.', 'escortwp' ),
+                    '<a href="' . esc_url( get_permalink( get_option( 'main_reg_page_id' ) ) ) . '">',
+                    '</a>',
+                    '<a href="' . esc_url( wp_login_url() ) . '">',
+                    '</a>'
+                ) . '</div>';
+            } elseif ( did_user_post_review( $userid, $this_post_id ) ) {
+                echo '<div class="err rad25">' . sprintf(
+                    __( 'You can\'t post more than one review for this %s.', 'escortwp' ),
+                    $taxonomy_profile_name
+                ) . '</div>';
+            } else {
+                if ( ! empty( $ok ) && $_POST['action'] === 'addreview' ) {
+                    echo '<div class="ok rad25">' . esc_html( $ok ) . '</div>';
+                }
+                if ( ! empty( $err ) && $_POST['action'] === 'addreview' ) {
+                    echo '<div class="err rad25">' . esc_html( $err ) . '</div>';
+                }
+            ?>
+              <form action="<?php echo esc_url( get_permalink() ); ?>#addreview" method="post" class="form-styling">
+                <?php closebtn(); ?>
+                <div class="form-label"><label for="rateescort"><?php printf( __( 'Rate the %s', 'escortwp' ), $taxonomy_profile_name ); ?>: <i>*</i></label></div>
+                <div class="form-input form-input-rating">
+                  <?php for ( $i = 5; $i >= 1; $i-- ) : ?>
+                    <label for="rateescort<?php echo $i; ?>">
+                      <input type="radio" id="rateescort<?php echo $i; ?>" name="rateescort" value="<?php echo $i; ?>" <?php checked( $rateescort, $i ); ?> />
+                      <?php echo $i; ?> - <?php echo esc_html( $i === 5 ? __( 'Perfect', 'escortwp' ) : $i === 4 ? __( 'Good', 'escortwp' ) : $i === 3 ? __( 'Average', 'escortwp' ) : $i === 2 ? __( 'Below average', 'escortwp' ) : __( 'Bad', 'escortwp' ) ); ?>
+                    </label><div class="clear"></div>
+                  <?php endfor; ?>
+                </div>
+                <div class="formseparator"></div>
+
+                <div class="form-label"><label for="reviewtext"><?php _e( 'Comment', 'escortwp' ); ?>: <i>*</i></label></div>
+                <div class="form-input">
+                  <textarea name="reviewtext" class="textarea longtextarea" rows="7" id="reviewtext"><?php echo esc_textarea( $reviewtext ); ?></textarea>
+                  <small class="l"><?php _e( 'HTML tags will be removed', 'escortwp' ); ?></small>
+                </div>
+                <div class="formseparator"></div>
+
+                <div class="text-center">
+                  <input type="submit" name="submit" value="<?php _e( 'Add Review', 'escortwp' ); ?>" class="pinkbutton rad3" />
+                  <input type="hidden" name="action" value="addreview" />
+                </div>
+              </form>
+            <?php endif; ?>
+          </div>
+
+          <?php
+          // List reviews
+          $rev_args = [
+              'post_type'      => 'review',
+              'posts_per_page' => -1,
+              'meta_query'     => [
+                  [
+                      'key'     => 'escortid',
+                      'value'   => $this_post_id,
+                      'compare' => '=',
+                  ],
+              ],
+          ];
+          $reviews = new WP_Query( $rev_args );
+          if ( $reviews->have_posts() ) : ?>
+            <div class="clear20"></div>
+            <?php while ( $reviews->have_posts() ) : $reviews->the_post();
+                $for = get_post_meta( get_the_ID(), 'reviewfor', true );
+                if ( $for === 'agency' ) {
+                    $obj    = get_post( get_post_meta( get_the_ID(), 'agencyid', true ) );
+                    $rating = get_post_meta( get_the_ID(), 'rateagency', true );
+                } else {
+                    $obj    = get_post( get_post_meta( get_the_ID(), 'escortid', true ) );
+                    $rating = get_post_meta( get_the_ID(), 'rateescort', true );
+                }
+            ?>
+              <div class="review-wrapper rad5">
+                <div class="starrating l"><div class="starrating_stars star<?php echo esc_attr( $rating ); ?>"></div></div>
+                <i><?php echo strtolower( __( 'Added by', 'escortwp' ) ); ?></i>
+                <b><?php echo esc_html( substr( get_the_author_meta( 'display_name' ), 0, 2 ) ); ?>...</b>
+                <i><?php _e( 'for', 'escortwp' ); ?></i>
+                <b><?php echo esc_html( $obj->post_title ); ?></b>
+                <i><?php _e( 'on', 'escortwp' ); ?></i>
+                <b><?php the_time( 'd F Y' ); ?></b>
+                <div><?php the_content(); ?></div>
+                <?php edit_post_link( __( 'Edit review', 'escortwp' ) ); ?>
+              </div>
+              <div class="clear30"></div>
+            <?php endwhile; wp_reset_postdata(); ?>
+          <?php else : ?>
+            <p><?php _e( 'No reviews yet', 'escortwp' ); ?></p>
+          <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ( current_user_can( 'level_10' ) ) {
+            edit_post_link( __( 'Edit in WordPress', 'escortwp' ) );
+        } ?>
+
+        <?php show_report_profile_button( $this_post_id ); ?>
+      </div><!-- .girlsingle -->
+
+    </div><!-- .bodybox -->
+  </div><!-- .body -->
+</div><!-- .contentwrapper -->
+
+<?php get_sidebar( 'left' ); ?>
+<?php get_sidebar( 'right' ); ?>
+<div class="clear"></div>
+<?php get_footer(); ?>

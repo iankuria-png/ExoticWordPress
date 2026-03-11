@@ -1,0 +1,137 @@
+.girl {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+header .logo {
+	width: 100%;
+	text-align: center;
+}
+
+.girlsingle .girlinfo, .login #login, header .logo * {
+	width: 100%;
+}
+
+.top-site-menu,
+.show-separator,
+.sidebar-left,
+.topnav .social,
+.slider .slider-control-prev,
+.slider .slider-control-next,
+.sidebar-right .move-to-mobile-sidebar,
+.right-mobile-sidebar .sidebar-right .show-under-body,
+.profile-page .bigimage {
+	display: none;
+}
+
+.girlsingle .thumbs .profile-img-thumb .edit-buttons {
+	width: 100%;
+}
+.girlsingle .thumbs .profile-img-thumb .edit-buttons .icon {
+	font-size: 2em;
+	float: right;
+}
+
+.profile-page .thumbs,
+.profile-page .profile-img-thumb,
+.profile-page .profile-img-thumb img {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.profile-page .profile-img-thumb {
+	padding-bottom: 10px;
+}
+
+.girlsingle .profile-page-no-photos .icon {
+	width: 100%;
+}
+
+.girlsingle .lockedsection {
+	margin: 0;
+	margin-top: 10px;
+}
+.girlsingle .lockedsection .icon {
+	line-height: 2em;
+}
+
+.agency-profile .bigimage, .agency-profile .agencydetails {
+	width: 100%;
+}
+
+.header-addspace {
+	padding-top: 20px;
+}
+
+.right-mobile-sidebar .sidebar-right .move-to-mobile-sidebar {
+	display: block;
+}
+.sidebar-right {
+	width: 100%;
+	margin: 0;
+}
+
+.contentwrapper{
+	float: left;
+	width: 100%;
+}
+.bodybox {
+	margin-left: 0;
+	margin-right: 0;
+}
+.body {
+	margin: 0;
+}
+
+.form-styling .form-label {
+	padding-bottom: 5px;
+}
+.form-styling .form-label, 
+.form-styling .form-input, 
+.form-styling .form-input .input,  
+.form-styling .form-input select {
+	width: 100%;
+}
+.form-styling .form-input .birthday{
+	width: 33%;
+}
+
+.bodybox .see-all-bottom {
+	display: block;
+}
+.bodybox .see-all-top {
+	display: none;
+}
+
+.registerpage .usertype {
+	width: 100%;
+	margin: 0;
+	margin-bottom: 30px;
+}
+.registerpage .pagetitle {
+	margin-bottom: 20px;
+}
+
+.slider-pagination {
+	display: block;
+}
+
+.image-buttons-legend div {
+	width: 100%;
+	padding: 0;
+}
+
+.addedtours .tour-info-mobile {
+	display: none;
+}
+h4#addreviewsection, h4.single-profile-tours-title {
+	border: none;
+}
+.addedtours .tour-info-mobile-clear {
+	display: block;
+}
+.addedtours .tourhead {
+	display: none;
+}

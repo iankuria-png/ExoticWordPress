@@ -1,0 +1,312 @@
+:root {
+  --ecl-ink: #111827;
+  --ecl-muted: #4b5563;
+  --ecl-bg-soft: #f8fafc;
+  --ecl-bg-warm: #fdf2f8;
+  --ecl-card: rgba(255, 255, 255, 0.9);
+  --ecl-card-border: rgba(255, 255, 255, 0.8);
+  --ecl-shadow: 0 26px 70px rgba(17, 24, 39, 0.16);
+  --ecl-accent: #111827;
+  --ecl-accent-soft: #374151;
+  --ecl-status-bg: #eef2ff;
+  --ecl-status-text: #312e81;
+  --ecl-live: #ef4444;
+  --ecl-focus: #0ea5e9;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body.exotic-chat-landing-page {
+  position: relative;
+  overflow-x: hidden;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--ecl-ink);
+  background:
+    radial-gradient(circle at 8% 14%, rgba(14, 165, 233, 0.16), transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(244, 114, 182, 0.15), transparent 42%),
+    linear-gradient(160deg, var(--ecl-bg-soft), var(--ecl-bg-warm));
+}
+
+body.exotic-chat-landing-page::before,
+body.exotic-chat-landing-page::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(2px);
+}
+
+body.exotic-chat-landing-page::before {
+  top: -80px;
+  right: -20px;
+  background: rgba(56, 189, 248, 0.17);
+}
+
+body.exotic-chat-landing-page::after {
+  bottom: -90px;
+  left: -50px;
+  background: rgba(236, 72, 153, 0.13);
+}
+
+.exotic-chat-landing {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.exotic-chat-card {
+  width: min(640px, 100%);
+  background: var(--ecl-card);
+  border: 1px solid var(--ecl-card-border);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: var(--ecl-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.exotic-chat-eyebrow {
+  margin: 0 0 10px;
+  color: var(--ecl-accent-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.exotic-chat-card h1 {
+  margin: 0;
+  font-family: "Sora", "Manrope", sans-serif;
+  font-size: clamp(34px, 5.2vw, 52px);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.exotic-chat-copy {
+  margin: 14px 0 0;
+  color: var(--ecl-muted);
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 52ch;
+}
+
+.exotic-chat-loader {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: opacity 220ms ease, transform 220ms ease, margin 220ms ease;
+}
+
+.exotic-chat-loader-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #111827;
+  box-shadow: 0 0 0 0 rgba(17, 24, 39, 0.38);
+  animation: ecl-pulse 1.35s ease-out infinite;
+}
+
+.exotic-chat-loader-track {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.32);
+  overflow: hidden;
+}
+
+.exotic-chat-loader-track::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -42%;
+  width: 42%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(17, 24, 39, 0), rgba(17, 24, 39, 0.9), rgba(17, 24, 39, 0));
+  animation: ecl-slide 1.25s linear infinite;
+}
+
+.exotic-chat-badges {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  transition: opacity 220ms ease, transform 220ms ease, max-height 220ms ease, margin 220ms ease;
+}
+
+.exotic-chat-badge {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1f2937;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.exotic-chat-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #334155;
+}
+
+.exotic-chat-badge--live .exotic-chat-badge-dot {
+  background: var(--ecl-live);
+  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.45);
+  animation: ecl-live-blink 1s ease-in-out infinite;
+}
+
+.exotic-chat-status {
+  margin: 16px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--ecl-status-bg);
+  color: var(--ecl-status-text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.exotic-chat-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.exotic-chat-fallback {
+  margin-top: 16px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  color: #fff;
+  background: linear-gradient(120deg, #111827, #374151);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 170ms ease, box-shadow 170ms ease, filter 170ms ease;
+}
+
+.exotic-chat-fallback:hover,
+.exotic-chat-fallback:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px rgba(17, 24, 39, 0.22);
+  filter: saturate(1.1);
+}
+
+.exotic-chat-fallback:focus-visible {
+  outline: 3px solid var(--ecl-focus);
+  outline-offset: 2px;
+}
+
+body.exotic-chat-landing-page.is-chat-open .exotic-chat-loader {
+  opacity: 0;
+  transform: translateY(-6px);
+  margin-top: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+body.exotic-chat-landing-page.is-chat-open .exotic-chat-badges {
+  opacity: 0;
+  transform: translateY(-10px);
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+}
+
+@keyframes ecl-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(17, 24, 39, 0.42);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(17, 24, 39, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(17, 24, 39, 0);
+  }
+}
+
+@keyframes ecl-slide {
+  0% {
+    left: -42%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes ecl-live-blink {
+  0% {
+    opacity: 0.45;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .exotic-chat-landing {
+    padding: 16px;
+  }
+
+  .exotic-chat-card {
+    border-radius: 20px;
+    padding: 22px;
+  }
+
+  .exotic-chat-card h1 {
+    font-size: clamp(30px, 10vw, 40px);
+  }
+
+  .exotic-chat-copy {
+    font-size: 15px;
+  }
+
+  .exotic-chat-badge {
+    min-height: 32px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exotic-chat-loader-dot,
+  .exotic-chat-loader-track::after,
+  .exotic-chat-badge--live .exotic-chat-badge-dot {
+    animation: none;
+  }
+
+  .exotic-chat-loader,
+  .exotic-chat-badges,
+  .exotic-chat-fallback {
+    transition: none;
+  }
+}

@@ -1,0 +1,250 @@
+v3.6.2
+FIXES:
+	- bug fixes
+
+
+
+
+v3.6
+FEATURES ADDED:
+	- The theme is now PHP v8 compatible
+	- We added WhatsApp & Viber buttons on the escort profiles
+	- You can select a watermark image and it will be added to all uploaded images
+	- Add text to any country or city page for SEO
+	- Send an email to the escort when their account gets verified or unverified
+	- You can now chose your Terms & Conditions from your website to show it at the bottom of all registration forms. The user will need to agree with the TOS before they can register.
+	- If you only have a single country in your website then the theme will use that country as the default and you can run your website as a single country directory.
+	- The profiles from the header slider will now be from the same location as the selected country or city. If there are no featured profiles in that location then profiles from all locations will be shown.
+	- Per EU law, all user types now have a delete button and they can delete their account at any time
+	- Optional setting to resize all uploaded images to a specific size, in order to save server space
+	- Report button in the profiles pages
+	- Added a link for the documentation in the sidebar
+
+FIXES:
+	- bug fixes
+
+
+
+v3.5
+FEATURES ADDED:
+	- WooCommerce payments support. Now you can use any payment gateway that has a WooCommerce plugin.
+	- Support for translation plugins like WPML and Polylang. Now you can translate the page titles and profile page urls.
+	- Show an online icon for profiles that are online
+	- Online now section on the frontpage
+	- Visitor counter in profile pages and classified ads pages
+	- The WordPress admin bar now has a new admin menu with links to the theme settings pages
+	- New registration form fields for the escort profiles: SnapChat, Instagram, Twitter & Facebook
+	- Set the registration form fields to metric or imperial
+	- The contact forms on escort or agency profile pages can now be used by non registered users. There is also a captcha option to combat spam.
+	- Changed the urls of the city pages to include the country and city name. From: http://domain.com/escorts-from/amsterdam/ to http://domain.com/escorts-from/netherlands/amsterdam/
+	- Updated the header slider JavaScript framework
+	- The "All agencies" page now shows image thumbnails like the escort listings pages
+	- In mobile view the country list is switched to a dropdown.
+
+FIXES:
+	- mobile design fixes
+
+
+
+v3.0
+FEATURES ADDED:
+	- New Design
+
+FIXES:
+	- verification image upload and deletion
+	- profile expiration when there is no price set in the payment page 
+	- small bugs throughout the theme
+
+
+
+v2.3
+FEATURES ADDED:
+	- video upload support for profiles. (must have ffmpeg installed)
+	- auto delete old tours
+	- different prices for incall and outcall
+	- admin will now be notified when a new classified is posted
+	- schema.org from Google was implemented in the profiles pages for better SEO
+	- phone number is now clickable on mobile devices
+	- admin can now choose what user types can post classifieds ads
+	- admin can now choose if the slider will autostart
+	- enable shortcodes in the profile description
+
+FIXES:
+	- error in the editing process of the classifieds ads
+	- the placeholder image for the agency profiles was not showing
+	- sort cities alphabetically in some dropdowns
+	- on the escorts on tour page there was no way to select a state, if the state option was enabled
+	- general optimization fixes
+	- when the weight field wasn't filled in the error wasn't correct
+	- the language dropdown from the header was not working
+	- the number of days for the NEW tag was not being saved properly
+	- Escorts can now set your own profile to inactive and then back to active
+	- CCBill payment fix for non subscription payments
+
+
+
+v2.2
+FEATURES ADDED:
+	- CCBill payment processor integration
+	- added the possibility to use States.
+	- allow admins to choose the number of images allowed and the file size limit
+	- allow admin to choose for how many days the label NEW will be shown
+	- you can now use the theme in the form of City->State->City. Activate the state location from the "Registration form" admin page.
+	- added a weight field to the registration page
+	- Let the admin choose what they wants to do when a profile expires. You can choose to delete the profile or make it private on  expiration
+	- Now you can edit the agency directly from the front-end, just like you can do with the escort profiles
+	- Choose if the city field shows up as a dropdown or as a text field. That way new profiles need to either write their own city or just choose it from a predefined list
+
+FIXES:
+	- in the search page hide cities from the dropdpwn list that don't have nay profiles
+	- expired status email did not have the correct url
+	- the classified ads section for would show all the ads in the "Offering" and "Looking" sections instead of showing them separate.
+	- when an agency name started with a number then the profiles under that agency would not show up
+	- the search page was not displaying the correct results with for some searches
+	- a close button was not hiding the form in the agency page
+	- the custom header menu location was not displaying
+	- when an admin added a profile, the user would receive an activate email with no link
+
+
+
+v2.1
+FIXES:
+	- alert for 18 years was bigger than the screen on mobile devices
+	- adding an expiration time to a premium or featured status would set the status to never expire
+	- quick search from right sidebar would not return list of cities
+	- issue with the encoding of the language files
+	- agency images wore not showing on the agency review page
+	- incompatibility with Jetpack plugin that would make a profile show duplicate content
+	- the "hide blog section" option didn't work
+	- captcha was not with certain site keys
+	- profiles that had at least one reviews would not show the login or register alert when visitors wore trying to add a review
+	- the menu for the blog section was not being include in the mobile menu
+	- tours wore showing in the city pages even when there wore profiles available for that city
+	- the user settings menu would not show up for logged in users after the admin has changed the user type
+	- the form was not displaying the dropdown values in the agency page, when trying to add a new escort, only when logged in as an admin
+	- problem with the independent checkbox from the "quick search" section in the sidebar
+	- some words wore not included in the translation function
+	- blog tag page was not showing
+	- pages where members could see the reviews they've written did not had a valid url in the sidebar account menu
+	- when an agency edited a tour, after hitting the submit button, the tour would not show up in the profile page anymore
+	- deleting the verified status image would not delete the image from the site
+	- users with member status wore not seeing a confirmation message when editing their profile info
+	- when agencies wore adding profiles and the site had a price set for new profiles added by agencies, the theme was publishing the profile without payment
+	- the images from the classified ads wore not displaying on desktops
+	- the images from the blacklisted profiles wore not being switched to the responsive images on mobiles
+	- fixed an issue with the url of profiles in emails
+
+
+v2.0
+FEATURES ADDED:
+	- Responsive design
+	- Users can now upload images from a mobile device
+	- When admin ads an independent profile or an agency he can choose if he wants to activate the profile immediately or if the profile needs to be activated by email
+	- When admin ads an independent profile or an agency he can choose if he wants to send the username and password by email to the new user
+	- Show site title in login page
+	- Button to resend the email validation link on signup
+	- Blog section with articles
+	- Ability to choose the name of the profiles and the url structure
+	- Ability to choose the name of the agency profiles and the url structure
+	- Ability to choose the urls for countries and cities
+	- New configuration wizard page to help setup the theme.
+	- Premium profiles are now sorted by the date the premium status was added and not by profile creation date
+	- Admin page to generate demo profiles
+	- Option to enable a captcha for registration forms and contact form page
+
+
+FIXES:
+	- Option to deactivate the payment option and still keep the old settings
+	- When italian language was selected the upload logo button was not working
+	- Description for cities from the left sidebar wore showing the country and not the city
+	- When Agencies registration was disabled the 'See agency reviews' button was still showing
+	- When a profile needed payment, the payment button displayed on the front page was not retrieving the correct profile ID.
+
+
+
+v1.4.1
+FIXES:
+	- vip expiration was not checked correctly
+	- city tours wore not showing
+	- expiration problem when trying to activate a vip user
+
+
+
+v1.4
+FEATURES ADDED:
+	- all users need to validate their email address before they can use the site
+	- new admin settings page where admins can choose what form fields the escort registration page will have. Admins can also choose what fields are mandatory or which fields should appear in the search page.
+	- new admin settings page to hide certain sections of the theme
+	- Added a manual payment option. Admin can add a bank account or any other form of payment and can even add his own payment button code for each type of payment. That way the admin can use any payment gateway he wants.
+	- added registration fee for agency and subscription options
+	- added registration fee for escort added by an agency and subscription options also
+	- added registration fee for independent escort registration and subscription options also
+	- added VIP membership for normal members. With VIP membership they can see the escort's photos and contact information
+	- subscriptions for the premium status, featured status and VIP status
+	- the admin can choose if the new profiles for registered escorts or agencies show-up on the site automatically or if the profiles need to be activated by the admin manually. The escorts or agencies can still edit their profiles in the meantime. The sidebar for the pending profiles will have a new button visible only to admins from where they can activate the profiles
+	- show a language dropdown in the header so users can change the site's language
+	- send notification emails 2 days before a payed option is about to expire to remind the user to renew. Email notifications are active for premium/featured/vip status and registration payments for agencies or escorts
+	- delete premium/featured/vip status from profiles if they expire
+	- delete agency/escort profile if registration date expired
+	- send notification emails if a purchased option has expired and has been removed from the profile or the profile has been removed
+	- expiration emails and profile deletion only works for payment options without recurring payments. for those accounts the profile payment options only expire if the user cancels the subscription.
+	- Changed AlertPay to Payza
+	- Added PayPal payment gateway
+	- changed all the escort categories(wrong way) to the custom post type taxonomies(correct way)
+	- when escorts register, check if they are over 18 years old based on the birthday provided
+	- when clicking the edit tour icon from the escort profile show an ajax loading gif until the tour information loads
+	- Added language files(machine translation) for the following languages: dutch.php, french.php, german.php, greek.php, italian.php, portuguese.php, russian.php, spanish.php
+
+FIXES:
+	- after an agency deletes an escort the redirect was pointing to the wrong url
+	- when a user uploads images smaller then the sizes used by the theme then images would not be shown correctly in the header slider
+	- Fixed the jQuery conflicts with other plugins using the same library
+	- Header slider now shows up even if you don't have a minimum of 5 featured escorts
+	- when adding tours, after the tour has been added, the city was not showing
+	- When admins or escorts try and edit their tour, the city appears as ID and not name
+	- icon to edit tours was missing
+	- upload images button for blacklisted escorts was not working
+	- country and city for blacklisted escorts was not showing
+	- fixed an incompatibility with the Jetpack plugin that would make the escort page repeat itself when the plugin would be active
+	- fixed a bug with the profile pictures deletion. the other resized images wore not being deleted.
+	- fixed pagination issues on category pages and agency pages. no need for a pagination plugin anymore
+	- no need to install the extra pagination plugin anymore
+
+
+
+v1.2.1
+FIXES:
+	- small bug fixes
+	- tour pay button was not showing up
+	- english language spelling corrections
+	- city name fix for reviews on agency profile
+	- fixed link from agency review approval email
+	- "edit escort" dropdown menu was showing in category pages for admins
+
+
+
+v1.2
+FIXES:
+	- small bug fixes
+	- user password filter changes
+	- agency escort delete button fix
+
+
+
+v1.1
+FEATURES ADDED:
+	- AlertPay.com payment system
+	- Translation options
+
+FIXES:
+	- small search fix
+	- job page description fix
+	- escort profile fix
+
+REMOVED:
+	- PayPal.com payment system
+
+
+
+v1.0
+- theme launch

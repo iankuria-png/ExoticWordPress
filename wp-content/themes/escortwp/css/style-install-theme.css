@@ -1,0 +1,82 @@
+html {
+	/*margin-top: 0 !important;*/
+}
+body {
+	padding: 10px;
+	background: rgb(32,58,237);
+	background: -moz-linear-gradient(157deg, rgba(32,58,237,1) 0%, rgba(170,19,166,1) 26%, rgba(47,7,78,1) 100%);
+	background: -webkit-linear-gradient(157deg, rgba(32,58,237,1) 0%, rgba(170,19,166,1) 26%, rgba(47,7,78,1) 100%);
+	background: linear-gradient(157deg, rgba(32,58,237,1) 0%, rgba(170,19,166,1) 26%, rgba(47,7,78,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#203aed",endColorstr="#2f074e",GradientType=1); 
+}
+.logo {
+	margin: 30px;
+	text-align: center;
+}
+.logo img {
+	height: 100px;
+	display: inline-block;
+}
+
+.install {
+	background-color: #fff;
+	padding: 25px;
+	width: 800px;
+	margin: 0 auto;
+}
+.install h3 {
+	font-size: 1.6em;
+}
+
+.install .label {
+	font-size: 16px;
+	color: #22313F;
+	font-weight: bold;
+}
+.install .label-checkbox {
+	cursor: pointer;
+}
+
+@media all and (max-width: 560px) {
+	.install form#install_form .col50.l,
+	.install form#install_form .col30.l {
+		width: 100% !important;
+	}
+}
+.install .help {
+	font-size: 12px;
+}
+.install .input, .install .select, .install .textarea {
+	background-color: #FFF0F4;
+	border: 1px solid #8168EA;
+	color: #2C3E50;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	font-family: 'Open Sans',"Helvetica Neue","Trebuchet MS",Arial,sans-serif;
+	padding: 0 10px;
+	font-size: 1em;
+}
+.install .input:focus, .install .select, .install .textarea:focus {
+	background: #fff;
+}
+.install .input, .install .select {
+	line-height: 40px;
+	height: 40px;
+	background-color: #FFF0F4;
+}
+.install .textarea {
+	line-height: 2em;
+	height: 150px;
+}
+.install .install_submit_button {
+	text-align: center;
+}
+.install .submit-button {
+	font-size: 1.2em;
+	padding: 8px 23px;
+	display: inline-block;
+}
+
+.install .icon-ok {
+	color: #30ce73;
+}

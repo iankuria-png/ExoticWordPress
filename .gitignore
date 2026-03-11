@@ -1,0 +1,8 @@
+.DS_Store
+*.zip
+*.log
+error_log
+wp-content/debug.log
+wp-content/uploads/
+wp-content/uploads/backwpup/
+wp-content/uploads/backwpup-restore/

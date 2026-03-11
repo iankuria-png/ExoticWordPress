@@ -1,0 +1,550 @@
+@media all and (max-width: 1700px) {
+	.girl.tour-thumb {
+		width: 16.66%;
+	}
+}
+@media all and (max-width: 1400px) {
+	.girl.tour-thumb {
+		width: 20%;
+	}
+}
+@media all and (max-width: 1300px) {
+	.girlsingle.agency-profile .bigimage {
+		width: 45%;
+	}
+	.girlsingle.agency-profile .agencydetails {
+		width: 55%;
+	}
+}
+@media all and (min-width: 1250px) {
+	.show5profiles {
+		display: block;
+	}
+}
+@media all and (max-width: 1250px) {
+	.all, .sliderall {
+		width: 100%;
+	}
+	.girl.tour-thumb {
+		width: 25%;
+	}
+}
+@media all and (max-width: 1200px) {
+	.all, .sliderall, .subnav, .top-site-menu {
+		width: 100%;
+	}
+	.header-top-bar .header-nav {
+		height: auto;
+	}
+
+	.girlsingle .girlinfo {
+		width: 100%;
+	}
+	.girlsingle .girlinfo.l {
+		padding-right: 0;
+	}
+	.girlsingle .girlinfo.r {
+		padding-left: 0;
+	}
+
+	.girlsingle.agency-profile .agencydetails.agencydetails-noimg {
+		padding: 0;
+		padding-bottom: 20px;
+	}
+	.girlsingle.agency-profile .agencydetails-noimg,
+	.girlsingle.agency-profile .agency-desc {
+		width: 100% !important;
+		clear: both;
+		float: none;
+	}
+	.girlsingle.agency-profile .agencydetails {
+		padding-bottom: 20px;
+	}
+}
+@media all and (max-width: 1150px) {
+	.girl {
+	    width: 24%;
+		padding-left: 1%;
+		padding-right: 1%;
+	}
+	.girl.tour-thumb {
+		width: 33.33%;
+	}
+}
+@media all and (max-width: 1400px) {
+	.girl {
+	    width: 25%;
+	}
+	.show-separator {
+		display: none;
+	}
+	.show4profiles {
+		display: block;
+	}
+}
+@media all and (max-width: 1400px) {
+	.girl {
+	    width: 33.33%;
+	}
+	.show-separator {
+		display: none;
+	}
+	.show3profiles {
+		display: block;
+	}
+}
+
+@media all and (max-width: 1550px) {
+	.girlsingle .thumbs .profile-video-thumb-wrapper,
+	.girlsingle .thumbs .profile-img-thumb-wrapper {
+		width: 20%;
+	}
+}
+
+@media all and (max-width: 1350px) {
+	.girlsingle .thumbs .profile-video-thumb-wrapper,
+	.girlsingle .thumbs .profile-img-thumb-wrapper {
+		width: 25%;
+	}
+}
+
+@media all and (max-width: 1150px) {
+	.girlsingle .thumbs .profile-video-thumb-wrapper,
+	.girlsingle .thumbs .profile-img-thumb-wrapper {
+		width: 33.33%;
+	}
+}
+
+@media all and (max-width: 1000px) {
+	.profile-page-no-media-wrapper {
+		width: 100% !important;
+		float: none;
+	}
+	.girlsingle .profile-page-no-media-wrapper-photos,
+	.girlsingle .profile-page-no-media-wrapper-videos {
+		padding: 0;
+	}
+	.girlsingle .profile-page-no-media-wrapper-videos {
+		margin-top: -2px;
+	}
+}
+
+@media all and (max-width: 960px) {
+	.girlsingle .thumbs .profile-img-thumb img {
+		cursor: default;
+	}
+	.all-body {
+		display: -moz-box;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-moz-box-orient: vertical;
+		-webkit-box-orient: vertical;
+		-webkit-flex-flow: column;
+		-ms-flex-direction: column;
+		flex-flow: column;
+	}
+	.sidebar-right {
+		width: 100%;
+		margin: 0;
+		float: none;
+		-moz-box-ordinal-group: -1;
+		-webkit-box-ordinal-group: -1;
+		-webkit-order: -1;
+		-ms-flex-order: -1;
+		order: -1;
+	}
+	.sidebar-right .dropdownlinks ul li {
+		text-align: center;
+	}
+	.sidebar-right .dropdownlinks ul li a {
+		display: inline-block;
+		float: none;
+		line-height: 2em;
+	}
+	.sidebar-left {
+		width: 100%;
+		margin: 0;
+		float: none;
+		background: #FFF0F4;
+		-moz-box-ordinal-group: -1;
+		-webkit-box-ordinal-group: -1;
+		-webkit-order: -1;
+		-ms-flex-order: -1;
+		order: -1;
+	}
+	.contentwrapper {
+		float: none;
+	}
+
+	.sidebar-left .countries {
+		padding: 0;
+		background: #260B39;
+		color: #fff;
+		text-align: center;
+		-webkit-border-radius: 25px; -moz-border-radius: 25px; border-radius: 25px;
+		margin: 10px;
+		border-bottom: none;
+	}
+	.sidebar-left .countries h4 {
+		color: #fff;
+		line-height: 2.2em;
+		font-weight: 600;
+		font-size: 1.3em;
+		cursor: pointer;
+		padding-bottom: 0;
+	}
+	.sidebar-left .countries h4 .dots {
+		display: none;
+	}
+	.sidebar-left .countries h4 .icon {
+		display: inline;
+		line-height: 2.2em;
+	}
+	.sidebar-left .country-list {
+		font-size: 1.1em;
+		display: none;
+	}
+	.sidebar-left .country-list li {
+		padding: 2px 0;
+	}
+	.sidebar-left .country-list a {
+		color: #fff;
+		font-size: 1.1em;
+		padding: 0 5px;
+		line-height: 2.4rem;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.sidebar-left .country-list a:hover {
+		color: #fff;
+	}
+	.sidebar-left .country-list ul {
+		padding-left: 0;
+	}
+	.sidebar-left .country-list ul.children {
+		-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;
+		background: #FFF0F4;
+		margin: 0 10px;
+	}
+	.sidebar-left .country-list ul.children a {
+		color: #260B39;
+		padding: 0 20px;
+		display: block;
+		margin: 0 10px;
+	}
+	.sidebar-left .country-list ul.children a:hover {
+		background: #AC35C4;
+		color: #fff;
+		-webkit-border-radius: 25px; -moz-border-radius: 25px; border-radius: 25px;
+	}
+	.sidebar-left .country-list .iconlocation {
+		vertical-align: middle;
+		color: #fff;
+		line-height: 2.4rem;
+		font-size: 1.2em;
+		font-weight: 600;
+		display: inline-block;
+		padding: 0 6px;
+	}
+	.sidebar-left .country-list .icon-minus {
+		display: none;
+	}
+	.sidebar-left .widgetbox-wrapper {
+		display: none;
+	}
+
+	.girl {
+	    width: 50%;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	.girl.tour-thumb {
+		width: 25%;
+	}
+	.all-logo .logo {
+		width: 100%;
+		text-align: center;
+	}
+	.all-logo .logo * {
+		text-align: center;
+	}
+	.all-logo .logo h1 a {
+	}
+	.all-logo .logo h1 a img {
+		padding: 20px 0;
+		margin: 0 auto;
+	}
+
+	.header-addspace {
+		width: 100%;
+	}
+	.header-addspace .placeholder-widgettext {
+		text-align: center;
+	}
+
+	.girlsingle .girlinfo, .login #login, header .logo * {
+		max-width: 100%;
+	}
+
+	.header-top-bar {
+		padding: 15px 10px;
+		text-align: center;
+	}
+
+	header .header-nav {
+		display: none;
+	}
+	header .hamburger-menu {
+		display: inline-block;
+	}
+
+	header .subnav,
+	header .subnav .subnav-menu {
+		width: 100%;
+	}
+
+	header.header-mobile2 .subnav-menu-wrapper {
+		float: none;
+		width: auto;
+		display: inline-block;
+		min-height: auto;
+	}
+
+	header .subnav .subnav-menu .headerlangselect {
+		margin: 0 auto;
+		float: none;
+	}
+	header .subnav .subnav-menu .headerlang {
+		padding: 3px 7px;
+		font-size: 1em;
+		text-align: center;
+	}
+	header .subnav .subnav-menu .headerlang option {
+		padding: 3px 7px;
+	}
+
+	.quicksearch .select2 {
+		width: 100%;
+	}
+
+	.top-site-menu,
+	.show-separator,
+	.slider .slider-control-prev,
+	.slider .slider-control-next,
+	.sidebar-right .move-to-mobile-sidebar,
+	.right-mobile-sidebar .sidebar-right .show-under-body {
+		display: none;
+	}
+	.show2profiles {
+		display: block;
+	}
+
+	.girlsingle .thumbs .profile-img-thumb .edit-buttons .image_msg_girl_single {
+		padding: 10px 0;
+		font-size: 1.3em;
+	}
+	.girlsingle .thumbs .profile-img-thumb .edit-buttons .icon {
+		font-size: 2em;
+		height: 50px;
+		width: 50px;
+		line-height: 49px;
+	}
+	.girlsingle .thumbs .profile-video-thumb-wrapper, .girlsingle .thumbs .profile-img-thumb-wrapper {
+		padding-right: 0;
+	}
+	.profile-page .thumbs,
+	.profile-page .profile-img-thumb,
+	.profile-page .profile-img-thumb img {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	.girlsingle .thumbs .profile-img-thumb-wrapper {
+		width: 100%;
+	}
+	.profile-page .profile-img-thumb {
+		padding-bottom: 10px;
+	}
+
+	.girlsingle .thumbs .profile-video-thumb-wrapper {
+		width: 50%;
+	}
+
+	.girlsingle .lockedsection {
+		margin: 0;
+		margin-top: 10px;
+	}
+	.girlsingle .lockedsection .icon {
+		line-height: 2em;
+	}
+
+	.header-addspace img{
+		width: 100%;
+	}
+	.widgetadbox {
+		text-align: center;
+	}
+	.widgetadbox p{
+		text-align: left;
+	}
+	.widgetadbox img {
+		margin: 0 auto;
+	}
+	.footer .widgetbox {
+		padding-right: 0;
+		text-align: center;
+	}
+	.footer .widgetbox p{
+		text-align: left;
+	}
+	.footer .widgetbox img {
+		margin: 0 auto;
+	}
+
+	.right-mobile-sidebar .sidebar-right .move-to-mobile-sidebar {
+		display: block;
+	}
+	.sidebar-right {
+		width: 100%;
+		margin: 0;
+	}
+
+	.contentwrapper{
+		float: left;
+		width: 100%;
+	}
+	.bodybox {
+		margin-left: 0;
+		margin-right: 0;
+		border-top: 1px solid #f8c1cf;
+	}
+	.body {
+		margin: 0;
+	}
+
+	.form-styling .form-label {
+		padding-bottom: 5px;
+	}
+	.form-styling .form-label, 
+	.form-styling .form-input, 
+	.form-styling .form-input .input, 
+	.form-styling .form-input .textarea, 
+	.form-styling .form-input select {
+		width: 100%;
+	}
+	.form-styling .form-input .birthday{
+		width: 33%;
+	}
+
+	.bodybox .see-more-button {
+		display: block;
+	}
+	.bodybox .see-all-top {
+		display: none;
+	}
+
+	.registerpage {
+		padding: 0 10px;
+	}
+	.registerpage .usertype {
+		width: 100%;
+		margin: 0;
+		margin-bottom: 30px;
+	}
+	.registerpage .pagetitle {
+		margin-bottom: 20px;
+	}
+	.registerpage .usertype-content {
+		text-align: center;
+	}
+	.registerpage .usertype .usertype-bottom .registerbutton {
+		float: none;
+	}
+
+	.slider-pagination {
+		display: block;
+	}
+
+	.addedtours .tour-info-mobile {
+		display: none;
+	}
+	.addedtours .tour-info-mobile-clear {
+		display: block;
+	}
+	.addedtours .tourhead {
+		display: none;
+	}
+
+	.tosdisclaimer {
+		width: 90%;
+	}
+
+	.sidebar-right .sidebar-expire-notice-has-mobile {
+		display: none;
+	}
+	.sidebar-right .sidebar-expire-notice-mobile {
+		display: block;
+	}
+}
+@media all and (max-width: 768px) {
+	.woocommerce table.shop_table_responsive tr, .woocommerce-page table.shop_table_responsive tr {
+		float: left;
+		width: 100%;
+		overflow: hidden;
+	}
+	.woocommerce table.shop_table_responsive tr td, .woocommerce-page table.shop_table_responsive tr td {
+		min-height: 2.5em;
+	}
+	.woocommerce table.shop_table_responsive tr:nth-child(2n) td, .woocommerce-page table.shop_table_responsive tr:nth-child(2n) td {
+		background-color: #FFCEDC;
+	}
+}
+@media all and (max-width: 600px) {
+	.girl.tour-thumb {
+		width: 33.33%;
+	}
+
+/*	.profile-header-name, .profile-header-name-info, .phone-box  {
+		float: none;
+		display: inline-block;
+		width: 100%;
+	}
+	.profile-header-name-info {
+		margin-top: 15px;
+		text-align: center;
+	}
+	.girlsingle .profile-header .profile-header-name-info .section-box {
+		float: none;
+		display: inline-block;
+	}*/
+}
+@media all and (max-width: 520px) {
+	.girlsingle .lockedsection .icon-lock {
+		display: none;
+	}
+}
+@media all and (max-width: 500px) {
+	.girlsingle.agency-profile .bigimage,
+	.girlsingle.agency-profile .agencydetails {
+		width: 100%;
+	}
+	.girlsingle.agency-profile .bigimage {
+		max-width: 100%;
+		padding: 0;
+		padding-bottom: 20px;
+		text-align: center;
+	}
+	.girlsingle.agency-profile .bigimage img {
+		max-width: 300px;
+		max-height: 200px;
+		width: auto;
+		float: none;
+	}
+}
+@media all and (max-width: 360px) {
+	.bodybox {
+		padding: 10px;
+	}
+}

@@ -1,0 +1,5364 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: EscortWP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-06 16:55+0000\n"
+"PO-Revision-Date: 2022-05-06 16:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.1; wp-5.9.3\n"
+"X-Domain: escortwp"
+
+#: nav-blog.php:38
+msgid "% Comments"
+msgstr ""
+
+#: edit-email-options.php:174
+#, php-format
+msgid "%1$s / %2$s makes a payment"
+msgstr ""
+
+#: register-independent-personal-info-process.php:684
+#, php-format
+msgid "%1$s added by %2$s"
+msgstr ""
+
+#: single-agency.php:545
+#, php-format
+msgid "%1$s added by this %2$s"
+msgstr ""
+
+#: admin-generate-demo-data.php:69
+#, php-format
+msgid "%1$s profiles have been created for each %2$s profile"
+msgstr ""
+
+#: edit-content-settings.php:486
+#, php-format
+msgid "%s and %s contact form"
+msgstr ""
+
+#: sidebar-left.php:11
+#, php-format
+msgid "%s country list"
+msgstr ""
+
+#: blacklisted-escorts-form.php:39
+#, php-format
+msgid "%s Email"
+msgstr ""
+
+#: single-profile.php:422
+#, php-format
+msgid "%s has been added, but it's not visible in our website yet."
+msgstr ""
+
+#: edit-email-options.php:150 edit-email-options.php:158
+#, php-format
+msgid "%s has new review"
+msgstr ""
+
+#: register-agency-manage-escorts.php:48
+#, php-format
+msgid "%s is active(anyone can see it)"
+msgstr ""
+
+#: register-agency-manage-escorts.php:49
+#, php-format
+msgid "%s is private(only you can see it)"
+msgstr ""
+
+#: sidebar-right.php:269
+#, php-format
+msgid "%s Logo"
+msgstr ""
+
+#: blacklisted-escorts-form.php:25 nav-search.php:355
+#: register-agency-personal-information-form.php:116
+#, php-format
+msgid "%s Name"
+msgstr ""
+
+#: functions.php:1135 functions.php:1148
+#, php-format
+msgid "%s name"
+msgstr ""
+
+#: single-bprofile.php:189
+#, php-format
+msgid "%s note"
+msgstr ""
+
+#: header.php:92
+#, php-format
+msgid "%s on Tour"
+msgstr ""
+
+#: edit-content-settings.php:429
+#, php-format
+msgid "%s on tour"
+msgstr ""
+
+#: edit-content-settings.php:520 edit-content-settings.php:524
+#, php-format
+msgid "%s profiles"
+msgstr ""
+
+#: admin-generate-demo-data.php:67
+#, php-format
+msgid "%s profiles have been created."
+msgstr ""
+
+#: admin-generate-demo-data.php:93 admin-generate-demo-data.php:107
+#, php-format
+msgid "%s profiles have been deleted."
+msgstr ""
+
+#: single-profile.php:857
+#, php-format
+msgid "%s rating"
+msgstr ""
+
+#: edit-content-settings.php:401 edit-content-settings.php:477
+#: edit-email-options.php:126 edit-email-options.php:134
+#, php-format
+msgid "%s registration"
+msgstr ""
+
+#: header.php:95 nav-reviews-agencies.php:11 nav-reviews.php:11
+#, php-format
+msgid "%s Reviews"
+msgstr ""
+
+#: nav-reviews-agencies.php:12 nav-reviews.php:13 single-agency.php:587
+#, php-format
+msgid "%s reviews"
+msgstr ""
+
+#: sidebar-right.php:158 sidebar-right.php:201
+#, php-format
+msgid "%s will be shown at one time."
+msgstr ""
+
+#: blacklisted-escorts.php:167 register-agency-manage-escorts.php:45
+#, php-format
+msgid "%s you added"
+msgstr ""
+
+#: single-profile.php:205
+msgid "(to activate the review simply click te button \"Publish\")"
+msgstr ""
+
+#: nav-blog.php:38
+msgid "1 Comment"
+msgstr ""
+
+#: functions-payments.php:210
+msgid "1 day"
+msgstr ""
+
+#: single-profile.php:1111
+msgid "1 hour"
+msgstr ""
+
+#: functions-payments.php:214
+msgid "1 month"
+msgstr ""
+
+#: functions-payments.php:211
+msgid "1 week"
+msgstr ""
+
+#: functions-payments.php:225
+msgid "1 year"
+msgstr ""
+
+#: functions-payments.php:223
+msgid "10 months"
+msgstr ""
+
+#: functions-payments.php:224
+msgid "11 months"
+msgstr ""
+
+#: single-profile.php:1167
+msgid "12 hours"
+msgstr ""
+
+#: single-profile.php:1125
+msgid "2 hours"
+msgstr ""
+
+#: functions-payments.php:215
+msgid "2 months"
+msgstr ""
+
+#: functions-payments.php:212
+msgid "2 weeks"
+msgstr ""
+
+#: functions-payments.php:226
+msgid "2 years"
+msgstr ""
+
+#: single-profile.php:1181
+msgid "24 hours"
+msgstr ""
+
+#: single-profile.php:1139
+msgid "3 hours"
+msgstr ""
+
+#: functions-payments.php:216
+msgid "3 months"
+msgstr ""
+
+#: functions-payments.php:213
+msgid "3 weeks"
+msgstr ""
+
+#: single-profile.php:1096
+msgid "30 minutes"
+msgstr ""
+
+#: functions-payments.php:217
+msgid "4 months"
+msgstr ""
+
+#: functions-payments.php:218
+msgid "5 months"
+msgstr ""
+
+#: single-profile.php:1153
+msgid "6 hours"
+msgstr ""
+
+#: functions-payments.php:219
+msgid "6 months"
+msgstr ""
+
+#: functions-settings.php:121
+msgid "69 (69 sex position)"
+msgstr ""
+
+#: functions-payments.php:220
+msgid "7 months"
+msgstr ""
+
+#: functions-payments.php:221
+msgid "8 months"
+msgstr ""
+
+#: functions-payments.php:222
+msgid "9 months"
+msgstr ""
+
+#: functions.php:801 register-independent-personal-info-process.php:682
+#, php-format
+msgid "A new %s has been added on"
+msgstr ""
+
+#: functions.php:770
+#, php-format
+msgid "A new %s has registered on"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:138
+#, php-format
+msgid "A new blacklisted %s has been added on."
+msgstr ""
+
+#: manage-classified-ads-info-process.php:71
+msgid "A new classified ad has been added on"
+msgstr ""
+
+#: functions.php:823
+msgid "A new member has registered on"
+msgstr ""
+
+#: single-agency.php:204 single-profile.php:198
+msgid "A new review is waiting for approval on"
+msgstr ""
+
+#: functions-settings.php:119
+msgid "A-Level (Anal sex)"
+msgstr ""
+
+#: functions-settings.php:102
+msgid "Aborigine"
+msgstr ""
+
+#: single-profile.php:820
+msgid "About me"
+msgstr ""
+
+#: blacklisted-escorts-form.php:237
+#: register-agency-personal-information-form.php:334
+#: register-independent-personal-information-form.php:620 single-agency.php:524
+#, php-format
+msgid "About the %s"
+msgstr ""
+
+#: functions-settings.php:60
+#: register-independent-personal-information-form.php:619
+msgid "About you"
+msgstr ""
+
+#: functions.php:759 functions.php:771 functions.php:791 functions.php:802
+#: functions.php:815 functions.php:824
+#: register-agency-personal-info-process.php:265
+#: register-independent-personal-info-process.php:666
+#: register-independent-personal-info-process.php:683
+msgid "Account information"
+msgstr ""
+
+#: sidebar-right.php:31
+msgid "Activate ad"
+msgstr ""
+
+#: sidebar-right.php:65
+msgid "Activate for a period of"
+msgstr ""
+
+#: sidebar-right.php:48 sidebar-right.php:72 sidebar-right.php:548
+msgid "Activate profile"
+msgstr ""
+
+#: sidebar-right.php:722
+msgid "Activate Tour"
+msgstr ""
+
+#: sidebar-right.php:731 single-profile.php:426
+msgid "Activate tour"
+msgstr ""
+
+#: ajax/set-escort-active-inactive.php:22
+msgid "ACTIVE"
+msgstr ""
+
+#: functions.php:2657
+msgid "ad"
+msgstr ""
+
+#: sidebar-right.php:469 sidebar-right.php:499 sidebar-right.php:529
+#: sidebar-right.php:629
+msgid "Add"
+msgstr ""
+
+#: blacklisted-escorts-form.php:246
+#: register-independent-personal-information-form.php:838 sidebar-right.php:601
+#: sidebar-right.php:695 sidebar-right.php:696
+#, php-format
+msgid "Add %s"
+msgstr ""
+
+#: register-main-page.php:51
+#, php-format
+msgid "Add %s under a single account"
+msgstr ""
+
+#: manage-classified-ads.php:29
+msgid "Add a classified ad"
+msgstr ""
+
+#: blacklisted-escorts.php:115 register-agency-manage-escorts.php:32
+#, php-format
+msgid "Add a new %s"
+msgstr ""
+
+#: sidebar-right.php:439
+msgid "Add a note"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:262
+#, php-format
+msgid "Add a note to this %s"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:267
+msgid ""
+"Add a public note about this profile. The text will be shown for all "
+"visitors, under the profile name."
+msgstr ""
+
+#: edit-content-settings.php:464
+msgid "Add a reCAPTCHA to these forms to prevent spam"
+msgstr ""
+
+#: blacklist-clients-form.php:28
+msgid "Add a short note"
+msgstr ""
+
+#: register-main-page.php:18
+msgid "Add a single profile"
+msgstr ""
+
+#: register-main-page.php:30 register-main-page.php:66
+msgid "Add blacklisted clients"
+msgstr ""
+
+#: blacklist-clients-form.php:35
+msgid "Add Client to Blacklist"
+msgstr ""
+
+#: register-main-page.php:20
+msgid "Add contact information"
+msgstr ""
+
+#: sidebar-right.php:750
+msgid "Add Countries"
+msgstr ""
+
+#: functions.php:191
+msgid "Add countries"
+msgstr ""
+
+#: sidebar-right.php:489
+msgid "Add featured status for"
+msgstr ""
+
+#: manage-classified-ads-option-buttons.php:72
+msgid "Add Images"
+msgstr ""
+
+#: sidebar-right.php:600
+msgid "Add logo"
+msgstr ""
+
+#: sidebar-right.php:459
+msgid "Add premium status for"
+msgstr ""
+
+#: register-main-page.php:19 register-main-page.php:52
+msgid "Add profile pictures"
+msgstr ""
+
+#: single-agency.php:509 single-agency.php:588 single-agency.php:637
+#: single-profile.php:884 single-profile.php:1468
+msgid "Add Review"
+msgstr ""
+
+#: single-profile.php:1398
+msgid "Add review"
+msgstr ""
+
+#: edit-payment-settings.php:189
+msgid "Add review section"
+msgstr ""
+
+#: sidebar-right.php:232
+#, php-format
+msgid "add reviews to %s profiles"
+msgstr ""
+
+#: all-profiles.php:51 nav-agencies.php:17 nav-city-tours.php:27
+#: taxonomy.php:72
+msgid "Add some text here"
+msgstr ""
+
+#: single-profile.php:887
+msgid "Add to Favorites"
+msgstr ""
+
+#: register-independent-add-tour-form.php:292
+msgid "Add Tour"
+msgstr ""
+
+#: sidebar-right.php:421
+msgid "Add Tours"
+msgstr ""
+
+#: register-main-page.php:28
+msgid "Add tours"
+msgstr ""
+
+#: register-main-page.php:64
+msgid "Add tours to profiles"
+msgstr ""
+
+#: sidebar-right.php:715
+msgid "Add VIP user"
+msgstr ""
+
+#: single-ad.php:208 single-agency.php:664 single-bprofile.php:153
+#: single-profile.php:1507 single-review.php:77
+msgid "Added by"
+msgstr ""
+
+#: nav-reviews.php:43
+msgid "added by"
+msgstr ""
+
+#: register-independent-add-tour-form.php:9
+msgid "Adding a tour will cost"
+msgstr ""
+
+#: sidebar-right.php:688
+msgid "Admin Links"
+msgstr ""
+
+#: sidebar-right.php:1239
+msgid "Advanced search"
+msgstr ""
+
+#: edit-payment-settings.php:153
+msgid ""
+"After this you will be able to set up the payment as recurring by editing "
+"the payment in the WordPress section."
+msgstr ""
+
+#: sidebar-right.php:158 sidebar-right.php:201
+msgid ""
+"After you buy a featured position you will be placed in the header slider "
+"for maximum visibility."
+msgstr ""
+
+#: footer-tos-18years-agreement-overlay.php:4
+msgid "AGE VERIFICATION"
+msgstr ""
+
+#: functions-payments.php:574 functions-payments.php:693
+msgid "agency"
+msgstr ""
+
+#. Name of the template
+msgid "Agency - Manage Escorts"
+msgstr ""
+
+#. Name of the template
+msgid "Agency Edit Personal Information"
+msgstr ""
+
+#: functions.php:372
+msgctxt "Agency profile slug"
+msgid "agency"
+msgstr ""
+
+#: edit-user-types.php:165
+msgid "Agency profile url"
+msgstr ""
+
+#: nav-classified-ads-looking.php:14 nav-classified-ads-offering.php:14
+#: nav-classified-ads.php:13
+msgid "All"
+msgstr ""
+
+#: single-agency.php:367
+#, php-format
+msgid "All %1$s profiles added by this %2$s will also be deleted"
+msgstr ""
+
+#: all-profiles.php:13
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: single-agency.php:365
+#, php-format
+msgid "All %s profiles added under this account will also be deleted."
+msgstr ""
+
+#: all-profiles.php:16
+#, php-format
+msgid "All couple %s"
+msgstr ""
+
+#: all-profiles.php:14
+#, php-format
+msgid "All female %s"
+msgstr ""
+
+#: edit-user-types.php:24
+msgid ""
+"All fields are mandatory. Please make sure you have filled in all the fields."
+msgstr ""
+
+#: all-profiles.php:17
+#, php-format
+msgid "All gay %s"
+msgstr ""
+
+#: all-profiles.php:19
+#, php-format
+msgid "All independent %s"
+msgstr ""
+
+#: nav-city-tours.php:43
+msgid "All locations"
+msgstr ""
+
+#: all-profiles.php:15
+#, php-format
+msgid "All male %s"
+msgstr ""
+
+#: index.php:70 index.php:85 index.php:105
+#, php-format
+msgid "All newly added %s"
+msgstr ""
+
+#: all-profiles.php:22
+#, php-format
+msgid "All newly created %s"
+msgstr ""
+
+#: all-profiles.php:23 index.php:62
+#, php-format
+msgid "All online %s"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:391
+#: register-independent-verified-status.php:70
+msgid "All photos are private and will not be published!"
+msgstr ""
+
+#: edit-payment-settings.php:179
+msgid "All photos except the main one"
+msgstr ""
+
+#: all-profiles.php:20 index.php:20 index.php:28
+#, php-format
+msgid "All premium %s"
+msgstr ""
+
+#. Name of the template
+msgid "All profiles"
+msgstr ""
+
+#: edit-content-settings.php:253
+msgid "All site pages"
+msgstr ""
+
+#: all-profiles.php:18
+#, php-format
+msgid "All transsexual %s"
+msgstr ""
+
+#: all-profiles.php:21
+#, php-format
+msgid "All verified %s"
+msgstr ""
+
+#: edit-content-settings.php:439
+#, php-format
+msgid "Allow unregistered visitors to send messages to %1$s and %2$s?"
+msgstr ""
+
+#: edit-site-settings.php:325
+msgid "Allow video upload?"
+msgstr ""
+
+#: functions.php:1148
+#, php-format
+msgid ""
+"An %1$s you added has expired and has been set to private. This profile will "
+"not be shown on our website until you pay the registration fee for the %2$s."
+msgstr ""
+
+#: functions.php:1135
+#, php-format
+msgid "An %s you added has expired and has been deleted from our website."
+msgstr ""
+
+#: functions-settings.php:120
+msgid "Anal Rimming (Licking anus)"
+msgstr ""
+
+#: functions.php:2121 nav-search.php:693
+msgid "and"
+msgstr ""
+
+#: single-profile.php:659
+#, php-format
+msgid "and %s more videos"
+msgstr ""
+
+#: register-independent-personal-information-form.php:458
+msgid "April"
+msgstr ""
+
+#: functions.php:2538 functions.php:2768
+msgid "Are you a robot?"
+msgstr ""
+
+#: register-independent-personal-info-process.php:294
+#: register-independent-personal-info-process.php:296
+msgid "Are you a smoker or a non smoker?"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:287 single-agency.php:358
+#, php-format
+msgid "Are you sure you want to delete this %s account?"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:89
+#, php-format
+msgid "Are you sure you want to delete this blacklisted %s?"
+msgstr ""
+
+#: manage-classified-ads-option-buttons.php:101
+msgid "Are you sure you want to delete this classified ad?"
+msgstr ""
+
+#: single-review.php:51
+msgid "Are you sure you want to delete this review?"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:285 single-agency.php:356
+#, php-format
+msgid "Are you sure you want to delete your %s account?"
+msgstr ""
+
+#: sidebar-right.php:392
+msgid "Are you sure you want to delete your account?"
+msgstr ""
+
+#: functions-payments.php:622
+msgid "Are you sure?"
+msgstr ""
+
+#: functions-settings.php:102
+msgid "Asian"
+msgstr ""
+
+#: manage-classified-ads-form.php:40
+msgid "At least one of the fields below should be filled in"
+msgstr ""
+
+#: register-independent-personal-information-form.php:718
+msgid "at least one rate"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Auburn"
+msgstr ""
+
+#: register-independent-personal-information-form.php:462
+msgid "August"
+msgstr ""
+
+#: functions-settings.php:158
+msgid "Australian Dollar"
+msgstr ""
+
+#: functions-settings.php:58 nav-search.php:649
+#: register-independent-personal-information-form.php:592
+#: single-profile.php:896
+msgid "Availability"
+msgstr ""
+
+#: register-independent-personal-information-form.php:165
+msgid "Available on"
+msgstr ""
+
+#: functions-settings.php:107 single-agency.php:620 single-profile.php:1450
+msgid "Average"
+msgstr ""
+
+#: nav-search.php:344
+msgid "Back to results"
+msgstr ""
+
+#: single-agency.php:622 single-profile.php:1452
+msgid "Bad"
+msgstr ""
+
+#: functions-settings.php:104
+msgid "Bald"
+msgstr ""
+
+#: send-email-form.php:26
+msgid "Be sure to include your name and phone number"
+msgstr ""
+
+#: functions.php:863 register-agency-personal-info-process.php:243
+#: register-independent-personal-info-process.php:647
+#: register-member-personal-info-process.php:74
+#: ajax/resend-validation-link.php:12
+msgid ""
+"Before you can use the site you will need to validate your email address."
+msgstr ""
+
+#: single-agency.php:621 single-profile.php:1451
+msgid "Bellow average"
+msgstr ""
+
+#: nav-search.php:685
+msgid "Between"
+msgstr ""
+
+#: register-agency-personal-information-form.php:69
+#: register-independent-personal-information-form.php:99
+#: register-member-personal-information-form.php:75
+msgid "Between 4 and 30 characters"
+msgstr ""
+
+#: register-member-personal-information-form.php:83
+msgid "Between 6 and 30 characters"
+msgstr ""
+
+#: functions-settings.php:102 functions-settings.php:103
+msgid "Black"
+msgstr ""
+
+#: blacklisted-escorts.php:111 edit-content-settings.php:409
+#: nav-blacklisted-escorts.php:98 sidebar-right.php:286 sidebar-right.php:742
+#, php-format
+msgid "Blacklisted %s"
+msgstr ""
+
+#. Name of the template
+#: blacklist-clients.php:121 sidebar-right.php:283 sidebar-right.php:329
+#: sidebar-right.php:739
+msgid "Blacklisted Clients"
+msgstr ""
+
+#: edit-content-settings.php:413
+msgid "Blacklisted clients"
+msgstr ""
+
+#. Name of the template
+msgid "Blacklisted Escorts"
+msgstr ""
+
+#. Name of the template
+msgid "Blog"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Blonde"
+msgstr ""
+
+#: edit-content-settings.php:617
+msgid "bottom<br />center"
+msgstr ""
+
+#: edit-content-settings.php:616
+msgid "bottom<br />left"
+msgstr ""
+
+#: edit-content-settings.php:618
+msgid "bottom<br />right"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Brown"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Brunette"
+msgstr ""
+
+#: functions-settings.php:56 nav-search.php:620
+#: register-independent-personal-information-form.php:561
+#: single-profile.php:904
+msgid "Build"
+msgstr ""
+
+#: functions-settings.php:159
+msgid "Bulgarian Lev"
+msgstr ""
+
+#: functions-settings.php:53 nav-search.php:588
+#: register-independent-personal-information-form.php:525
+#: single-profile.php:901
+msgid "Bust size"
+msgstr ""
+
+#: sidebar-right.php:155 sidebar-right.php:198
+msgid "Buy Featured Position"
+msgstr ""
+
+#: sidebar-right.php:136 sidebar-right.php:179
+msgid "Buy Premium Position"
+msgstr ""
+
+#: nav-reviews-agencies.php:39
+msgid "by"
+msgstr ""
+
+#: single-profile.php:579
+msgid "call me"
+msgstr ""
+
+#: register-main-page.php:53
+msgid "Can add contact information"
+msgstr ""
+
+#: register-main-page.php:99
+#, php-format
+msgid "Can add reviews to %s and rate them"
+msgstr ""
+
+#: register-main-page.php:92
+#, php-format
+msgid "Can contact %s"
+msgstr ""
+
+#: functions-settings.php:160
+msgid "Canadian Dollar"
+msgstr ""
+
+#: functions-payments.php:624
+msgid "Cancel now"
+msgstr ""
+
+#: comments.php:62
+msgid "Cancel reply"
+msgstr ""
+
+#: functions-payments.php:617
+msgid "Cancel subscription"
+msgstr ""
+
+#: functions-settings.php:102
+msgid "Caucasian"
+msgstr ""
+
+#: edit-content-settings.php:613
+msgid "center"
+msgstr ""
+
+#: edit-content-settings.php:612
+msgid "center<br />left"
+msgstr ""
+
+#: edit-content-settings.php:614
+msgid "center<br />right"
+msgstr ""
+
+#: functions.php:887
+msgid "Change"
+msgstr ""
+
+#. Name of the template
+msgid "Change  Account Password"
+msgstr ""
+
+#: register-page-change-password.php:36
+msgid "Change Account Password"
+msgstr ""
+
+#: sidebar-right.php:290 sidebar-right.php:324 sidebar-right.php:387
+msgid "Change Password"
+msgstr ""
+
+#: functions.php:873
+msgid "Change your email address"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Chestnut"
+msgstr ""
+
+#: edit-email-options.php:23
+msgid "Choose a site email address for the site"
+msgstr ""
+
+#: edit-email-options.php:13
+msgid "Choose a site name"
+msgstr ""
+
+#: edit-email-options.php:18
+msgid "Choose an email for notifications"
+msgstr ""
+
+#: register-independent-personal-info-process.php:253
+#: register-independent-personal-info-process.php:256
+msgid "Choose your bust size"
+msgstr ""
+
+#: register-independent-personal-info-process.php:239
+#: register-independent-personal-info-process.php:241
+msgid "Choose your hair color"
+msgstr ""
+
+#: register-independent-personal-info-process.php:246
+#: register-independent-personal-info-process.php:248
+msgid "Choose your hair length"
+msgstr ""
+
+#: register-independent-personal-info-process.php:262
+#: register-independent-personal-info-process.php:264
+msgid "Choose your height"
+msgstr ""
+
+#: register-independent-personal-info-process.php:287
+#: register-independent-personal-info-process.php:289
+msgid "Choose your looks"
+msgstr ""
+
+#: register-independent-personal-info-process.php:232
+#: register-independent-personal-info-process.php:234
+msgid "Choose your skin color"
+msgstr ""
+
+#: register-independent-personal-info-process.php:273
+#: register-independent-personal-info-process.php:275
+msgid "Choose your weight"
+msgstr ""
+
+#: register-independent-personal-info-process.php:280
+#: register-independent-personal-info-process.php:282
+msgid "Chose your built type"
+msgstr ""
+
+#: functions-settings.php:114
+msgid "CIM (Come in mouth)"
+msgstr ""
+
+#: blacklisted-escorts-form.php:177 functions-settings.php:47
+#: nav-blacklisted-escorts.php:132 nav-search.php:460
+#: register-agency-personal-information-form.php:289
+#: register-independent-add-tour-form.php:221
+#: register-independent-personal-information-form.php:381 single-agency.php:487
+#: single-bprofile.php:159 single-profile.php:938
+msgid "City"
+msgstr ""
+
+#. Name of the template
+msgid "City Tours"
+msgstr ""
+
+#: single-ad.php:184
+msgid "Classified Ad Information"
+msgstr ""
+
+#: manage-classified-ads-form.php:14 single-ad.php:211
+msgid "Classified ad type"
+msgstr ""
+
+#: header.php:98 sidebar-right.php:280 sidebar-right.php:322
+#: sidebar-right.php:382 sidebar-right.php:736
+msgid "Classified Ads"
+msgstr ""
+
+#: edit-content-settings.php:421 nav-classified-ads-looking.php:13
+#: nav-classified-ads-offering.php:13 nav-classified-ads.php:12
+msgid "Classified ads"
+msgstr ""
+
+#. Name of the template
+msgid "Classified Ads - All"
+msgstr ""
+
+#. Name of the template
+msgid "Classified ads - Looking"
+msgstr ""
+
+#. Name of the template
+msgid "Classified Ads - Offering"
+msgstr ""
+
+#: edit-content-settings.php:528
+msgid "Classified ads page"
+msgstr ""
+
+#: edit-payment-settings.php:94
+msgid "Click here to install WooCommerce automatically"
+msgstr ""
+
+#: edit-content-settings.php:496
+msgid "Click here to register for reCAPTCHA for free"
+msgstr ""
+
+#: register-agency-manage-escorts.php:50
+msgid "Click icon to change status"
+msgstr ""
+
+#: register-agency-upload-logo.php:60 single-agency.php:311
+#, php-format
+msgid "Click the button and select your %s logo."
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:75
+msgid "Click the upload button and select all the images you want to upload."
+msgstr ""
+
+#: manage-classified-ads-option-buttons.php:85
+msgid ""
+"Click the upload button and select all the images you want to upload.<br />"
+"You can upload a maximum of 20 images for this classified ad.<br />Refresh "
+"the page to see newly uploaded images."
+msgstr ""
+
+#: nav-contact.php:55
+msgid "Click to add some text here"
+msgstr ""
+
+#: ajax/delete-client.php:17
+msgid "Client deleted"
+msgstr ""
+
+#: blacklist-clients-form.php:14
+msgid "Client email"
+msgstr ""
+
+#: blacklist-clients-form.php:21
+msgid "Client phone number"
+msgstr ""
+
+#: single-review.php:82
+msgid "Client review"
+msgstr ""
+
+#: blacklist-clients.php:221
+msgid "Clients you blacklisted"
+msgstr ""
+
+#: functions.php:1498
+msgid "Close"
+msgstr ""
+
+#: functions-settings.php:116
+msgid "COB (Come on body)"
+msgstr ""
+
+#: functions-settings.php:115
+msgid "COF (Come on face)"
+msgstr ""
+
+#: single-agency.php:626 single-profile.php:1456
+msgid "Comment"
+msgstr ""
+
+#: register-agency-personal-information-form.php:370
+#: register-independent-personal-information-form.php:838
+msgid "Complete Registration"
+msgstr ""
+
+#: functions.php:2043
+msgid "Configure your theme"
+msgstr ""
+
+#: sidebar-right.php:229
+#, php-format
+msgid "contact all %s profiles"
+msgstr ""
+
+#: edit-email-options.php:197
+msgid "Contact form message"
+msgstr ""
+
+#: single-profile.php:928
+msgid "Contact info"
+msgstr ""
+
+#: edit-payment-settings.php:184
+msgid "Contact information"
+msgstr ""
+
+#: nav-contact.php:36 single-ad.php:91
+msgid "Contact message from"
+msgstr ""
+
+#. Name of the template
+msgid "Contact page"
+msgstr ""
+
+#: single-agency.php:511
+#, php-format
+msgid "Contact this %s"
+msgstr ""
+
+#: header.php:103 header.php:120
+msgid "Contact Us"
+msgstr ""
+
+#: nav-contact.php:51
+msgid "Contact us"
+msgstr ""
+
+#. Name of the template
+#: edit-content-settings.php:217 sidebar-right.php:745
+msgid "Content Settings"
+msgstr ""
+
+#: functions.php:156
+msgid "Content settings"
+msgstr ""
+
+#: nav-blog.php:24 nav-blog.php:26
+msgid "Continue reading"
+msgstr ""
+
+#: functions-settings.php:110
+msgid "Conversational"
+msgstr ""
+
+#: functions.php:327
+msgid "Countries"
+msgstr ""
+
+#: blacklisted-escorts-form.php:111 functions-settings.php:45
+#: nav-blacklisted-escorts.php:131 nav-search.php:364
+#: register-agency-personal-information-form.php:206
+#: register-independent-add-tour-form.php:137
+#: register-independent-personal-information-form.php:297
+#: sidebar-right.php:1163 single-agency.php:496 single-bprofile.php:163
+#: single-bprofile.php:168 single-profile.php:942 single-profile.php:948
+msgid "Country"
+msgstr ""
+
+#: edit-user-types.php:174
+msgid "Country &amp; city url"
+msgstr ""
+
+#: edit-content-settings.php:292
+msgid "Country/City pages only show featured profiles from that location"
+msgstr ""
+
+#: all-profiles.php:33 functions-settings.php:98 header.php:71
+msgid "Couple"
+msgstr ""
+
+#: functions-settings.php:125
+msgid "Couples"
+msgstr ""
+
+#: register-main-page.php:11
+msgid "Create an Account"
+msgstr ""
+
+#: register-independent-personal-information-form.php:721
+msgid "Currency"
+msgstr ""
+
+#: register-agency-upload-logo.php:77
+#, php-format
+msgid "Current %s logo"
+msgstr ""
+
+#: single-profile.php:826
+msgid "Currently on tour in:"
+msgstr ""
+
+#: functions-settings.php:106
+msgid "Curvy"
+msgstr ""
+
+#: functions-settings.php:162
+msgid "Czech Koruna"
+msgstr ""
+
+#: functions-settings.php:163
+msgid "Danish Krone"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Dark-blonde"
+msgstr ""
+
+#: edit-site-settings.php:420
+msgid "Data protection page"
+msgstr ""
+
+#: register-member-see-reviews.php:37
+msgid "Date"
+msgstr ""
+
+#: manage-classified-ads.php:45 nav-blacklisted-escorts.php:133
+#: nav-classified-ads-looking.php:34 nav-classified-ads-offering.php:34
+#: nav-classified-ads.php:32
+msgid "Date added"
+msgstr ""
+
+#: functions-settings.php:49
+#: register-independent-personal-information-form.php:440
+msgid "Date of birth"
+msgstr ""
+
+#: register-independent-personal-information-form.php:445
+msgid "Day"
+msgstr ""
+
+#: edit-site-settings.php:281
+msgid "days"
+msgstr ""
+
+#: register-independent-personal-information-form.php:466
+msgid "December"
+msgstr ""
+
+#: ajax/mark-as-main-image.php:21
+msgid "Default image has been set"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:64
+#: blacklisted-escorts-option-buttons.php:92
+#: manage-classified-ads-option-buttons.php:74 sidebar-right.php:557
+#: sidebar-right.php:643 single-review.php:46 single-review.php:55
+msgid "Delete"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:292 single-agency.php:379
+#, php-format
+msgid "Delete %s"
+msgstr ""
+
+#: admin-generate-demo-data.php:315
+msgid "Delete all generated data"
+msgstr ""
+
+#: sidebar-right.php:502
+msgid "Delete Featured"
+msgstr ""
+
+#: single-ad.php:127 single-bprofile.php:77 single-profile.php:648
+msgid "Delete image"
+msgstr ""
+
+#: edit-content-settings.php:591 edit-site-settings.php:193
+msgid "Delete Logo"
+msgstr ""
+
+#: sidebar-right.php:294 sidebar-right.php:351 sidebar-right.php:401
+msgid "Delete my account"
+msgstr ""
+
+#: sidebar-right.php:472
+msgid "Delete premium"
+msgstr ""
+
+#: edit-payment-settings.php:166
+msgid "Delete profile"
+msgstr ""
+
+#: manage-classified-ads-option-buttons.php:105
+msgid "Delete this ad"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:290 single-agency.php:362
+msgid "Deleted accounts can't be recovered."
+msgstr ""
+
+#: functions.php:2855 manage-classified-ads-form.php:32 single-ad.php:229
+msgid "Description"
+msgstr ""
+
+#: functions-settings.php:118
+msgid "DFK (Deep french kissing)"
+msgstr ""
+
+#: edit-content-settings.php:435
+msgid "Disabling member registration will also disable the reviews"
+msgstr ""
+
+#: functions.php:2092
+msgid "Do you want to generate some test profiles?"
+msgstr ""
+
+#: sidebar-right.php:752
+msgid "Documentation / Help"
+msgstr ""
+
+#: functions-settings.php:131
+msgid "Domination"
+msgstr ""
+
+#: functions.php:2098
+msgid "Don't show me this again"
+msgstr ""
+
+#: single-profile.php:619
+msgid "Drag your images here to upload them"
+msgstr ""
+
+#: single-profile.php:632
+msgid "Drag your videos here to upload them"
+msgstr ""
+
+#: edit-content-settings.php:313 edit-content-settings.php:327
+#: edit-content-settings.php:341
+#, php-format
+msgid "each column has 5 %s"
+msgstr ""
+
+#: nav-blog.php:26 page.php:7 single-post.php:9 single.php:27
+msgid "Edit"
+msgstr ""
+
+#: sidebar-right.php:414 sidebar-right.php:597
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: register-agency-edit-personal-information.php:43
+#, php-format
+msgid "Edit %s Profile"
+msgstr ""
+
+#. Name of the template
+msgid "Edit email options"
+msgstr ""
+
+#: single-ad.php:241 single-agency.php:528 single-bprofile.php:196
+#: single-profile.php:1523
+msgid "Edit in WordPress"
+msgstr ""
+
+#: register-independent-edit-personal-information.php:114 sidebar-right.php:268
+#: sidebar-right.php:309 sidebar-right.php:375
+msgid "Edit my Profile"
+msgstr ""
+
+#: edit-payment-settings.php:203
+msgid "Edit payment plan in WordPress"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:63 sidebar-right.php:419
+#: sidebar-right.php:599
+msgid "Edit Profile"
+msgstr ""
+
+#: edit-registration-form-escort.php:61
+#, php-format
+msgid "Edit Registration Form for %s Profiles"
+msgstr ""
+
+#. Name of the template
+msgid "Edit Registration Form for Escorts"
+msgstr ""
+
+#: nav-reviews-agencies.php:41 nav-reviews.php:45 single-agency.php:666
+#: single-profile.php:1509
+msgid "Edit review"
+msgstr ""
+
+#. Name of the template
+msgid "Edit site settings"
+msgstr ""
+
+#: taxonomy.php:75
+msgid "Edit the text"
+msgstr ""
+
+#: manage-classified-ads-option-buttons.php:73
+msgid "Edit This Ad"
+msgstr ""
+
+#: sidebar-right.php:772
+msgid "Edit user"
+msgstr ""
+
+#: functions.php:184 sidebar-right.php:749
+msgid "Edit User Types"
+msgstr ""
+
+#. Name of the template
+#: edit-user-types.php:93
+msgid "Edit user types"
+msgstr ""
+
+#: register-member-edit-personal-information.php:23
+msgid "Edit Your Profile"
+msgstr ""
+
+#: functions-settings.php:61
+#: register-independent-personal-information-form.php:632
+#: single-profile.php:907
+msgid "Education"
+msgstr ""
+
+#: blacklist-clients.php:178 blacklist-clients.php:225 comments.php:46
+#: edit-email-options.php:89 manage-classified-ads-form.php:44
+#: nav-contact.php:31 nav-contact.php:72
+#: register-agency-personal-information-form.php:85
+#: register-member-personal-information-form.php:58 send-email-form.php:16
+#: sidebar-right.php:767 single-bprofile.php:181
+msgid "Email"
+msgstr ""
+
+#: single-ad.php:89 single-agency.php:153 single-profile.php:401
+msgid "email"
+msgstr ""
+
+#: functions.php:887
+msgid "email address"
+msgstr ""
+
+#: functions.php:177 sidebar-right.php:748
+msgid "Email Settings"
+msgstr ""
+
+#: edit-email-options.php:96
+msgid "Email signature"
+msgstr ""
+
+#: register-agency-personal-info-process.php:252
+#: register-independent-personal-info-process.php:646
+#: register-member-personal-info-process.php:78
+#: ajax/resend-validation-link.php:16
+msgid "Email validation link"
+msgstr ""
+
+#: register-independent-manage-my-tours.php:87
+#: register-independent-manage-my-tours.php:114 single-profile.php:1238
+#: single-profile.php:1264 single-profile.php:1331 single-profile.php:1357
+msgid "End"
+msgstr ""
+
+#: register-independent-add-tour-form.php:275
+msgid "End date"
+msgstr ""
+
+#: functions-settings.php:105
+msgid "Enormous(E+)"
+msgstr ""
+
+#: sidebar-right.php:727
+msgid "Enter the tour ID"
+msgstr ""
+
+#: sidebar-right.php:703
+msgid "Enter the user ID you want to make VIP"
+msgstr ""
+
+#: functions-settings.php:123
+msgid "Erotic massage"
+msgstr ""
+
+#: functions-payments.php:574 functions-payments.php:693
+#: functions-payments.php:693
+msgid "escort"
+msgstr ""
+
+#. Description of the theme
+msgid "Escort Directory WordPress Theme"
+msgstr ""
+
+#: functions.php:369
+msgctxt "Escort profile slug"
+msgid "escort"
+msgstr ""
+
+#. Name of the theme
+msgid "EscortWP"
+msgstr ""
+
+#: functions.php:140 functions.php:143
+msgid "EscortWP Menu"
+msgstr ""
+
+#. Author of the theme
+msgid "EscortWP.com"
+msgstr ""
+
+#: functions-settings.php:50 nav-search.php:546
+#: register-independent-personal-information-form.php:483
+#: single-profile.php:898
+msgid "Ethnicity"
+msgstr ""
+
+#: functions-settings.php:156
+msgid "Euro"
+msgstr ""
+
+#: sidebar-right.php:529 sidebar-right.php:629
+msgid "Expiration"
+msgstr ""
+
+#: functions.php:1022 functions.php:1044 functions.php:1058 functions.php:1094
+#: functions.php:1115 functions.php:1128 functions.php:1138 functions.php:1151
+#: functions.php:1176 functions.php:1198 functions.php:1212 functions.php:1228
+#: functions.php:1250
+msgid "Expiration notice from"
+msgstr ""
+
+#: sidebar-right.php:469 sidebar-right.php:499 sidebar-right.php:529
+#: sidebar-right.php:629 sidebar-right.php:801 sidebar-right.php:828
+#: sidebar-right.php:866 sidebar-right.php:898 sidebar-right.php:928
+#: sidebar-right.php:961 sidebar-right.php:994
+msgid "Extend"
+msgstr ""
+
+#: functions-payments.php:630
+#, php-format
+msgid "Extend %s status"
+msgstr ""
+
+#: sidebar-right.php:519
+msgid "Extend account expiration period with"
+msgstr ""
+
+#: sidebar-right.php:619
+msgid "Extend expiration period with"
+msgstr ""
+
+#: sidebar-right.php:459 sidebar-right.php:489
+msgid "Extend expiration with"
+msgstr ""
+
+#: sidebar-right.php:908 sidebar-right.php:1006
+msgid "Extend featured"
+msgstr ""
+
+#: sidebar-right.php:876 sidebar-right.php:973
+msgid "Extend premium"
+msgstr ""
+
+#: sidebar-right.php:811 sidebar-right.php:844 sidebar-right.php:940
+msgid "Extend registration"
+msgstr ""
+
+#: single-profile.php:1064
+msgid "Extra Services"
+msgstr ""
+
+#: functions-settings.php:70
+#: register-independent-personal-information-form.php:800
+msgid "Extra services"
+msgstr ""
+
+#: functions-settings.php:130
+msgid "Extraball (Having sex multiple times)"
+msgstr ""
+
+#: functions-settings.php:44
+#: register-independent-personal-information-form.php:220
+#: single-profile.php:995
+msgid "Facebook"
+msgstr ""
+
+#: register-independent-personal-information-form.php:224
+msgid "Facebook profile/page url"
+msgstr ""
+
+#: functions-settings.php:106
+msgid "Fat"
+msgstr ""
+
+#: functions.php:625
+msgid "FEATURED"
+msgstr ""
+
+#: sidebar-right.php:482 sidebar-right.php:499 single-profile.php:543
+msgid "Featured"
+msgstr ""
+
+#: functions-payments.php:574 functions-payments.php:693
+msgid "featured"
+msgstr ""
+
+#: sidebar-right.php:889 sidebar-right.php:986
+msgid "Featured expiration:"
+msgstr ""
+
+#: register-main-page.php:25
+msgid "Featured position"
+msgstr ""
+
+#: register-main-page.php:61
+msgid "Featured position for a profile"
+msgstr ""
+
+#: sidebar-right.php:892 sidebar-right.php:989
+msgid "Featured status is active <b>forever</b>"
+msgstr ""
+
+#: register-independent-personal-information-form.php:456
+msgid "February"
+msgstr ""
+
+#: all-profiles.php:31 functions-settings.php:96 header.php:69
+msgid "Female"
+msgstr ""
+
+#: edit-site-settings.php:335
+msgid "ffmpeg is installed"
+msgstr ""
+
+#: edit-registration-form-escort.php:79
+msgid "Field name"
+msgstr ""
+
+#: blacklisted-escorts-form.php:13 manage-classified-ads-form.php:9
+#: register-agency-personal-information-form.php:57
+#: register-independent-personal-information-form.php:85
+#: register-member-personal-information-form.php:51
+msgid "Fields marked with <i>*</i> are mandatory"
+msgstr ""
+
+#: nav-search.php:274 nav-search.php:344 nav-search.php:344
+msgid "Filter search"
+msgstr ""
+
+#: functions-settings.php:110
+msgid "Fluent"
+msgstr ""
+
+#: functions-settings.php:128
+msgid "Foot fetish"
+msgstr ""
+
+#: functions-payments.php:243 functions.php:1477 nav-reviews-agencies.php:39
+#: nav-reviews.php:43 single-agency.php:664 single-profile.php:1507
+msgid "for"
+msgstr ""
+
+#: edit-user-types.php:166
+msgid "for agency profiles"
+msgstr ""
+
+#: edit-user-types.php:123
+msgid "for individual profiles"
+msgstr ""
+
+#: edit-payment-settings.php:138 sidebar-right.php:68 sidebar-right.php:463
+#: sidebar-right.php:493 sidebar-right.php:523 sidebar-right.php:623
+#: sidebar-right.php:710
+msgid "Forever"
+msgstr ""
+
+#: sidebar-right.php:859 sidebar-right.php:891 sidebar-right.php:955
+#: sidebar-right.php:988
+msgid "forever"
+msgstr ""
+
+#: functions.php:1485
+msgid "Free"
+msgstr ""
+
+#: loop-show-tour.php:53 single-profile.php:821 taxonomy.php:71
+#: taxonomy.php:130
+msgid "from"
+msgstr ""
+
+#: edit-content-settings.php:368
+msgid "from your theme directory"
+msgstr ""
+
+#: all-profiles.php:34 functions-settings.php:99 header.php:72
+msgid "Gay"
+msgstr ""
+
+#: blacklisted-escorts-form.php:218 functions-settings.php:48
+#: nav-search.php:522 register-independent-personal-information-form.php:422
+#: single-bprofile.php:175
+msgid "Gender"
+msgstr ""
+
+#: sidebar-right.php:751
+msgid "Generate Demo Data"
+msgstr ""
+
+#. Name of the template
+#: admin-generate-demo-data.php:193 admin-generate-demo-data.php:307
+#: functions.php:198 functions.php:2097
+msgid "Generate demo data"
+msgstr ""
+
+#: admin-generate-demo-data.php:261
+#, php-format
+msgid "Generate extra data for each %s profile"
+msgstr ""
+
+#: functions-settings.php:126
+msgid "GFE (Girlfriend experience)"
+msgstr ""
+
+#: footer.php:15 sidebar-left.php:42 sidebar-right.php:1250
+msgid "Go to your"
+msgstr ""
+
+#: edit-payment-settings.php:92
+msgid "Go to your Plugins section and install WooCommerce first"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Golden"
+msgstr ""
+
+#: functions-settings.php:124
+msgid "Golden shower"
+msgstr ""
+
+#: single-agency.php:619 single-profile.php:1449
+msgid "Good"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Grey"
+msgstr ""
+
+#: functions-settings.php:51 nav-search.php:560
+#: register-independent-personal-information-form.php:497
+msgid "Hair Color"
+msgstr ""
+
+#: single-bprofile.php:178 single-profile.php:899
+msgid "Hair color"
+msgstr ""
+
+#: functions-settings.php:52 nav-search.php:574
+#: register-independent-personal-information-form.php:511
+#: single-profile.php:900
+msgid "Hair length"
+msgstr ""
+
+#: functions-payments.php:379
+msgid "has been accepted"
+msgstr ""
+
+#: functions-settings.php:54 nav-search.php:602
+#: register-independent-personal-information-form.php:540
+#: single-profile.php:902
+msgid "Height"
+msgstr ""
+
+#: edit-site-settings.php:390
+msgid "Height & weight scales"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:138 functions-payments.php:379
+#: functions-payments.php:694 functions.php:690 functions.php:757
+#: functions.php:769 functions.php:789 functions.php:800 functions.php:813
+#: functions.php:822 functions.php:1014 functions.php:1018 functions.php:1036
+#: functions.php:1040 functions.php:1055 functions.php:1073 functions.php:1091
+#: functions.php:1112 functions.php:1125 functions.php:1134 functions.php:1147
+#: functions.php:1168 functions.php:1172 functions.php:1190 functions.php:1194
+#: functions.php:1209 functions.php:1225 functions.php:1242 functions.php:1246
+#: manage-classified-ads-info-process.php:70 nav-contact.php:28
+#: register-agency-personal-info-process.php:263
+#: register-independent-personal-info-process.php:664
+#: register-independent-personal-info-process.php:681
+#: register-member-personal-info-process.php:73 single-ad.php:84
+#: single-agency.php:148 single-agency.php:209 single-profile.php:20
+#: single-profile.php:40 single-profile.php:51 single-profile.php:71
+#: single-profile.php:114 single-profile.php:202 single-profile.php:396
+#: ajax/resend-validation-link.php:11
+msgid "Hello"
+msgstr ""
+
+#: functions-payments.php:364 ajax/send-profile-report.php:24
+msgid "Hello admin"
+msgstr ""
+
+#: single-profile.php:589 single-profile.php:1009
+#, php-format
+msgid "Hi, I saw your profile on %s"
+msgstr ""
+
+#: functions.php:762 functions.php:773 functions.php:794 functions.php:805
+#: functions.php:818 functions.php:827
+#: register-agency-personal-info-process.php:259
+#: register-independent-personal-info-process.php:660 single-bprofile.php:181
+#: single-bprofile.php:184
+msgid "hidden"
+msgstr ""
+
+#: functions-settings.php:63
+#: register-independent-personal-information-form.php:650
+#: single-profile.php:909
+msgid "Hobbies"
+msgstr ""
+
+#: header.php:63
+msgid "Home"
+msgstr ""
+
+#: functions-settings.php:165
+msgid "Hong Kong Dollar"
+msgstr ""
+
+#: register-independent-personal-information-form.php:746
+msgid "hour"
+msgstr ""
+
+#: register-independent-personal-information-form.php:751
+#: register-independent-personal-information-form.php:756
+#: register-independent-personal-information-form.php:761
+#: register-independent-personal-information-form.php:766
+#: register-independent-personal-information-form.php:771
+msgid "hours"
+msgstr ""
+
+#: admin-generate-demo-data.php:245
+#, php-format
+msgid "How many %s profiles do you want to generate?"
+msgstr ""
+
+#: edit-content-settings.php:357
+msgid "How many characters to show from each review?"
+msgstr ""
+
+#: admin-generate-demo-data.php:201
+#, php-format
+msgid "How many independent %s profiles do you want to generate?"
+msgstr ""
+
+#: edit-email-options.php:101
+#: register-agency-manage-escorts-option-buttons.php:270
+msgid "html allowed"
+msgstr ""
+
+#: blacklisted-escorts-form.php:241 manage-classified-ads-form.php:36
+#: nav-contact.php:89 register-independent-personal-information-form.php:626
+#: single-agency.php:631 single-profile.php:1462
+msgid "html code will be removed"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://EscortWP.com/"
+msgstr ""
+
+#. URI of the theme
+msgid "https://escortwp.com/"
+msgstr ""
+
+#: functions-settings.php:166
+msgid "Hungarian Forint"
+msgstr ""
+
+#: register-agency-personal-information-form.php:358
+#: register-independent-personal-information-form.php:825
+#: register-member-personal-information-form.php:108
+#, php-format
+msgid "I agree with the %s and the %s of this website"
+msgstr ""
+
+#: register-agency-personal-information-form.php:352
+#: register-agency-personal-information-form.php:355
+#: register-independent-personal-information-form.php:819
+#: register-independent-personal-information-form.php:822
+#: register-member-personal-information-form.php:102
+#: register-member-personal-information-form.php:105
+#, php-format
+msgid "I agree with the %s of this website"
+msgstr ""
+
+#: manage-classified-ads-form.php:17
+msgid "I am"
+msgstr ""
+
+#: footer-tos-18years-agreement-overlay.php:15
+msgid "I'm 18 or older"
+msgstr ""
+
+#: edit-content-settings.php:600 edit-site-settings.php:201
+msgid ""
+"If a logo is already uploaded and you upload a new one then the old one is "
+"automatically deleted"
+msgstr ""
+
+#: edit-content-settings.php:510
+msgid "If you activate this you will need to add the city list manually"
+msgstr ""
+
+#: edit-site-settings.php:211 edit-site-settings.php:220
+msgid ""
+"If you choose \"yes\" you will be notified by email each time someone<br />"
+"adds a new review. The email will have a link to the review"
+msgstr ""
+
+#: edit-site-settings.php:247
+msgid ""
+"If you choose \"yes\" you will have to activate each classified ad manually"
+msgstr ""
+
+#: edit-site-settings.php:229 edit-site-settings.php:238
+#: edit-site-settings.php:256
+msgid "If you choose \"yes\" you will have to activate each profile manually"
+msgstr ""
+
+#: register-agency-personal-information-form.php:101
+#: register-independent-personal-information-form.php:133
+msgid ""
+"If you choose not to send a validation link then the account will be "
+"activated by default."
+msgstr ""
+
+#: functions.php:1247
+msgid ""
+"If you do not want the profile to be deleted from our website please visit "
+"the profile page and renew it"
+msgstr ""
+
+#: functions.php:1243
+msgid ""
+"If you do not want your profile to be removed from our website please visit "
+"your profile page and renew it"
+msgstr ""
+
+#: functions.php:1226
+#, php-format
+msgid ""
+"If you do not want your profile to be removed from our website(along with "
+"any %s you might have added) please visit your profile page and renew it."
+msgstr ""
+
+#: register-agency-personal-info-process.php:244
+#: register-independent-personal-info-process.php:648
+#: register-member-personal-info-process.php:75
+#: ajax/resend-validation-link.php:13
+msgid ""
+"If you don't validate your email in the next 3 days your account will be "
+"deleted."
+msgstr ""
+
+#: functions.php:866
+msgid ""
+"If you don't validate your email in the next 3 days, your account will be "
+"deleted."
+msgstr ""
+
+#: functions.php:1092
+#, php-format
+msgid ""
+"If you had any %s in your profile then they have been set to private too."
+msgstr ""
+
+#: functions.php:1074
+#, php-format
+msgid "If you had any %s in your profile they have been removed too."
+msgstr ""
+
+#: edit-user-types.php:191
+msgid ""
+"If you have changed some page names or urls by yourself then this option "
+"will overwrite those changes"
+msgstr ""
+
+#: edit-content-settings.php:368
+msgid "If you want to change the text from the disclaimer then edit the file"
+msgstr ""
+
+#: functions.php:1173 functions.php:1195
+#, php-format
+msgid "If you want to renew this status please visit the %s profile page."
+msgstr ""
+
+#: functions.php:1210
+msgid "If you want to renew your status please visit our website"
+msgstr ""
+
+#: functions.php:1169 functions.php:1191
+msgid "If you want to renew your status please visit your profile page"
+msgstr ""
+
+#: functions.php:1019
+msgid ""
+"If you would like to purchase a premium status again then you can do so by "
+"visiting the profile page here"
+msgstr ""
+
+#: edit-payment-settings.php:151
+#, php-format
+msgid ""
+"If you would like to set up this payment as a recurring payment then you "
+"will first need to install the %s plugin."
+msgstr ""
+
+#: edit-site-settings.php:293
+msgid "images"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:37
+#: manage-classified-ads-option-buttons.php:35
+#: register-agency-manage-escorts-option-buttons.php:70
+#: register-agency-manage-escorts-option-buttons.php:185
+msgid "images have been uploaded"
+msgstr ""
+
+#: edit-site-settings.php:288
+msgid "Images settings"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:369
+#: register-independent-verified-status.php:81
+msgid "Images you uploaded for verification:"
+msgstr ""
+
+#: edit-site-settings.php:395
+msgid "Imperial (ft, lb)"
+msgstr ""
+
+#: nav-city-tours.php:20
+msgid "in"
+msgstr ""
+
+#: edit-site-settings.php:385
+msgid "in height"
+msgstr ""
+
+#: single-profile.php:424
+msgid "In order for the tour to be activated you must pay"
+msgstr ""
+
+#: functions.php:2040
+msgid ""
+"In order to use the theme you will need to set your default options first."
+msgstr ""
+
+#: functions-payments.php:364
+msgid "in your account"
+msgstr ""
+
+#: ajax/set-escort-active-inactive.php:19
+msgid "INACTIVE"
+msgstr ""
+
+#: functions-settings.php:109 nav-search.php:654
+#: register-independent-personal-information-form.php:597
+#: register-independent-personal-information-form.php:736
+#: single-profile.php:1088
+msgid "Incall"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:389
+#: register-independent-verified-status.php:68
+msgid ""
+"Increase the credibility of your account by submitting a verification photo."
+msgstr ""
+
+#: all-profiles.php:41 header.php:81
+msgid "Independent"
+msgstr ""
+
+#: functions.php:792 functions.php:803
+#: register-independent-personal-info-process.php:667
+#, php-format
+msgid "independent %s"
+msgstr ""
+
+#: admin-generate-demo-data.php:38
+#, php-format
+msgid "independent %s profiles have been created."
+msgstr ""
+
+#: register-independent.php:22
+#, php-format
+msgid "Independent %s Registration"
+msgstr ""
+
+#: edit-content-settings.php:397 edit-content-settings.php:473
+#, php-format
+msgid "Independent %s registration"
+msgstr ""
+
+#: functions-settings.php:102
+msgid "Indian"
+msgstr ""
+
+#: single-bprofile.php:144
+msgid "Information"
+msgstr ""
+
+#: functions-settings.php:41
+#: register-independent-personal-information-form.php:190
+#: single-profile.php:985
+msgid "Instagram"
+msgstr ""
+
+#: register-independent-personal-information-form.php:194
+msgid "Instagram username"
+msgstr ""
+
+#: functions.php:2091
+msgid "It looks like this is your first time viewing the theme"
+msgstr ""
+
+#: register-independent-personal-information-form.php:455
+msgid "January"
+msgstr ""
+
+#: register-independent-personal-information-form.php:461
+msgid "July"
+msgstr ""
+
+#: register-independent-personal-information-form.php:460
+msgid "June"
+msgstr ""
+
+#: edit-site-settings.php:308
+msgid "Keep original size"
+msgstr ""
+
+#: edit-payment-settings.php:174
+msgid "Keep the following profile sections locked until payment is made"
+msgstr ""
+
+#: functions-settings.php:67
+#: register-independent-personal-information-form.php:686
+#: single-profile.php:919
+msgid "Languages spoken"
+msgstr ""
+
+#: functions-settings.php:105
+msgid "Large(C)"
+msgstr ""
+
+#: index.php:124
+#, php-format
+msgid "Latest %s Reviews"
+msgstr ""
+
+#: functions-settings.php:102
+msgid "Latin"
+msgstr ""
+
+#: footer-tos-18years-agreement-overlay.php:16
+msgid "Leave"
+msgstr ""
+
+#. Name of the template
+msgid "List all Agencies"
+msgstr ""
+
+#: header.php:116 sidebar-right.php:291 sidebar-right.php:332
+#: sidebar-right.php:388 sidebar-right.php:755
+msgid "Log Out"
+msgstr ""
+
+#: header.php:113
+msgid "Login"
+msgstr ""
+
+#: send-email-form.php:44 single-agency.php:646 single-profile.php:690
+#: single-profile.php:959 single-profile.php:1414 single-review.php:28
+msgid "login"
+msgstr ""
+
+#: functions-settings.php:104
+msgid "Long"
+msgstr ""
+
+#: nav-classified-ads-looking.php:16 nav-classified-ads-offering.php:16
+#: nav-classified-ads.php:15
+msgid "Looking"
+msgstr ""
+
+#: manage-classified-ads-form.php:20 nav-classified-ads-looking.php:13
+#: nav-classified-ads-looking.php:42 nav-classified-ads-offering.php:42
+#: nav-classified-ads.php:41 single-ad.php:211
+msgid "looking"
+msgstr ""
+
+#: functions-settings.php:57 nav-search.php:634
+#: register-independent-personal-information-form.php:575
+#: single-profile.php:905
+msgid "Looks"
+msgstr ""
+
+#: functions-settings.php:132
+msgid "LT (Long Time; Usually overnight)"
+msgstr ""
+
+#: functions-settings.php:167
+msgid "Macedonian Denar"
+msgstr ""
+
+#: functions-settings.php:168
+msgid "Malaysian Ringgit"
+msgstr ""
+
+#: all-profiles.php:32 functions-settings.php:97 header.php:70
+msgid "Male"
+msgstr ""
+
+#. Name of the template
+msgid "Manage Classified Ads"
+msgstr ""
+
+#: register-agency-manage-escorts.php:31 sidebar-right.php:278
+#, php-format
+msgid "Manage my %s"
+msgstr ""
+
+#: register-independent-manage-my-tours.php:56
+msgid "Manage my Tours"
+msgstr ""
+
+#: edit-registration-form-escort.php:81
+msgid "Mandatory"
+msgstr ""
+
+#: register-independent-personal-information-form.php:526
+msgid "mandatory only for females"
+msgstr ""
+
+#: edit-site-settings.php:233
+#, php-format
+msgid "Manually activate new %1$s added by %2$s?"
+msgstr ""
+
+#: edit-site-settings.php:224
+#, php-format
+msgid "Manually activate new %s profiles?"
+msgstr ""
+
+#: edit-site-settings.php:251
+msgid "Manually activate new classified ads?"
+msgstr ""
+
+#: edit-site-settings.php:242
+#, php-format
+msgid "Manually activate new independent %s?"
+msgstr ""
+
+#: edit-site-settings.php:206 edit-site-settings.php:215
+#, php-format
+msgid "Manually activate reviews for %s?"
+msgstr ""
+
+#: register-main-page.php:34 register-main-page.php:67
+msgid "many more"
+msgstr ""
+
+#: register-independent-personal-information-form.php:457
+msgid "March"
+msgstr ""
+
+#: sidebar-right.php:539
+msgid "Mark as"
+msgstr ""
+
+#: single-profile.php:647
+msgid "Mark as main image"
+msgstr ""
+
+#: register-main-page.php:84
+msgid "Mark favorite profiles"
+msgstr ""
+
+#: edit-site-settings.php:290
+#, php-format
+msgid "Maximum number of images a %s can upload"
+msgstr ""
+
+#: edit-site-settings.php:346
+msgid "Maximum number of videos allowed"
+msgstr ""
+
+#: edit-site-settings.php:297
+msgid "Maximum size per image"
+msgstr ""
+
+#: edit-site-settings.php:353
+msgid "Maximum video size"
+msgstr ""
+
+#: register-independent-personal-information-form.php:459
+msgid "May"
+msgstr ""
+
+#: functions-settings.php:105
+msgid "Medium(B)"
+msgstr ""
+
+#: functions.php:816 functions.php:825
+msgid "member"
+msgstr ""
+
+#. Name of the template
+msgid "Member Edit Personal Information"
+msgstr ""
+
+#: register-member.php:16
+msgid "Member Registration"
+msgstr ""
+
+#: edit-content-settings.php:433 edit-content-settings.php:481
+#: edit-email-options.php:142
+msgid "Member registration"
+msgstr ""
+
+#: header.php:107
+msgid "Menu"
+msgstr ""
+
+#: nav-contact.php:33 nav-contact.php:86 send-email-form.php:25
+msgid "Message"
+msgstr ""
+
+#: single-ad.php:90 single-agency.php:154 single-profile.php:402
+msgid "message"
+msgstr ""
+
+#: single-agency.php:156 single-profile.php:403
+msgid "Message from"
+msgstr ""
+
+#: nav-contact.php:37 single-ad.php:93 single-agency.php:158
+#: single-profile.php:405
+msgid "Message sent"
+msgstr ""
+
+#: edit-site-settings.php:393
+msgid "Metric (cm, kg)"
+msgstr ""
+
+#: functions-settings.php:102
+msgid "MiddleEast"
+msgstr ""
+
+#: functions-settings.php:110
+msgid "Minimal"
+msgstr ""
+
+#: register-independent-personal-information-form.php:741
+msgid "minutes"
+msgstr ""
+
+#: register-independent-personal-information-form.php:454
+msgid "Month"
+msgstr ""
+
+#: register-agency-personal-information-form.php:77
+#: register-independent-personal-information-form.php:107
+msgid "Must be between 6 and 30 characters"
+msgstr ""
+
+#: register-page-change-password.php:44
+msgid "Must be between 6 and 50 characters"
+msgstr ""
+
+#: sidebar-right.php:262 sidebar-right.php:306 sidebar-right.php:372
+msgid "My Account"
+msgstr ""
+
+#: register-member-see-favorites.php:14 sidebar-right.php:374
+#, php-format
+msgid "My Favorite %s"
+msgstr ""
+
+#: sidebar-right.php:273 sidebar-right.php:312 sidebar-right.php:378
+msgid "My Payments"
+msgstr ""
+
+#: sidebar-right.php:385
+msgid "My Reviews"
+msgstr ""
+
+#: comments.php:42 edit-email-options.php:82 functions-settings.php:38
+#: nav-blacklisted-escorts.php:130 nav-contact.php:30 nav-contact.php:65
+#: register-independent-personal-information-form.php:147
+#: register-member-personal-information-form.php:65
+msgid "Name"
+msgstr ""
+
+#: single-ad.php:88 single-agency.php:152 single-profile.php:400
+msgid "name"
+msgstr ""
+
+#: functions-settings.php:102
+msgid "Native American"
+msgstr ""
+
+#. Name of the template
+msgid "Nav Blacklisted Escorts"
+msgstr ""
+
+#: sidebar-right.php:639
+msgid "Needs payment"
+msgstr ""
+
+#: functions.php:617 functions.php:643 header-slider.php:47
+#: single-profile.php:550
+msgid "NEW"
+msgstr ""
+
+#: all-profiles.php:44
+msgid "New"
+msgstr ""
+
+#: edit-site-settings.php:278
+#, php-format
+msgid "New %s label period"
+msgstr ""
+
+#: functions.php:809 register-independent-personal-info-process.php:687
+#, php-format
+msgid "New %s on"
+msgstr ""
+
+#: edit-site-settings.php:282
+#, php-format
+msgid ""
+"new %s profiles will have the NEW label if they have registered less then X "
+"days ago."
+msgstr ""
+
+#: functions.php:777
+#, php-format
+msgid "New %s registration on"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:141
+#, php-format
+msgid "New blacklisted %s on."
+msgstr ""
+
+#: manage-classified-ads-info-process.php:74
+msgid "New classified ad on"
+msgstr ""
+
+#: functions.php:882
+msgid "New email address:"
+msgstr ""
+
+#: functions.php:829
+msgid "New member registration on"
+msgstr ""
+
+#: register-page-change-password.php:43
+msgid "New Password"
+msgstr ""
+
+#: functions-payments.php:374
+msgid "New payment on"
+msgstr ""
+
+#: functions-settings.php:170
+msgid "New Zealand Dollar"
+msgstr ""
+
+#: index.php:84
+#, php-format
+msgid "Newly Added %s"
+msgstr ""
+
+#: functions.php:1404
+msgid "Next"
+msgstr ""
+
+#: nav-blog.php:47 nav-search.php:798
+msgid "Next page"
+msgstr ""
+
+#: functions.php:1419
+msgid "NO"
+msgstr ""
+
+#: edit-content-settings.php:229 edit-content-settings.php:237
+#: edit-content-settings.php:296 edit-content-settings.php:367
+#: edit-content-settings.php:376 edit-content-settings.php:384
+#: edit-content-settings.php:443 edit-content-settings.php:509
+#: edit-email-options.php:122 edit-email-options.php:130
+#: edit-email-options.php:138 edit-email-options.php:146
+#: edit-email-options.php:154 edit-email-options.php:162
+#: edit-email-options.php:170 edit-email-options.php:178
+#: edit-email-options.php:186 edit-payment-settings.php:216
+#: edit-payment-settings.php:225 edit-site-settings.php:210
+#: edit-site-settings.php:219 edit-site-settings.php:228
+#: edit-site-settings.php:237 edit-site-settings.php:246
+#: edit-site-settings.php:255 edit-site-settings.php:329
+#: functions-settings.php:108 functions.php:2613 nav-search.php:674
+#: register-agency-personal-information-form.php:97
+#: register-agency-personal-information-form.php:110
+#: register-independent-personal-information-form.php:129
+#: register-independent-personal-information-form.php:142
+#: register-independent-personal-information-form.php:612
+msgid "No"
+msgstr ""
+
+#: nav-blacklisted-escorts.php:152 nav-search.php:808 nav-search.php:812
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: all-profiles.php:213 blacklisted-escorts.php:156 blacklisted-escorts.php:182
+#: index.php:100 nav-agencies.php:46 nav-blacklisted-escorts.php:170
+#: register-agency-manage-escorts.php:94 single-agency.php:578 taxonomy.php:132
+#, php-format
+msgid "No %s here yet"
+msgstr ""
+
+#: nav-blog.php:51
+msgid "No articles found"
+msgstr ""
+
+#: manage-classified-ads.php:57 nav-classified-ads-looking.php:56
+#: nav-classified-ads-offering.php:56 nav-classified-ads.php:58
+msgid "No classified ads yet"
+msgstr ""
+
+#: nav-blog.php:38
+msgid "No Comments"
+msgstr ""
+
+#: ajax/send-profile-report.php:9
+msgid "No ID provided"
+msgstr ""
+
+#: comments.php:24
+msgid "No one commented yet. Be the first."
+msgstr ""
+
+#: blacklist-clients.php:199
+msgid "No results found"
+msgstr ""
+
+#: nav-reviews-agencies.php:50 nav-reviews.php:52
+#: register-member-see-reviews.php:65 single-agency.php:672
+#: single-profile.php:1516
+msgid "No reviews yet"
+msgstr ""
+
+#: nav-city-tours.php:99
+msgid "No tours here yet"
+msgstr ""
+
+#: edit-content-settings.php:332
+#, php-format
+msgid "Normal %s content box"
+msgstr ""
+
+#: edit-site-settings.php:273
+msgid "Normal users"
+msgstr ""
+
+#: functions-settings.php:169
+msgid "Norwegian Krone"
+msgstr ""
+
+#: single-profile.php:106 single-profile.php:109
+msgid "NOT verified"
+msgstr ""
+
+#: blacklist-clients.php:180 blacklist-clients.php:227
+msgid "Note"
+msgstr ""
+
+#: functions-settings.php:107
+msgid "Nothing Special"
+msgstr ""
+
+#: admin-generate-demo-data.php:74
+msgid "Nothing to generate"
+msgstr ""
+
+#: register-independent-personal-information-form.php:465
+msgid "November"
+msgstr ""
+
+#: edit-content-settings.php:241
+#, php-format
+msgid "Number of %s to show in slider"
+msgstr ""
+
+#: edit-content-settings.php:312 edit-content-settings.php:326
+#: edit-content-settings.php:340
+msgid "Number of columns to show"
+msgstr ""
+
+#: edit-content-settings.php:354
+msgid "Number of reviews to show"
+msgstr ""
+
+#: functions-settings.php:113
+msgid "O-Level (Oral sex)"
+msgstr ""
+
+#: functions-settings.php:66
+#: register-independent-personal-information-form.php:677
+#: single-profile.php:912
+msgid "Occupation"
+msgstr ""
+
+#: register-independent-personal-information-form.php:464
+msgid "October"
+msgstr ""
+
+#: nav-classified-ads-looking.php:18 nav-classified-ads-offering.php:18
+#: nav-classified-ads.php:17
+msgid "Offering"
+msgstr ""
+
+#: manage-classified-ads-form.php:19 nav-classified-ads-looking.php:39
+#: nav-classified-ads-offering.php:13 nav-classified-ads-offering.php:39
+#: nav-classified-ads.php:38 single-ad.php:211
+msgid "offering"
+msgstr ""
+
+#: nav-reviews-agencies.php:39 nav-reviews.php:43 single-agency.php:664
+#: single-profile.php:1507
+msgid "on"
+msgstr ""
+
+#: edit-content-settings.php:263
+#, php-format
+msgid "On %s category pages"
+msgstr ""
+
+#: edit-content-settings.php:267 edit-content-settings.php:271
+#, php-format
+msgid "On %s profile pages"
+msgstr ""
+
+#: edit-content-settings.php:279
+msgid "On city tours page"
+msgstr ""
+
+#: edit-content-settings.php:259
+msgid "On front page"
+msgstr ""
+
+#: edit-content-settings.php:275
+msgid "On search pages"
+msgstr ""
+
+#: edit-content-settings.php:287
+msgid "On the classified ads pages"
+msgstr ""
+
+#: edit-content-settings.php:283
+msgid "On the reviews pages"
+msgstr ""
+
+#: functions-payments.php:245
+msgid "one time payment"
+msgstr ""
+
+#: all-profiles.php:45 functions.php:2836 header-slider.php:56 header.php:84
+msgid "Online"
+msgstr ""
+
+#: edit-content-settings.php:318
+#, php-format
+msgid "Online %s content box"
+msgstr ""
+
+#: index.php:61
+msgid "Online now"
+msgstr ""
+
+#: sidebar-right.php:1225
+msgid "Only independent"
+msgstr ""
+
+#: sidebar-right.php:1218
+msgid "Only premium"
+msgstr ""
+
+#: nav-search.php:491
+#, php-format
+msgid "Only show independent %s?"
+msgstr ""
+
+#: nav-search.php:501
+#, php-format
+msgid "Only show premium %s?"
+msgstr ""
+
+#: nav-city-tours.php:41
+msgid "Only show tour from"
+msgstr ""
+
+#: nav-search.php:511
+#, php-format
+msgid "Only show verified %s?"
+msgstr ""
+
+#: sidebar-right.php:158 sidebar-right.php:201
+msgid "Only the latest"
+msgstr ""
+
+#: sidebar-right.php:1232
+msgid "Only verified"
+msgstr ""
+
+#: register-main-page.php:88 register-main-page.php:95
+#: register-main-page.php:102
+msgid "only VIP"
+msgstr ""
+
+#: blacklist-clients-form.php:35 edit-payment-settings.php:93
+#: send-email-form.php:44 single-agency.php:646 single-profile.php:690
+#: single-profile.php:959 single-profile.php:1414 single-review.php:28
+msgid "or"
+msgstr ""
+
+#: single-profile.php:619 single-profile.php:632
+msgid "or <u>Select from a folder</u>"
+msgstr ""
+
+#: functions-settings.php:102 functions-settings.php:103
+msgid "Other"
+msgstr ""
+
+#: sidebar-right.php:316 sidebar-right.php:417
+msgid "Other edit links will be shown after payment"
+msgstr ""
+
+#: sidebar-right.php:265
+msgid "Other profile links will be shown after payment"
+msgstr ""
+
+#: edit-content-settings.php:417 header.php:101 sidebar-right.php:1026
+msgid "Our Blog"
+msgstr ""
+
+#: functions-settings.php:109 nav-search.php:658
+#: register-independent-personal-information-form.php:601
+#: register-independent-personal-information-form.php:737
+#: single-profile.php:1091
+msgid "Outcall"
+msgstr ""
+
+#: functions-settings.php:112
+msgid "OWO (Oral without condom)"
+msgstr ""
+
+#: functions.php:2661
+msgid "page"
+msgstr ""
+
+#: functions.php:404
+msgid "paged"
+msgstr ""
+
+#: functions-settings.php:36 register-agency-personal-information-form.php:76
+#: register-independent-personal-information-form.php:106
+#: register-member-personal-information-form.php:82
+msgid "Password"
+msgstr ""
+
+#: functions.php:762 functions.php:773 functions.php:794 functions.php:805
+#: functions.php:818 functions.php:827
+#: register-agency-personal-info-process.php:268
+#: register-independent-personal-info-process.php:669
+msgid "password"
+msgstr ""
+
+#: register-agency-personal-info-process.php:38
+#: register-independent-personal-info-process.php:46
+#: register-member-personal-info-process.php:25
+#: register-page-change-password.php:19
+msgid "Passwords may not contain the character \"\\\""
+msgstr ""
+
+#: register-independent-manage-my-tours.php:128 single-profile.php:1371
+msgid "Pay for tour"
+msgstr ""
+
+#: functions-payments.php:90
+msgid "Pay now"
+msgstr ""
+
+#: functions-payments.php:518
+msgid "Payment accepted on"
+msgstr ""
+
+#: functions-payments.php:263 functions-payments.php:369
+#: functions-payments.php:371
+msgid "Payment for"
+msgstr ""
+
+#. Name of the template
+#: edit-payment-settings.php:103 functions.php:170 sidebar-right.php:747
+msgid "Payment Settings"
+msgstr ""
+
+#: single-agency.php:618 single-profile.php:1448
+msgid "Perfect"
+msgstr ""
+
+#: blacklist-clients.php:179 blacklist-clients.php:226
+#: blacklisted-escorts-form.php:32 functions-settings.php:39
+#: manage-classified-ads-form.php:51
+#: register-agency-personal-information-form.php:123
+#: register-independent-add-tour-form.php:282
+#: register-independent-manage-my-tours.php:89
+#: register-independent-manage-my-tours.php:122
+#: register-independent-personal-information-form.php:157 single-agency.php:482
+#: single-bprofile.php:184 single-profile.php:999 single-profile.php:1240
+#: single-profile.php:1272 single-profile.php:1333 single-profile.php:1365
+msgid "Phone"
+msgstr ""
+
+#: register-independent-manage-my-tours.php:88
+#: register-independent-manage-my-tours.php:118 single-profile.php:1239
+#: single-profile.php:1268 single-profile.php:1332 single-profile.php:1361
+msgid "Place"
+msgstr ""
+
+#: blacklist-clients.php:27
+msgid "Please add a note about the client"
+msgstr ""
+
+#: blacklist-clients.php:21
+msgid "Please add the client's phone number"
+msgstr ""
+
+#: register-independent-personal-info-process.php:406
+msgid "Please choose a currency"
+msgstr ""
+
+#: nav-blacklisted-escorts.php:65
+msgid "Please choose a gender"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:82
+#, php-format
+msgid "Please choose a gender for the %s."
+msgstr ""
+
+#: register-independent-personal-info-process.php:334
+#: register-independent-personal-info-process.php:336
+#: register-independent-personal-info-process.php:346
+#: register-independent-personal-info-process.php:348
+#: register-independent-personal-info-process.php:358
+#: register-independent-personal-info-process.php:360
+msgid "Please choose a language level for"
+msgstr ""
+
+#: manage-classified-ads-info-process.php:11
+msgid "Please choose an ad type"
+msgstr ""
+
+#: ajax/check-username.php:7
+msgid "Please choose another one"
+msgstr ""
+
+#: register-independent-personal-info-process.php:366
+msgid "Please choose at least one language and conversation level"
+msgstr ""
+
+#: register-independent-personal-info-process.php:401
+msgid "Please choose at least one rate price"
+msgstr ""
+
+#: register-independent-personal-info-process.php:306
+msgid "Please choose your availability"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:80 blacklisted-escorts.php:74
+#: register-independent-personal-info-process.php:201
+#: register-independent-personal-info-process.php:203
+msgid "Please choose your gender"
+msgstr ""
+
+#: functions.php:865
+msgid "Please click the link from that email so we can activate your account."
+msgstr ""
+
+#: ajax/send-profile-report.php:14
+msgid "Please click the reCaptcha field"
+msgstr ""
+
+#: edit-content-settings.php:70
+msgid "Please enter a site key for reCAPTCHA."
+msgstr ""
+
+#: edit-content-settings.php:73
+msgid "Please enter your secret key for reCAPTCHA."
+msgstr ""
+
+#: blacklisted-escorts-form.php:143 blacklisted-escorts-form.php:168
+#: blacklisted-escorts-form.php:183 nav-search.php:420 nav-search.php:444
+#: nav-search.php:456 register-agency-personal-information-form.php:255
+#: register-agency-personal-information-form.php:280
+#: register-agency-personal-information-form.php:295
+#: register-independent-add-tour-form.php:187
+#: register-independent-add-tour-form.php:212
+#: register-independent-add-tour-form.php:227
+#: register-independent-personal-information-form.php:347
+#: register-independent-personal-information-form.php:372
+#: register-independent-personal-information-form.php:387
+msgid "Please select a country first"
+msgstr ""
+
+#: blacklisted-escorts-form.php:181 nav-search.php:454
+#: register-agency-personal-information-form.php:293
+#: register-independent-add-tour-form.php:225
+#: register-independent-personal-information-form.php:385
+msgid "Please select a state first"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:390
+#: register-independent-verified-status.php:69
+msgid ""
+"Please upload a photo of yourself holding a paper in your hands with the "
+"name of our website."
+msgstr ""
+
+#: register-agency-personal-info-process.php:245
+#: register-independent-personal-info-process.php:649
+#: register-member-personal-info-process.php:76
+#: ajax/resend-validation-link.php:14
+msgid "Please validate your email address by clicking the link bellow"
+msgstr ""
+
+#: admin-generate-demo-data.php:181 admin-generate-demo-data.php:186
+msgid "Please wait"
+msgstr ""
+
+#: manage-classified-ads-info-process.php:18
+msgid "Please write a description"
+msgstr ""
+
+#: functions.php:2774 ajax/send-profile-report.php:10
+msgid "Please write a reason for your report"
+msgstr ""
+
+#: manage-classified-ads-info-process.php:15
+msgid "Please write a title"
+msgstr ""
+
+#: functions.php:840
+msgid "Please write a valid email address"
+msgstr ""
+
+#: register-agency-personal-info-process.php:78
+#: register-independent-personal-info-process.php:97
+msgid "Please write a website url for your profile"
+msgstr ""
+
+#: register-independent-personal-info-process.php:313
+msgid "Please write an education"
+msgstr ""
+
+#: manage-classified-ads-info-process.php:28
+msgid "Please write an email or a phone number for the ad"
+msgstr ""
+
+#: blacklist-clients.php:145
+msgid "Please write an email or a phone number for the search"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:10
+#, php-format
+msgid "Please write the %s name."
+msgstr ""
+
+#: blacklist-clients.php:16
+msgid "Please write the client's email"
+msgstr ""
+
+#: register-independent-personal-info-process.php:319
+msgid "Please write what hobbies you have"
+msgstr ""
+
+#: register-independent-personal-info-process.php:433
+msgid "Please write what other extra services you offer"
+msgstr ""
+
+#: register-independent-personal-info-process.php:316
+msgid "Please write what sports you like"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:16
+#, php-format
+msgid "Please write your %s email."
+msgstr ""
+
+#: register-agency-personal-info-process.php:65
+#, php-format
+msgid "Please write your %s name."
+msgstr ""
+
+#: register-independent-personal-info-process.php:227
+msgid "Please write your date of birth"
+msgstr ""
+
+#: register-agency-personal-info-process.php:47
+#: register-independent-personal-info-process.php:57
+#: register-member-personal-info-process.php:38
+msgid "Please write your email address"
+msgstr ""
+
+#: register-independent-personal-info-process.php:127
+msgid "Please write your Facebook page url"
+msgstr ""
+
+#: register-independent-personal-info-process.php:103
+msgid "Please write your instagram username"
+msgstr ""
+
+#: register-independent-personal-info-process.php:77
+#: register-member-personal-info-process.php:35
+msgid "Please write your name"
+msgstr ""
+
+#: register-independent-personal-info-process.php:328
+msgid "Please write your occupation"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:13
+#: register-agency-personal-info-process.php:69
+#: register-independent-manage-my-tours-process-data.php:93
+#: register-independent-personal-info-process.php:81
+msgid "Please write your phone number"
+msgstr ""
+
+#: register-independent-personal-info-process.php:325
+msgid "Please write your sexual orientation"
+msgstr ""
+
+#: register-independent-personal-info-process.php:109
+msgid "Please write your SnapChat username"
+msgstr ""
+
+#: register-independent-personal-info-process.php:118
+msgid "Please write your Twitter page url"
+msgstr ""
+
+#: register-independent-personal-info-process.php:322
+msgid "Please write your zodiac sign"
+msgstr ""
+
+#: functions-settings.php:171
+msgid "Polish Zloty"
+msgstr ""
+
+#: register-main-page.php:32 register-main-page.php:55
+#: register-main-page.php:107
+msgid "Post classified ads"
+msgstr ""
+
+#: manage-classified-ads-form.php:57
+msgid "Post this ad"
+msgstr ""
+
+#: nav-blog.php:35 single-post.php:14
+msgid "Posted in"
+msgstr ""
+
+#: functions-settings.php:164
+msgid "Pound Sterling"
+msgstr ""
+
+#: header-slider.php:44 loop-show-agency.php:53 loop-show-profile.php:55
+#: loop-show-tour.php:59 single-profile.php:540
+msgid "PREMIUM"
+msgstr ""
+
+#: all-profiles.php:42 sidebar-right.php:452 sidebar-right.php:469
+msgid "Premium"
+msgstr ""
+
+#: functions-payments.php:574 functions-payments.php:693
+msgid "premium"
+msgstr ""
+
+#: sidebar-right.php:140 sidebar-right.php:183
+#, php-format
+msgid ""
+"Premium %1$s will always be shown first and before any normal %2$s, in all "
+"the pages of the site."
+msgstr ""
+
+#: index.php:19
+#, php-format
+msgid "Premium %s"
+msgstr ""
+
+#: edit-content-settings.php:304
+#, php-format
+msgid "Premium %s content box"
+msgstr ""
+
+#: sidebar-right.php:857 sidebar-right.php:953
+msgid "Premium expiration:"
+msgstr ""
+
+#: sidebar-right.php:860 sidebar-right.php:956
+msgid "Premium status is active <b>forever</b>"
+msgstr ""
+
+#: functions.php:1403
+msgid "Previous"
+msgstr ""
+
+#: nav-blog.php:46 nav-search.php:794
+msgid "Previous page"
+msgstr ""
+
+#: functions.php:619 header-slider.php:49
+msgid "PRIVATE"
+msgstr ""
+
+#: single-profile.php:554
+msgid "Private"
+msgstr ""
+
+#: functions.php:873
+msgid "Problems getting the email?"
+msgstr ""
+
+#: functions.php:2649 functions.php:2653
+msgid "profile"
+msgstr ""
+
+#: sidebar-right.php:512 sidebar-right.php:611
+msgid "Profile expiration"
+msgstr ""
+
+#: sidebar-right.php:799 sidebar-right.php:826 sidebar-right.php:926
+msgid "Profile expiration:"
+msgstr ""
+
+#: functions.php:1076
+msgid "Profile remove from"
+msgstr ""
+
+#: single-profile.php:121
+msgid "Profile status changed on"
+msgstr ""
+
+#: register-agency-edit-personal-information.php:45
+#: register-independent-edit-personal-information.php:116
+#: register-member-edit-personal-information.php:25
+msgid "Profile updated"
+msgstr ""
+
+#: edit-user-types.php:122 ajax/send-profile-report.php:26
+msgid "Profile url"
+msgstr ""
+
+#: sidebar-right.php:519 sidebar-right.php:619
+msgid "Profile will expire after"
+msgstr ""
+
+#: admin-generate-demo-data.php:264
+msgid "profiles"
+msgstr ""
+
+#: sidebar-right.php:1158
+msgid "Quick Search"
+msgstr ""
+
+#: single-agency.php:615 single-profile.php:1442
+#, php-format
+msgid "Rate the %s"
+msgstr ""
+
+#: functions-settings.php:68 nav-search.php:681
+#: register-independent-personal-information-form.php:717
+#: single-profile.php:1082
+msgid "Rates"
+msgstr ""
+
+#: register-member-see-reviews.php:38 single-agency.php:504
+#: single-review.php:75
+msgid "Rating"
+msgstr ""
+
+#: single-agency.php:211 single-profile.php:204
+msgid "Read/Edit the review here"
+msgstr ""
+
+#: ajax/send-profile-report.php:27
+msgid "Reason for reporting"
+msgstr ""
+
+#: functions-payments.php:240
+msgid "recurring payment"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Red"
+msgstr ""
+
+#: register-agency-upload-logo.php:34
+#: register-independent-verified-status.php:34 single-agency.php:285
+msgid "Refresh the page to see it"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:392
+msgid "refresh the page to see newly uploaded images"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:37
+#: manage-classified-ads-option-buttons.php:35
+#: register-agency-manage-escorts-option-buttons.php:70
+#: register-agency-manage-escorts-option-buttons.php:135
+#: register-agency-manage-escorts-option-buttons.php:185
+msgid "Refresh the page to see them"
+msgstr ""
+
+#: manage-classified-ads-option-buttons.php:35
+#: register-agency-manage-escorts-option-buttons.php:70
+#: register-agency-manage-escorts-option-buttons.php:135
+#: register-independent-verified-status.php:34
+msgid "Refreshing the page automatically in 2 seconds"
+msgstr ""
+
+#: header.php:112 register-member-personal-information-form.php:120
+msgid "Register"
+msgstr ""
+
+#: send-email-form.php:44 single-agency.php:646 single-profile.php:690
+#: single-profile.php:959 single-profile.php:1414 single-review.php:28
+msgid "register"
+msgstr ""
+
+#. Name of the template
+msgid "Register - Agency"
+msgstr ""
+
+#. Name of the template
+msgid "Register - Independent Girl"
+msgstr ""
+
+#. Name of the template
+msgid "Register - Member"
+msgstr ""
+
+#: register-agency.php:26 register-main-page.php:48
+#, php-format
+msgid "Register as %s"
+msgstr ""
+
+#: register-main-page.php:15
+#, php-format
+msgid "Register as Independent %s"
+msgstr ""
+
+#: register-main-page.php:81
+msgid "Register as Normal User"
+msgstr ""
+
+#: register-main-page.php:38 register-main-page.php:71
+#: register-main-page.php:115
+msgid "Register here"
+msgstr ""
+
+#. Name of the template
+msgid "Register Independent - Edit Personal Information"
+msgstr ""
+
+#. Name of the template
+msgid "Register Independent - Manage my Tours"
+msgstr ""
+
+#. Name of the template
+msgid "Register Independent Verified Status"
+msgstr ""
+
+#. Name of the template
+msgid "Register Main Page"
+msgstr ""
+
+#. Name of the template
+msgid "Register Member - See Favorites"
+msgstr ""
+
+#. Name of the template
+msgid "Register Member - See Reviews"
+msgstr ""
+
+#: edit-content-settings.php:405
+msgid "Register/Login header links"
+msgstr ""
+
+#: functions.php:163 sidebar-right.php:746
+msgid "Registration Form"
+msgstr ""
+
+#: functions-settings.php:106
+msgid "Regular"
+msgstr ""
+
+#: sidebar-right.php:935 sidebar-right.php:967 sidebar-right.php:1000
+msgid "remaining"
+msgstr ""
+
+#: sidebar-right.php:539
+msgid "Remove"
+msgstr ""
+
+#: single-profile.php:886
+msgid "Remove Favorite"
+msgstr ""
+
+#: sidebar-right.php:717
+msgid "Remove VIP"
+msgstr ""
+
+#: functions.php:2516
+msgid "Reply"
+msgstr ""
+
+#: edit-content-settings.php:491
+msgid "Report form (unregistered users only)"
+msgstr ""
+
+#: functions.php:2801
+msgid "Report Profile"
+msgstr ""
+
+#: functions.php:869
+msgid "Resend validation email"
+msgstr ""
+
+#: edit-site-settings.php:304
+msgid "Resize big images to a maximum of"
+msgstr ""
+
+#: edit-site-settings.php:376
+msgid "Resize uploaded videos at"
+msgstr ""
+
+#: edit-registration-form-escort.php:103
+msgid "Restore Defaults"
+msgstr ""
+
+#: single-review.php:62
+msgid "Review details"
+msgstr ""
+
+#: functions.php:2352 single-profile.php:183
+msgid "Review for"
+msgstr ""
+
+#: single-agency.php:190
+msgid "review for"
+msgstr ""
+
+#: single-review.php:76
+#, php-format
+msgid "Review for %s"
+msgstr ""
+
+#: single-profile.php:1395
+#, php-format
+msgid "Review the %s"
+msgstr ""
+
+#: edit-content-settings.php:393 single-profile.php:1391
+msgid "Reviews"
+msgstr ""
+
+#: single-profile.php:859
+msgid "reviews"
+msgstr ""
+
+#. Name of the template
+msgid "Reviews - Agencies (nav link)"
+msgstr ""
+
+#. Name of the template
+msgid "Reviews - Escorts (nav link)"
+msgstr ""
+
+#: edit-content-settings.php:346
+msgid "Reviews content box"
+msgstr ""
+
+#: functions-settings.php:172
+msgid "Romanian New Leu"
+msgstr ""
+
+#: functions-install-theme-wizard.php:316
+msgid "Save configuration"
+msgstr ""
+
+#: edit-content-settings.php:623 edit-email-options.php:203
+#: edit-payment-settings.php:105 edit-payment-settings.php:231
+#: edit-registration-form-escort.php:101 edit-site-settings.php:433
+#: edit-user-types.php:195
+msgid "Save settings"
+msgstr ""
+
+#: edit-content-settings.php:233
+msgid "Scroll the header slider automatically?"
+msgstr ""
+
+#: blacklisted-escorts-form.php:246 header.php:119 sidebar-right.php:1237
+msgid "Search"
+msgstr ""
+
+#: blacklisted-escorts.php:113 nav-blacklisted-escorts.php:103
+#: nav-search.php:720
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: nav-search.php:273
+#, php-format
+msgid "Search for %s"
+msgstr ""
+
+#: blacklist-clients-form.php:35
+msgid "Search for this Client"
+msgstr ""
+
+#. Name of the template
+msgid "Search page"
+msgstr ""
+
+#: blacklist-clients.php:171 blacklisted-escorts.php:139
+#: nav-blacklisted-escorts.php:100
+msgid "Search results"
+msgstr ""
+
+#: index.php:125 index.php:146
+msgid "See all reviews"
+msgstr ""
+
+#: index.php:29 index.php:71 index.php:106
+msgid "See more"
+msgstr ""
+
+#: register-main-page.php:85
+msgid "See profile photos"
+msgstr ""
+
+#: sidebar-right.php:226
+msgid "see the full list of photos"
+msgstr ""
+
+#: index.php:140
+msgid "see the review"
+msgstr ""
+
+#: nav-search.php:550 nav-search.php:564 nav-search.php:578 nav-search.php:592
+#: nav-search.php:624 nav-search.php:638
+#: register-independent-personal-information-form.php:487
+#: register-independent-personal-information-form.php:501
+#: register-independent-personal-information-form.php:515
+#: register-independent-personal-information-form.php:530
+#: register-independent-personal-information-form.php:565
+#: register-independent-personal-information-form.php:579
+msgid "Select"
+msgstr ""
+
+#: blacklisted-escorts-form.php:191 nav-search.php:467
+#: register-agency-personal-information-form.php:305
+#: register-independent-add-tour-form.php:235
+#: register-independent-personal-information-form.php:395
+msgid "Select City"
+msgstr ""
+
+#: ajax/get-cities.php:20
+msgid "Select city"
+msgstr ""
+
+#: blacklisted-escorts-form.php:118 nav-search.php:370
+#: register-agency-personal-information-form.php:211
+#: register-independent-add-tour-form.php:143
+#: register-independent-personal-information-form.php:302
+msgid "Select country"
+msgstr ""
+
+#: register-independent-personal-information-form.php:691
+#: register-independent-personal-information-form.php:699
+#: register-independent-personal-information-form.php:707
+msgid "Select level"
+msgstr ""
+
+#: edit-site-settings.php:401
+msgid "Select page"
+msgstr ""
+
+#: blacklisted-escorts-form.php:149 nav-search.php:425
+#: register-agency-personal-information-form.php:261
+#: register-independent-add-tour-form.php:193
+#: register-independent-personal-information-form.php:353
+msgid "Select State"
+msgstr ""
+
+#: ajax/get-cities.php:20
+msgid "Select state"
+msgstr ""
+
+#: single-ad.php:220
+msgid "Send a message"
+msgstr ""
+
+#: register-agency-personal-information-form.php:100
+#: register-independent-personal-information-form.php:132
+msgid ""
+"Send a validation link to the email. The user has to click that link in "
+"order to activate the account and verify that the email is valid."
+msgstr ""
+
+#: single-profile.php:1025
+msgid "Send me an email"
+msgstr ""
+
+#: nav-contact.php:99 send-email-form.php:41
+msgid "Send message"
+msgstr ""
+
+#: functions.php:2818
+msgid "Send report"
+msgstr ""
+
+#: register-agency-personal-information-form.php:106
+#: register-independent-personal-information-form.php:138
+msgid "Send username and password by email"
+msgstr ""
+
+#: register-agency-personal-information-form.php:93
+#: register-independent-personal-information-form.php:125
+msgid "Send verification email"
+msgstr ""
+
+#: nav-contact.php:29 single-ad.php:87 single-agency.php:151
+#: single-profile.php:399
+msgid "Sender information"
+msgstr ""
+
+#: functions.php:2818
+msgid "Sending"
+msgstr ""
+
+#: register-independent-personal-information-form.php:463
+msgid "September"
+msgstr ""
+
+#: functions-settings.php:69 nav-search.php:704
+#: register-independent-personal-information-form.php:781
+#: single-profile.php:1042
+msgid "Services"
+msgstr ""
+
+#: sidebar-right.php:531
+msgid "Set as expired"
+msgstr ""
+
+#: sidebar-right.php:341
+msgid "Set as visible"
+msgstr ""
+
+#: edit-payment-settings.php:168
+msgid "Set profile to private"
+msgstr ""
+
+#: ajax/set-escort-active-inactive.php:19
+#: ajax/set-escort-active-inactive.php:22
+msgid "Set to"
+msgstr ""
+
+#: sidebar-right.php:338 sidebar-right.php:548
+msgid "Set to private"
+msgstr ""
+
+#: functions-settings.php:129
+msgid "Sex toys"
+msgstr ""
+
+#: functions-settings.php:65
+#: register-independent-personal-information-form.php:668
+#: single-profile.php:911
+msgid "Sexual orientation"
+msgstr ""
+
+#: functions-settings.php:107
+msgid "Sexy"
+msgstr ""
+
+#: functions-settings.php:104
+msgid "Short"
+msgstr ""
+
+#: functions-settings.php:104
+msgid "Shoulder"
+msgstr ""
+
+#: edit-content-settings.php:372
+#, php-format
+msgid "Show \"Quick %s Search\" widget in right sidebar?"
+msgstr ""
+
+#: edit-payment-settings.php:221
+msgid "Show address fields in checkout page"
+msgstr ""
+
+#: edit-content-settings.php:363
+msgid ""
+"Show agreement/disclaimer when someone visits the site for the first time?"
+msgstr ""
+
+#: edit-payment-settings.php:212
+msgid "Show coupon field in checkout page"
+msgstr ""
+
+#: edit-content-settings.php:225
+msgid "Show header slider?"
+msgstr ""
+
+#: edit-registration-form-escort.php:80
+msgid "Show in registration page"
+msgstr ""
+
+#: edit-content-settings.php:505
+msgid "Show registration city/state as a dropdown list?"
+msgstr ""
+
+#: edit-content-settings.php:380
+#, php-format
+msgid "Show unchecked services in %s profile pages?"
+msgstr ""
+
+#: edit-content-settings.php:515
+msgid "Show visitor counter in the following pages:"
+msgstr ""
+
+#: functions-settings.php:103
+msgid "Silver"
+msgstr ""
+
+#: edit-user-types.php:101
+msgid "singular"
+msgstr ""
+
+#: edit-site-settings.php:125
+msgid "Site description"
+msgstr ""
+
+#: edit-site-settings.php:189
+msgid "Site logo"
+msgstr ""
+
+#: edit-site-settings.php:118
+msgid "Site name"
+msgstr ""
+
+#: edit-site-settings.php:110 functions.php:149 sidebar-right.php:744
+msgid "Site Settings"
+msgstr ""
+
+#: edit-email-options.php:79
+msgid "Site users will receive emails with the following sender"
+msgstr ""
+
+#: functions-settings.php:106
+msgid "Skinny"
+msgstr ""
+
+#: functions-settings.php:106
+msgid "Slim"
+msgstr ""
+
+#: functions-settings.php:105
+msgid "Small(A)"
+msgstr ""
+
+#: functions-settings.php:59 nav-search.php:665
+#: register-independent-personal-information-form.php:608
+#: single-profile.php:906
+msgid "Smoker"
+msgstr ""
+
+#: functions-settings.php:42
+#: register-independent-personal-information-form.php:200
+#: single-profile.php:981
+msgid "SnapChat"
+msgstr ""
+
+#: register-independent-personal-information-form.php:204
+msgid "Snapchat username"
+msgstr ""
+
+#: edit-payment-settings.php:217 edit-payment-settings.php:226
+msgid "Some payment processors require an address"
+msgstr ""
+
+#: functions.php:691
+msgid "Someone added a new review to your profile"
+msgstr ""
+
+#: edit-email-options.php:118
+#, php-format
+msgid "Someone ads an %s to the blacklist"
+msgstr ""
+
+#: ajax/send-profile-report.php:25
+msgid "Someone has reported a profile"
+msgstr ""
+
+#: ajax/send-profile-report.php:34
+msgid "Someone has reported a profile on"
+msgstr ""
+
+#: functions-payments.php:364
+msgid "Someone made a payment of"
+msgstr ""
+
+#: edit-email-options.php:166
+msgid "Someone posts a new ad"
+msgstr ""
+
+#: single-ad.php:85
+msgid "Someone sent you a message about your classified ad on"
+msgstr ""
+
+#: nav-contact.php:28 single-agency.php:149 single-profile.php:397
+msgid "Someone sent you a message from"
+msgstr ""
+
+#: single-profile.php:200
+#, php-format
+msgid "Someone wrote a %s review on"
+msgstr ""
+
+#: single-profile.php:203
+#, php-format
+msgid "Someone wrote a %s review on."
+msgstr ""
+
+#: single-agency.php:206 single-agency.php:210
+#, php-format
+msgid "Someone wrote an %s review on."
+msgstr ""
+
+#: functions-settings.php:62
+#: register-independent-personal-information-form.php:641
+#: single-profile.php:908
+msgid "Sports"
+msgstr ""
+
+#: register-independent-manage-my-tours.php:86
+#: register-independent-manage-my-tours.php:110 single-profile.php:1237
+#: single-profile.php:1260 single-profile.php:1330 single-profile.php:1353
+msgid "Start"
+msgstr ""
+
+#: register-independent-add-tour-form.php:264
+msgid "Start date"
+msgstr ""
+
+#: blacklisted-escorts-form.php:141 functions-settings.php:46
+#: nav-search.php:418 register-agency-personal-information-form.php:253
+#: register-independent-add-tour-form.php:185
+#: register-independent-personal-information-form.php:345 single-agency.php:494
+#: single-bprofile.php:163 single-profile.php:942
+msgid "State"
+msgstr ""
+
+#: functions-settings.php:122
+msgid "Striptease/Lapdance"
+msgstr ""
+
+#: comments.php:57
+msgid "Submit Comment"
+msgstr ""
+
+#: functions-settings.php:117
+msgid "Swallow"
+msgstr ""
+
+#: functions-settings.php:173
+msgid "Swedish Krona"
+msgstr ""
+
+#: functions-settings.php:161
+msgid "Swiss Franc"
+msgstr ""
+
+#: nav-blog.php:34 single-post.php:14
+msgid "Tags"
+msgstr ""
+
+#: single-profile.php:618
+msgid "Tap here to upload your images"
+msgstr ""
+
+#: single-profile.php:631
+msgid "Tap here to upload your videos"
+msgstr ""
+
+#: edit-site-settings.php:408
+msgid "Terms & services page"
+msgstr ""
+
+#: single-profile.php:1002
+msgid "Text me"
+msgstr ""
+
+#: single-profile.php:584
+msgid "text me"
+msgstr ""
+
+#: single-agency.php:598 single-profile.php:1407
+msgid "Thank you for posting."
+msgstr ""
+
+#: functions.php:832
+msgid ""
+"Thank you for verifying your email address. Your account has been activated."
+msgstr ""
+
+#: ajax/send-profile-report.php:36
+msgid "Thank you for your report. The admin of the website has been notified."
+msgstr ""
+
+#: functions.php:2093
+msgid "That way you can see better how the theme looks"
+msgstr ""
+
+#: edit-user-types.php:28
+msgid ""
+"The \"Country & city url\" can't be the same as any of the profile urls or "
+"current registered post types"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:17 blacklisted-escorts.php:39
+#: nav-blacklisted-escorts.php:31
+#, php-format
+msgid "The %s email seems to be wrong."
+msgstr ""
+
+#: single-agency.php:316
+#, php-format
+msgid "The %s logo you will be using"
+msgstr ""
+
+#: sidebar-right.php:436
+#, php-format
+msgid "The %s profile has been unlocked."
+msgstr ""
+
+#: sidebar-right.php:835
+#, php-format
+msgid "The %s profile you added is active until"
+msgstr ""
+
+#: single-agency.php:167 single-profile.php:160
+#, php-format
+msgid "The %s rating is wrong. Please select again."
+msgstr ""
+
+#: functions-payments.php:469
+#, php-format
+msgid "The %s you added has been activated."
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:56 nav-search.php:67
+#: register-agency-personal-info-process.php:119
+#: register-independent-manage-my-tours-process-data.php:45
+#: register-independent-personal-info-process.php:167
+msgid "The city you selected doesn't exist in our database"
+msgstr ""
+
+#: blacklist-clients.php:70
+msgid "The client has been added to the blacklist"
+msgstr ""
+
+#: blacklist-clients.php:68
+msgid "The client has been modified"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:24 blacklisted-escorts.php:53
+#: nav-blacklisted-escorts.php:44 register-agency-personal-info-process.php:85
+#: register-independent-manage-my-tours-process-data.php:13
+#: register-independent-personal-info-process.php:135 ajax/get-cities.php:8
+msgid "The country you selected doesn't exist in our database"
+msgstr ""
+
+#: register-independent-personal-info-process.php:209
+msgid "The day from you date of birth is wrong"
+msgstr ""
+
+#: register-independent-personal-info-process.php:63
+#: register-member-personal-info-process.php:41
+msgid "The email address has been used by someone else already"
+msgstr ""
+
+#: manage-classified-ads-info-process.php:22 nav-contact.php:15
+msgid "The email address seems to be wrong"
+msgstr ""
+
+#: blacklist-clients.php:138
+msgid "The email seems to be wrong"
+msgstr ""
+
+#: blacklist-clients.php:17
+msgid "The emails seems to be wrong"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:89
+msgid "The end date must be after your start date"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:81
+msgid "The end date seems to be wrong"
+msgstr ""
+
+#: functions.php:1041
+#, php-format
+msgid ""
+"The featured status for one of your %s has expired and has been removed from "
+"their profile."
+msgstr ""
+
+#: functions.php:1195
+#, php-format
+msgid "The featured status for one of your %s will expire very soon."
+msgstr ""
+
+#: sidebar-right.php:902
+msgid "The featured status for this profile is active until"
+msgstr ""
+
+#: single-profile.php:52
+msgid "The FEATURED status has been remove from your profile."
+msgstr ""
+
+#: edit-content-settings.php:531
+msgid ""
+"The hit counter will not count admin visits or visits from the author of a "
+"profile or classified ad."
+msgstr ""
+
+#: register-independent-personal-info-process.php:214
+msgid "The month from you date of birth is wrong"
+msgstr ""
+
+#: edit-user-types.php:190
+msgid ""
+"The name and url will change only for pages created by the theme. Pages that "
+"you added yourself will not be changed"
+msgstr ""
+
+#: edit-user-types.php:146
+msgid "The name for agency profiles"
+msgstr ""
+
+#: edit-user-types.php:101
+msgid "The name for individual profiles"
+msgstr ""
+
+#: register-agency-personal-info-process.php:42
+#: register-independent-personal-info-process.php:50
+#: register-member-personal-info-process.php:29
+#: register-page-change-password.php:27
+msgid "The password field is empty"
+msgstr ""
+
+#: edit-payment-settings.php:91
+msgid ""
+"The payments section works with the help of the free plugin WooCommerce."
+msgstr ""
+
+#: blacklist-clients.php:23
+msgid "The phone number must be at least 5 digits"
+msgstr ""
+
+#: blacklist-clients.php:142
+msgid "The phone number must be at least 5 digits long"
+msgstr ""
+
+#: edit-user-types.php:110 edit-user-types.php:155
+msgid "The plural for the name above"
+msgstr ""
+
+#: functions.php:1019
+#, php-format
+msgid ""
+"The premium status for one of your %s has expired and has been removed from "
+"their profile."
+msgstr ""
+
+#: functions.php:1173
+#, php-format
+msgid "The premium status for one of your %s will expire very soon."
+msgstr ""
+
+#: sidebar-right.php:870
+msgid "The premium status for this profile is active until"
+msgstr ""
+
+#: single-profile.php:21
+msgid "The PREMIUM status has been remove from your profile."
+msgstr ""
+
+#: edit-payment-settings.php:134
+msgid "The price is for a period of"
+msgstr ""
+
+#: functions.php:1247
+#, php-format
+msgid "The profile for one of the %s you added will expire very soon."
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:70
+msgid "The start date seems to be wrong"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:32 nav-search.php:49
+#: register-agency-personal-info-process.php:93
+#: register-independent-manage-my-tours-process-data.php:21
+#: register-independent-personal-info-process.php:143
+msgid "The state you selected doesn't exist in our database"
+msgstr ""
+
+#: single-profile.php:115
+#, php-format
+msgid "The status of you profile has changed from %s to %s on %s"
+msgstr ""
+
+#: sidebar-right.php:656
+msgid "The tour has been activated"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:178
+#: single-profile.php:1202
+msgid "The tour has been added"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:173
+msgid "The tour has been updated"
+msgstr ""
+
+#: sidebar-right.php:670
+msgid "The user now has VIP status"
+msgstr ""
+
+#: sidebar-right.php:668
+msgid "The user's VIP status has been extended"
+msgstr ""
+
+#: register-agency-personal-info-process.php:28
+#: register-independent-personal-info-process.php:36
+#: register-member-personal-info-process.php:16
+msgid "The username field is empty"
+msgstr ""
+
+#: sidebar-right.php:681
+msgid "The VIP status has been removed from the user"
+msgstr ""
+
+#: register-independent-personal-info-process.php:219
+msgid "The year from you date of birth is wrong"
+msgstr ""
+
+#: edit-user-types.php:117
+msgid ""
+"these names will be used in menus and titles so we need both the singular "
+"and the plural form of the profile name"
+msgstr ""
+
+#: edit-user-types.php:161
+msgid ""
+"these names will be used menus and titles so we need both the singular and "
+"the plural form of the agency profile name"
+msgstr ""
+
+#: single-profile.php:699
+#, php-format
+msgid "This %1$s has %2$s more photos"
+msgstr ""
+
+#: single-profile.php:689
+#, php-format
+msgid "This %s has %s more photos"
+msgstr ""
+
+#: sidebar-right.php:95
+#, php-format
+msgid ""
+"This %s profile has been set to private. It will be reactivated after you "
+"pay your registration fee."
+msgstr ""
+
+#: sidebar-right.php:785 sidebar-right.php:833
+#, php-format
+msgid "This %s profile is active until"
+msgstr ""
+
+#: sidebar-right.php:107
+#, php-format
+msgid ""
+"This %s profile will not be shown in the site until you pay the registration "
+"fee."
+msgstr ""
+
+#: single-ad.php:117
+msgid "This ad is currently set to private and will not be shown in the site."
+msgstr ""
+
+#: sidebar-right.php:26
+msgid "This ad requires manual activation"
+msgstr ""
+
+#: edit-content-settings.php:530
+msgid ""
+"This does not save the IP information for the visitor. This means the "
+"visitor counter is increased at each page load regardless if the visitor "
+"already visited the page."
+msgstr ""
+
+#: register-agency-personal-info-process.php:50
+msgid "This email address has already been used by someone else"
+msgstr ""
+
+#: edit-content-settings.php:255
+msgid "this overwrites any settings below"
+msgstr ""
+
+#: edit-site-settings.php:409 edit-site-settings.php:421
+msgid "This page will be used in the registration page, for all users"
+msgstr ""
+
+#: sidebar-right.php:54
+msgid "This profile is currently set to private."
+msgstr ""
+
+#: single-agency.php:450
+msgid "This profile is set to private and will not be shown in the site"
+msgstr ""
+
+#: sidebar-right.php:43
+msgid "This profile requires manual activation"
+msgstr ""
+
+#: sidebar-right.php:63
+msgid "This profile requires payment!"
+msgstr ""
+
+#: functions.php:2039
+msgid "This theme has not been configured yet."
+msgstr ""
+
+#: ajax/check-username.php:7
+msgid "This username already exists."
+msgstr ""
+
+#: register-independent-personal-info-process.php:33
+msgid "This username already exists. Please select another one"
+msgstr ""
+
+#: register-agency-personal-info-process.php:25
+#: register-member-personal-info-process.php:13
+msgid "This username already exists. Please write another one"
+msgstr ""
+
+#: ajax/check-username.php:9
+msgid "This username is available"
+msgstr ""
+
+#: single-profile.php:737
+msgid "this video is still processing"
+msgstr ""
+
+#: footer-tos-18years-agreement-overlay.php:10
+msgid ""
+"This website may contain nudity and sexuality, and is intended for a mature "
+"audience."
+msgstr ""
+
+#: single-ad.php:117
+msgid "This website requires all ads to be manually activated by an admin."
+msgstr ""
+
+#: sidebar-right.php:54
+msgid ""
+"This website requires all profiles to be manually activated by an admin."
+msgstr ""
+
+#: edit-email-options.php:97
+msgid "This will be at the end of all emails"
+msgstr ""
+
+#: edit-user-types.php:189
+msgid ""
+"This will update the page name and page url for pages that contain the old "
+"profile names with the new profile name"
+msgstr ""
+
+#: functions-settings.php:127
+msgid "Threesome"
+msgstr ""
+
+#: loop-show-tour.php:54
+msgid "till"
+msgstr ""
+
+#: manage-classified-ads-form.php:25 manage-classified-ads.php:43
+#: nav-classified-ads-looking.php:32 nav-classified-ads-offering.php:32
+#: nav-classified-ads.php:30
+msgid "Title"
+msgstr ""
+
+#: edit-content-settings.php:511
+msgid "To add cities click the link \"Add countries\" from the admin menu"
+msgstr ""
+
+#: footer.php:15 sidebar-left.php:42 sidebar-right.php:1250
+msgid "to add content here"
+msgstr ""
+
+#: single-agency.php:646 single-profile.php:1414
+msgid "to be able to post a review"
+msgstr ""
+
+#: single-profile.php:959
+#, php-format
+msgid "to be able to see the contact information or send a message to this %s"
+msgstr ""
+
+#: send-email-form.php:44
+msgid "to be able to send messages"
+msgstr ""
+
+#: single-profile.php:690
+msgid "to be able to view the other photos"
+msgstr ""
+
+#: single-review.php:28
+msgid "to be able to view this review"
+msgstr ""
+
+#: single-agency.php:313
+msgid "To change an uploaded logo simply upload a new one."
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:291 single-agency.php:375
+msgid "To completely delete the account click the button below:"
+msgstr ""
+
+#: single-agency.php:373
+msgid "To completely delete your account click the button below:"
+msgstr ""
+
+#: register-agency-manage-escorts.php:46
+#, php-format
+msgid "To edit or delete this %s go to the profile page"
+msgstr ""
+
+#: functions.php:691
+msgid "To read it please click the link below"
+msgstr ""
+
+#: edit-content-settings.php:609
+msgid "top<br />center"
+msgstr ""
+
+#: edit-content-settings.php:608
+msgid "top<br />left"
+msgstr ""
+
+#: edit-content-settings.php:610
+msgid "top<br />right"
+msgstr ""
+
+#: functions-payments.php:574 functions-payments.php:693
+msgid "tour"
+msgstr ""
+
+#: ajax/delete-tour.php:17
+msgid "Tour deleted"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:129
+msgid "Tour to"
+msgstr ""
+
+#: sidebar-right.php:319 single-profile.php:1229
+msgid "Tours"
+msgstr ""
+
+#: nav-city-tours.php:23
+msgid "Tours Happening Now"
+msgstr ""
+
+#: taxonomy.php:121
+msgid "Tours happening now in"
+msgstr ""
+
+#: register-independent-manage-my-tours.php:82
+msgid "Tours you already added"
+msgstr ""
+
+#: all-profiles.php:35 functions-settings.php:100 header.php:73
+msgid "Transsexual"
+msgstr ""
+
+#: functions-settings.php:43
+#: register-independent-personal-information-form.php:210
+#: single-profile.php:990
+msgid "Twitter"
+msgstr ""
+
+#: register-independent-personal-information-form.php:214
+msgid "Twitter profile url"
+msgstr ""
+
+#: manage-classified-ads.php:44 nav-classified-ads-looking.php:33
+#: nav-classified-ads-offering.php:33 nav-classified-ads.php:31
+#: sidebar-right.php:769
+msgid "Type"
+msgstr ""
+
+#: functions.php:760 functions.php:792 functions.php:803 functions.php:816
+#: functions.php:825 register-agency-personal-info-process.php:266
+#: register-independent-personal-info-process.php:667
+#: register-independent-personal-info-process.php:684
+msgid "type"
+msgstr ""
+
+#: functions-payments.php:364
+msgid "Type of payment"
+msgstr ""
+
+#: functions-settings.php:157
+msgid "U.S. Dollar"
+msgstr ""
+
+#: functions-settings.php:107
+msgid "Ultra Sexy"
+msgstr ""
+
+#: single-profile.php:1322
+msgid "Unpaid Tours"
+msgstr ""
+
+#: register-member-personal-information-form.php:120
+msgid "Update"
+msgstr ""
+
+#: blacklisted-escorts-form.php:246
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#: blacklist-clients-form.php:35
+msgid "Update Blacklisted Client"
+msgstr ""
+
+#: manage-classified-ads-form.php:57
+msgid "Update Classified Ad"
+msgstr ""
+
+#: edit-user-types.php:183
+msgid "Update pages?"
+msgstr ""
+
+#: register-page-change-password.php:51
+msgid "Update Password"
+msgstr ""
+
+#: register-agency-personal-information-form.php:370
+#: register-independent-personal-information-form.php:838
+msgid "Update Profile"
+msgstr ""
+
+#: register-independent-add-tour-form.php:292
+msgid "Update Tour"
+msgstr ""
+
+#: register-main-page.php:58
+msgid "Upgrade a profile to premium"
+msgstr ""
+
+#: register-main-page.php:22
+msgid "Upgrade to premium"
+msgstr ""
+
+#: single-profile.php:707 single-profile.php:970 single-profile.php:1429
+msgid "Upgrade to VIP"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:173
+#: register-independent-verified-status.php:22
+msgid "Upload image"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:62
+msgid "Upload Images"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:25
+#: manage-classified-ads-option-buttons.php:23
+#: register-agency-manage-escorts-option-buttons.php:58
+msgid "Upload images"
+msgstr ""
+
+#: edit-content-settings.php:541 edit-site-settings.php:136
+#: register-agency-upload-logo.php:22 single-agency.php:273
+msgid "Upload logo"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:123
+msgid "Upload videos"
+msgstr ""
+
+#: register-agency-upload-logo.php:15 single-agency.php:266
+#, php-format
+msgid "Upload/Edit %s Logo"
+msgstr ""
+
+#. Name of the template
+msgid "Upload/Edit Agency Logo"
+msgstr ""
+
+#: edit-registration-form-escort.php:82
+msgid "Use in search page"
+msgstr ""
+
+#: admin-generate-demo-data.php:316
+msgid ""
+"Use this button when you are ready to use the site.<br />This will delete "
+"all profiles that were generated with the help of this page.<br />This will "
+"not delete the profiles that you added yourself or profiles created by users "
+"when signing up."
+msgstr ""
+
+#: edit-user-types.php:155
+msgid "Used when there are more than one agency profile"
+msgstr ""
+
+#: edit-user-types.php:110
+msgid "Used when there is more than one profile"
+msgstr ""
+
+#: register-member-see-reviews.php:35
+msgid "User"
+msgstr ""
+
+#: sidebar-right.php:763
+msgid "User details"
+msgstr ""
+
+#: sidebar-right.php:765
+msgid "User ID"
+msgstr ""
+
+#: functions-payments.php:366
+msgid "User who made the payment"
+msgstr ""
+
+#: ajax/send-profile-report.php:33
+msgid "User who reported the profile"
+msgstr ""
+
+#: functions-settings.php:35 register-agency-personal-information-form.php:68
+#: register-independent-personal-information-form.php:98
+#: register-member-personal-information-form.php:74 sidebar-right.php:766
+msgid "Username"
+msgstr ""
+
+#: functions.php:761 functions.php:772 functions.php:793 functions.php:804
+#: functions.php:817 functions.php:826
+#: register-agency-personal-info-process.php:267
+#: register-independent-personal-info-process.php:668
+msgid "username"
+msgstr ""
+
+#: functions.php:622 functions.php:638 header-slider.php:52
+#: single-profile.php:110 single-profile.php:546
+msgid "VERIFIED"
+msgstr ""
+
+#: all-profiles.php:43 header.php:82 sidebar-right.php:539
+msgid "Verified"
+msgstr ""
+
+#: single-profile.php:105
+msgid "verified"
+msgstr ""
+
+#: edit-content-settings.php:425 sidebar-right.php:326 sidebar-right.php:424
+msgid "Verified status"
+msgstr ""
+
+#: edit-email-options.php:190
+msgid "Verified status image upload"
+msgstr ""
+
+#: register-independent-verified-status.php:16
+msgid "Verify Account"
+msgstr ""
+
+#: functions-settings.php:105
+msgid "Very Large(D)"
+msgstr ""
+
+#: functions-settings.php:104
+msgid "Very Long"
+msgstr ""
+
+#: functions-settings.php:105
+msgid "Very small"
+msgstr ""
+
+#: edit-site-settings.php:323
+msgid "Video settings"
+msgstr ""
+
+#: edit-site-settings.php:349
+msgid "videos"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:135
+msgid "videos have been uploaded"
+msgstr ""
+
+#: register-member-see-reviews.php:53
+msgid "View"
+msgstr ""
+
+#: sidebar-right.php:267 sidebar-right.php:308
+msgid "View my Profile"
+msgstr ""
+
+#: functions.php:2666
+#, php-format
+msgid "viewed %s time"
+msgstr ""
+
+#: functions.php:2668
+#, php-format
+msgid "viewed %s times"
+msgstr ""
+
+#: functions-payments.php:693
+msgid "VIP"
+msgstr ""
+
+#: functions-payments.php:574
+msgid "vip"
+msgstr ""
+
+#: sidebar-right.php:708
+msgid "VIP lasts for"
+msgstr ""
+
+#: register-main-page.php:110
+msgid "VIP membership"
+msgstr ""
+
+#: sidebar-right.php:219 single-profile.php:702 single-profile.php:965
+#: single-profile.php:1424
+msgid "VIP status costs"
+msgstr ""
+
+#: sidebar-right.php:698
+msgid "VIP User"
+msgstr ""
+
+#: sidebar-right.php:235
+msgid "VIP users can"
+msgstr ""
+
+#: functions-payments.php:697 functions-payments.php:698
+msgid "was canceled"
+msgstr ""
+
+#: edit-content-settings.php:585
+msgid "Watermark logo"
+msgstr ""
+
+#: edit-content-settings.php:604
+msgid "Watermark position on image:"
+msgstr ""
+
+#: edit-content-settings.php:535
+msgid "Watermarking settings"
+msgstr ""
+
+#: functions.php:864
+msgid "We sent a validation link to your email address."
+msgstr ""
+
+#: ajax/resend-validation-link.php:19
+msgid "We sent another validation link to your email address"
+msgstr ""
+
+#: register-independent-personal-information-form.php:441
+msgid "we'll calculate your age from this"
+msgstr ""
+
+#: functions-settings.php:40 functions.php:1137 functions.php:1150
+#: nav-contact.php:32 nav-contact.php:79
+#: register-agency-personal-information-form.php:130
+#: register-independent-personal-information-form.php:181 single-agency.php:480
+#: single-profile.php:977
+msgid "Website"
+msgstr ""
+
+#: edit-content-settings.php:469
+msgid "Website contact form"
+msgstr ""
+
+#: functions-settings.php:55 nav-search.php:611
+#: register-independent-personal-information-form.php:552
+#: single-profile.php:903
+msgid "Weight"
+msgstr ""
+
+#: functions.php:765 functions.php:797 functions.php:819
+#: register-agency-personal-info-process.php:254
+#: register-independent-personal-info-process.php:656
+msgid "Welcome to"
+msgstr ""
+
+#: edit-content-settings.php:301
+msgid "What content to show on the front page?"
+msgstr ""
+
+#: admin-generate-demo-data.php:215 admin-generate-demo-data.php:278
+msgid "What gender should the profiles have?"
+msgstr ""
+
+#: edit-user-types.php:132
+msgid "What genders do you want to allow for the individual profiles"
+msgstr ""
+
+#: edit-content-settings.php:388
+msgid "What sections do you want to hide from the site?"
+msgstr ""
+
+#: edit-site-settings.php:260
+msgid "What user types can post classified ads?"
+msgstr ""
+
+#: edit-email-options.php:182
+msgid "When admin manually adds Premium, Featured or Verified to a profile"
+msgstr ""
+
+#: edit-email-options.php:106
+msgid "When do you want to receive an email?"
+msgstr ""
+
+#: edit-email-options.php:111
+msgid "Where to receive email notifications"
+msgstr ""
+
+#: edit-content-settings.php:248
+msgid "Where to show the slider?"
+msgstr ""
+
+#: functions-settings.php:102 functions-settings.php:103
+msgid "White"
+msgstr ""
+
+#: footer.php:15 sidebar-left.php:42 sidebar-right.php:1250
+msgid "widgets page"
+msgstr ""
+
+#: register-independent-personal-information-form.php:148
+#: register-member-personal-information-form.php:66
+msgid "will be publicly shown"
+msgstr ""
+
+#: edit-payment-settings.php:150
+msgid "WooCommerce Subscriptions"
+msgstr ""
+
+#: sidebar-right.php:753
+msgid "WordPress Dashboard"
+msgstr ""
+
+#: functions.php:2808
+msgid "Write a short description for your report:"
+msgstr ""
+
+#: index.php:129
+msgid "wrote"
+msgstr ""
+
+#: register-independent-personal-information-form.php:469
+msgid "Year"
+msgstr ""
+
+#: single-profile.php:821
+msgid "year old"
+msgstr ""
+
+#: single-profile.php:570
+msgid "years"
+msgstr ""
+
+#: functions.php:1417
+msgid "YES"
+msgstr ""
+
+#: edit-content-settings.php:228 edit-content-settings.php:236
+#: edit-content-settings.php:295 edit-content-settings.php:366
+#: edit-content-settings.php:375 edit-content-settings.php:383
+#: edit-content-settings.php:442 edit-content-settings.php:508
+#: edit-email-options.php:121 edit-email-options.php:129
+#: edit-email-options.php:137 edit-email-options.php:145
+#: edit-email-options.php:153 edit-email-options.php:161
+#: edit-email-options.php:169 edit-email-options.php:177
+#: edit-email-options.php:185 edit-email-options.php:193
+#: edit-email-options.php:200 edit-payment-settings.php:215
+#: edit-payment-settings.php:224 edit-site-settings.php:209
+#: edit-site-settings.php:218 edit-site-settings.php:227
+#: edit-site-settings.php:236 edit-site-settings.php:245
+#: edit-site-settings.php:254 edit-site-settings.php:328
+#: functions-settings.php:108 functions.php:2614 nav-search.php:496
+#: nav-search.php:506 nav-search.php:516 nav-search.php:670
+#: register-agency-personal-information-form.php:96
+#: register-agency-personal-information-form.php:109
+#: register-independent-personal-information-form.php:128
+#: register-independent-personal-information-form.php:141
+#: register-independent-personal-information-form.php:611
+msgid "Yes"
+msgstr ""
+
+#: sidebar-right.php:398
+msgid "Yes, delete my account"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:114
+msgid "You are not allowed to add tours here"
+msgstr ""
+
+#: blacklist-clients.php:38
+msgid "You are not allowed to edit this client"
+msgstr ""
+
+#: register-agency-personal-info-process.php:17
+#: register-independent-personal-info-process.php:20
+msgid "You are not allowed to edit this profile"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:104
+msgid "You are not allowed to edit this tour"
+msgstr ""
+
+#: functions-payments.php:392
+#, php-format
+msgid "You are now a featured %s."
+msgstr ""
+
+#: functions-payments.php:381
+#, php-format
+msgid "You are now a premium %s."
+msgstr ""
+
+#: functions-payments.php:409
+msgid "You are now a VIP member."
+msgstr ""
+
+#: functions.php:1074 functions.php:1113
+msgid "You can create another account at anytime by visiting our website"
+msgstr ""
+
+#: ajax/resend-validation-link.php:21
+msgid "You can only send one email every 30 seconds"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:393
+#: register-independent-verified-status.php:71
+msgid "You can only upload 1 photo."
+msgstr ""
+
+#: register-agency-upload-logo.php:62 single-agency.php:312
+msgid "You can only upload a single image."
+msgstr ""
+
+#: functions.php:1037 functions.php:1041
+msgid ""
+"You can purchase a featured status again at any time by visiting the profile "
+"page"
+msgstr ""
+
+#: functions.php:1015
+msgid ""
+"You can purchase a premium status again at any time by visiting your profile "
+"page"
+msgstr ""
+
+#: functions.php:1056
+msgid "You can purchase a VIP status again at any time by visiting our website"
+msgstr ""
+
+#: nav-contact.php:34 single-ad.php:90
+msgid "You can send a message back to this person by replying to this email"
+msgstr ""
+
+#: single-agency.php:155 single-profile.php:402
+msgid "You can send a message back to this person by replying to this email."
+msgstr ""
+
+#: single-profile.php:621
+#, php-format
+msgid "You can upload a maximum of %s images"
+msgstr ""
+
+#: single-profile.php:634
+#, php-format
+msgid "You can upload a maximum of %s videos"
+msgstr ""
+
+#: blacklisted-escorts-option-buttons.php:75
+#, php-format
+msgid ""
+"You can upload a maximum of 20 images for each blacklisted %s.<br />Refresh "
+"the page to see newly uploaded images."
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:139
+#, php-format
+msgid "You can view the %s here."
+msgstr ""
+
+#: functions.php:774 functions.php:806
+#: register-independent-personal-info-process.php:685
+msgid "You can view the account here"
+msgstr ""
+
+#: manage-classified-ads-info-process.php:72
+msgid "You can view the ad here"
+msgstr ""
+
+#: functions.php:763 functions.php:795
+#: register-agency-personal-info-process.php:269
+#: register-independent-personal-info-process.php:652
+msgid "You can view your account here"
+msgstr ""
+
+#: single-profile.php:22 single-profile.php:42 single-profile.php:53
+#: single-profile.php:73 single-profile.php:116
+msgid "You can view your profile here"
+msgstr ""
+
+#: single-agency.php:604 single-profile.php:1418
+#, php-format
+msgid "You can't post more than one review for the same %s."
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:50
+msgid "You can't upload anymore photos"
+msgstr ""
+
+#: register-agency-manage-escorts-option-buttons.php:115
+msgid "You can't upload anymore videos"
+msgstr ""
+
+#: functions.php:844
+msgid "You can't use this email address. Please try another one."
+msgstr ""
+
+#: admin-generate-demo-data.php:227 admin-generate-demo-data.php:290
+msgid "You choose not to use this gender in the website"
+msgstr ""
+
+#: single-agency.php:172 single-profile.php:165
+msgid "You didn't write a review"
+msgstr ""
+
+#: sidebar-right.php:998
+msgid "You featured status is active until"
+msgstr ""
+
+#: functions.php:693
+msgid "You have a new review on"
+msgstr ""
+
+#: register-member-see-favorites.php:27
+#, php-format
+msgid "You have no favorite %s yet."
+msgstr ""
+
+#: blacklisted-escorts.php:84 nav-blacklisted-escorts.php:75
+msgid "You have to fill in at least one search field"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:74
+msgid "You have to select a start date for the tour"
+msgstr ""
+
+#: register-independent-personal-info-process.php:419
+#: register-independent-personal-info-process.php:425
+#: register-independent-personal-info-process.php:429
+msgid "You have to select at least one service"
+msgstr ""
+
+#: register-independent-manage-my-tours-process-data.php:85
+msgid "You have to select the end date for the tour"
+msgstr ""
+
+#: footer-tos-18years-agreement-overlay.php:11
+msgid "You must be 18 or older to enter."
+msgstr ""
+
+#: register-independent-personal-info-process.php:224
+msgid "You must be at least 18 years old to register on this site"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:86
+#, php-format
+msgid "You must write a note about the %s."
+msgstr ""
+
+#: register-agency-personal-info-process.php:143
+#, php-format
+msgid "You must write something about the %s."
+msgstr ""
+
+#: register-independent-personal-info-process.php:310
+msgid "You must write something about you."
+msgstr ""
+
+#: send-email-form.php:44 single-agency.php:646 single-profile.php:690
+#: single-profile.php:959 single-profile.php:1414 single-review.php:28
+msgid "You need to"
+msgstr ""
+
+#: register-agency-personal-info-process.php:155
+#: register-independent-personal-info-process.php:445
+#: register-member-personal-info-process.php:58
+msgid "You need to agree to our terms and conditions in order to register"
+msgstr ""
+
+#: single-profile.php:1423
+msgid "You need to be a VIP member to be able to post a review"
+msgstr ""
+
+#: single-profile.php:964
+#, php-format
+msgid "You need to be a VIP member to see the contact information of an %s"
+msgstr ""
+
+#: single-profile.php:701
+msgid "You need to be a VIP member to see the rest of the photos"
+msgstr ""
+
+#: ajax/resend-validation-link.php:27
+msgid "You need to be logged in to resend an activation link"
+msgstr ""
+
+#: edit-site-settings.php:340
+msgid "You need to enable shell_exec"
+msgstr ""
+
+#: edit-site-settings.php:337
+msgid "You need to install ffmpeg first"
+msgstr ""
+
+#. is user logged in else
+#: register-independent-manage-my-tours.php:141
+msgid "You need to login or register to manage your tours"
+msgstr ""
+
+#. is user logged in else
+#: register-member-see-reviews.php:69
+msgid "You need to login or register to see this page"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:74
+#: register-agency-personal-info-process.php:139
+#: register-independent-manage-my-tours-process-data.php:63
+#: register-independent-personal-info-process.php:196
+msgid "You need to select a country"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:70
+#: register-agency-personal-info-process.php:135
+#: register-independent-manage-my-tours-process-data.php:59
+#: register-independent-personal-info-process.php:181
+msgid "You need to select your city"
+msgstr ""
+
+#: blacklisted-escorts-personal-info-process.php:47
+#: register-agency-personal-info-process.php:110
+#: register-independent-manage-my-tours-process-data.php:36
+#: register-independent-personal-info-process.php:158
+msgid "You need to select your state"
+msgstr ""
+
+#: nav-contact.php:23 single-ad.php:81 single-agency.php:145
+#: single-profile.php:393
+msgid "You need to write a message"
+msgstr ""
+
+#: sidebar-right.php:394
+msgid "You won't be able to recover it after deletion."
+msgstr ""
+
+#: functions.php:1243
+#, php-format
+msgid "Your %s profile from our website will expire very soon."
+msgstr ""
+
+#: functions-payments.php:425
+#, php-format
+msgid "Your %s profile has been activated."
+msgstr ""
+
+#: functions.php:1074 functions.php:1113
+#, php-format
+msgid "Your %s profile has expired and has been deleted from our website."
+msgstr ""
+
+#: functions.php:1126
+#, php-format
+msgid "Your %s profile has expired and has been set to private."
+msgstr ""
+
+#: functions.php:1092
+#, php-format
+msgid "Your %s profile has expired and we have set your profile to private."
+msgstr ""
+
+#: sidebar-right.php:805 sidebar-right.php:932
+#, php-format
+msgid "Your %s profile is active until"
+msgstr ""
+
+#: functions-payments.php:484
+#, php-format
+msgid "Your %s profile is now active."
+msgstr ""
+
+#: functions.php:1226
+#, php-format
+msgid "Your %s profile will expire very soon."
+msgstr ""
+
+#: sidebar-right.php:84
+#, php-format
+msgid ""
+"Your %s profile will not be shown in our website until you pay the "
+"registration fee."
+msgstr ""
+
+#: sidebar-right.php:119
+#, php-format
+msgid ""
+"Your %s profile will not be shown in the site until you pay the registration "
+"fee."
+msgstr ""
+
+#: functions-payments.php:591
+#, php-format
+msgid "Your %s status is active FOREVER"
+msgstr ""
+
+#: functions-payments.php:582
+#, php-format
+msgid "Your %s status is active until"
+msgstr ""
+
+#: functions-payments.php:587
+#, php-format
+msgid "Your %s status subscription is ACTIVE"
+msgstr ""
+
+#: functions-payments.php:694
+#, php-format
+msgid "Your %s subscription from"
+msgstr ""
+
+#: functions.php:758 functions.php:790 functions.php:814
+#: register-agency-personal-info-process.php:248
+#: register-independent-personal-info-process.php:657
+msgid "Your account is now active on"
+msgstr ""
+
+#: edit-email-options.php:17
+msgid "Your admin email seems to be wrong"
+msgstr ""
+
+#: single-profile.php:749
+msgid "Your browser does not support the video tag."
+msgstr ""
+
+#: manage-classified-ads.php:36
+msgid "Your classified ads"
+msgstr ""
+
+#: comments.php:52
+msgid "Your comment"
+msgstr ""
+
+#: functions.php:2521
+msgid ""
+"Your comment has been posted but needs to be approved by an admin first."
+msgstr ""
+
+#: functions-settings.php:37
+#: register-independent-personal-information-form.php:116
+msgid "Your Email"
+msgstr ""
+
+#: edit-email-options.php:110
+msgid "Your email"
+msgstr ""
+
+#: functions.php:852
+msgid "Your email address has been updated"
+msgstr ""
+
+#: functions.php:841 register-agency-personal-info-process.php:48
+#: register-independent-personal-info-process.php:60
+#: register-member-personal-info-process.php:39 single-ad.php:75
+#: single-agency.php:139 single-profile.php:387
+msgid "Your email address seems to be wrong"
+msgstr ""
+
+#: ajax/resend-validation-link.php:24
+msgid "Your email has already been validated"
+msgstr ""
+
+#: nav-contact.php:17 single-ad.php:77 single-agency.php:141
+#: single-profile.php:389
+msgid "Your email is missing"
+msgstr ""
+
+#: register-independent-personal-info-process.php:124
+msgid "Your Facebook url seems to be wrong"
+msgstr ""
+
+#: functions.php:1037
+msgid ""
+"Your featured status has expired and it has been removed from your profile."
+msgstr ""
+
+#: sidebar-right.php:161 sidebar-right.php:204
+msgid "Your featured status will be active for"
+msgstr ""
+
+#: functions.php:1191
+msgid "Your featured status will expire very soon."
+msgstr ""
+
+#: edit-content-settings.php:578 edit-site-settings.php:181
+#: ajax/delete-agency-logo.php:18 ajax/delete-site-logo.php:12
+#: ajax/delete-uploaded-image.php:26 ajax/delete-verified-status-image.php:13
+#: ajax/delete-watermark-logo .php:12 ajax/delete-watermark-logo.php:12
+msgid "Your image has been deleted"
+msgstr ""
+
+#: edit-content-settings.php:561 edit-site-settings.php:156
+#: register-agency-upload-logo.php:34
+#: register-independent-verified-status.php:34 single-agency.php:285
+msgid "Your image has been uploaded"
+msgstr ""
+
+#: nav-contact.php:11
+msgid "Your name is missing"
+msgstr ""
+
+#: register-page-change-password.php:22
+msgid "Your password has been updated"
+msgstr ""
+
+#: register-agency-personal-info-process.php:35
+#: register-independent-personal-info-process.php:43
+#: register-member-personal-info-process.php:22
+#: register-page-change-password.php:15
+msgid "Your password must be between 6 and 50 characters"
+msgstr ""
+
+#: functions-payments.php:379
+msgid "Your payment on"
+msgstr ""
+
+#: functions.php:1015
+msgid ""
+"Your premium status has expired and it has been removed from your profile."
+msgstr ""
+
+#: sidebar-right.php:965
+msgid "Your premium status is active until"
+msgstr ""
+
+#: sidebar-right.php:142 sidebar-right.php:185
+msgid "Your premium status will be active for"
+msgstr ""
+
+#: functions.php:1169
+msgid "Your premium status will expire very soon"
+msgstr ""
+
+#: single-profile.php:72
+msgid "Your profile has been upgraded to a FEATURED profile."
+msgstr ""
+
+#: single-profile.php:41
+msgid "Your profile has been upgraded to PREMIUM."
+msgstr ""
+
+#: functions.php:1092
+#, php-format
+msgid ""
+"Your profile or any %s profiles that you added will not be visible in our "
+"website until you pay your registration fee."
+msgstr ""
+
+#: functions.php:1126
+msgid ""
+"Your profile will not be visible in our website anymore, until you pay your "
+"registration fee."
+msgstr ""
+
+#: functions.php:859 register-agency.php:29
+msgid "Your registration is complete"
+msgstr ""
+
+#: register-independent.php:25 register-member.php:19
+msgid "Your registration is complete."
+msgstr ""
+
+#: single-agency.php:596
+msgid "Your review needs to be approved by an admin before being published."
+msgstr ""
+
+#: single-profile.php:1405
+msgid "Your review will be read by our staff and published soon."
+msgstr ""
+
+#: register-member-see-reviews.php:15
+msgid "Your Reviews"
+msgstr ""
+
+#: edit-content-settings.php:220 edit-payment-settings.php:99
+#: edit-registration-form-escort.php:73 edit-site-settings.php:112
+#: edit-user-types.php:95
+msgid "Your settings have been saved"
+msgstr ""
+
+#: edit-email-options.php:22
+msgid "Your site email address seems to be wrong"
+msgstr ""
+
+#: functions-payments.php:740
+msgid "Your subscription on"
+msgstr ""
+
+#: functions-payments.php:403
+msgid "Your tour has been activated."
+msgstr ""
+
+#: register-independent-add-tour-form.php:10
+msgid ""
+"Your tour will automatically be activated after you complete the payment"
+msgstr ""
+
+#: register-independent-personal-info-process.php:115
+msgid "Your Twitter url seems to be wrong"
+msgstr ""
+
+#: single-agency.php:644 single-profile.php:1475
+msgid "Your user type is not allowed to post a review here"
+msgstr ""
+
+#: register-agency-personal-info-process.php:24
+#: register-independent-personal-info-process.php:32
+#: register-member-personal-info-process.php:12
+msgid "Your username must be between 4 and 30 characters"
+msgstr ""
+
+#: ajax/delete-uploaded-image.php:24
+msgid "Your video has been deleted"
+msgstr ""
+
+#: functions.php:1056
+msgid "Your VIP status has expired and has been removed from your account."
+msgstr ""
+
+#: sidebar-right.php:221 single-profile.php:704 single-profile.php:967
+#: single-profile.php:1426
+msgid "Your VIP status will be active for"
+msgstr ""
+
+#: functions.php:1210
+msgid "Your VIP status will expire very soon."
+msgstr ""
+
+#: register-agency-personal-info-process.php:75
+#: register-independent-personal-info-process.php:94
+msgid "Your website url seems to be wrong"
+msgstr ""
+
+#: functions-settings.php:64
+#: register-independent-personal-information-form.php:659
+#: single-profile.php:910
+msgid "Zodiac sign"
+msgstr ""
