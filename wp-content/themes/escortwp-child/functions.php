@@ -459,10 +459,27 @@ function escortwp_child_enqueue_assets()
 				'error' => __('Search is unavailable right now. Please try again in a moment.', 'escortwp'),
 				'advanced' => __('Advanced search', 'escortwp'),
 			),
-		)
-	);
-}
-add_action('wp_enqueue_scripts', 'escortwp_child_enqueue_assets');
+			)
+		);
+
+		wp_localize_script(
+			'escortwp-child-custom-script',
+			'escortwpAdminSubscriptions',
+			array(
+				'ajaxUrl' => admin_url('admin-ajax.php'),
+				'action' => 'escortwp_admin_save_profile_subscriptions',
+				'nonce' => wp_create_nonce('escortwp_admin_save_profile_subscriptions'),
+				'canManage' => current_user_can('level_10') ? 1 : 0,
+				'copy' => array(
+					'saving' => __('Saving changes…', 'escortwp'),
+					'saved' => __('Subscription settings updated.', 'escortwp'),
+					'error' => __('Could not save the subscription settings right now.', 'escortwp'),
+					'unexpected' => __('Unexpected response from the server.', 'escortwp'),
+				),
+			)
+		);
+	}
+	add_action('wp_enqueue_scripts', 'escortwp_child_enqueue_assets');
 
 /**
  * Convert the legacy rating CSS value (for example "45") into a display score (4.5).
@@ -2304,6 +2321,477 @@ function escortwp_resolve_location_term()
 	}
 
 	wp_send_json_success($payload);
+}
+
+/**
+ * Return the current profile post type slug with a stable fallback.
+ */
+function escortwp_child_get_profile_post_type_slug()
+{
+	global $taxonomy_profile_url;
+
+	$profile_post_type = !empty($taxonomy_profile_url) ? (string) $taxonomy_profile_url : (string) get_option('taxonomy_profile_url');
+
+	return $profile_post_type !== '' ? $profile_post_type : 'escort';
+}
+
+/**
+ * Return the current agency post type slug with a stable fallback.
+ */
+function escortwp_child_get_agency_post_type_slug()
+{
+	global $taxonomy_agency_url;
+
+	$agency_post_type = !empty($taxonomy_agency_url) ? (string) $taxonomy_agency_url : (string) get_option('taxonomy_agency_url');
+
+	return $agency_post_type !== '' ? $agency_post_type : 'agency';
+}
+
+/**
+ * Return the configured payment durations.
+ */
+function escortwp_child_get_payment_durations()
+{
+	global $payment_duration_a;
+
+	return is_array($payment_duration_a) ? $payment_duration_a : array();
+}
+
+/**
+ * Normalize duration values to either a valid duration key or the forever sentinel.
+ */
+function escortwp_child_normalize_duration_value($duration_value)
+{
+	$duration_value = sanitize_key((string) $duration_value);
+
+	return $duration_value === 'forever' ? 'forever' : $duration_value;
+}
+
+/**
+ * Validate that a duration is either "forever" or an allowed payment duration key.
+ */
+function escortwp_child_admin_is_valid_duration($duration_value)
+{
+	if ($duration_value === 'forever') {
+		return true;
+	}
+
+	$durations = escortwp_child_get_payment_durations();
+
+	return isset($durations[$duration_value]);
+}
+
+/**
+ * Compute a new expiration timestamp using the legacy extend-forward behavior.
+ */
+function escortwp_child_admin_resolve_expiration_timestamp($duration_value, $current_expiration = 0)
+{
+	if ($duration_value === 'forever') {
+		return 0;
+	}
+
+	$durations = escortwp_child_get_payment_durations();
+	if (!isset($durations[$duration_value][2])) {
+		return null;
+	}
+
+	$expiration = strtotime('+' . $durations[$duration_value][2]);
+	$current_expiration = (int) $current_expiration;
+
+	if ($current_expiration > time()) {
+		$expiration += ($current_expiration - time());
+	}
+
+	return (int) $expiration;
+}
+
+/**
+ * Format subscription-style dates for the admin panel.
+ */
+function escortwp_child_admin_format_status_date($timestamp)
+{
+	$timestamp = (int) $timestamp;
+
+	if ($timestamp < 1) {
+		return __('Forever', 'escortwp');
+	}
+
+	return date_i18n('d M Y', $timestamp);
+}
+
+/**
+ * Build the context-aware visibility options for the admin panel.
+ */
+function escortwp_child_admin_profile_visibility_options($post_status, $needs_payment, $notactive)
+{
+	$options = array(
+		array(
+			'value' => 'keep',
+			'label' => __('Keep current visibility', 'escortwp'),
+		),
+	);
+
+	if ($needs_payment) {
+		$options[] = array(
+			'value' => 'activate_unpaid',
+			'label' => __('Activate unpaid profile', 'escortwp'),
+		);
+	} elseif ($post_status === 'private') {
+		$options[] = array(
+			'value' => 'activate_private',
+			'label' => $notactive ? __('Activate private profile', 'escortwp') : __('Publish profile', 'escortwp'),
+		);
+	} else {
+		$options[] = array(
+			'value' => 'set_private',
+			'label' => __('Set profile to private', 'escortwp'),
+		);
+	}
+
+	return $options;
+}
+
+/**
+ * Read the current admin subscription state for a profile.
+ */
+function escortwp_child_admin_get_profile_subscription_state($profile_id)
+{
+	$profile_id = absint($profile_id);
+
+	$premium_active = get_post_meta($profile_id, 'premium', true) === '1';
+	$premium_expire = (int) get_post_meta($profile_id, 'premium_expire', true);
+	$featured_active = get_post_meta($profile_id, 'featured', true) === '1';
+	$featured_expire = (int) get_post_meta($profile_id, 'featured_expire', true);
+	$profile_expire = (int) get_post_meta($profile_id, 'escort_expire', true);
+	$verified = get_post_meta($profile_id, 'verified', true) === '1';
+	$post_status = (string) get_post_status($profile_id);
+	$needs_payment = get_post_meta($profile_id, 'needs_payment', true) === '1';
+	$notactive = get_post_meta($profile_id, 'notactive', true) === '1';
+
+	if ($needs_payment) {
+		$visibility_summary = __('Private • payment required', 'escortwp');
+	} elseif ($post_status === 'private' && $notactive) {
+		$visibility_summary = __('Private • awaiting admin activation', 'escortwp');
+	} elseif ($post_status === 'private') {
+		$visibility_summary = __('Private', 'escortwp');
+	} elseif ($post_status === 'publish') {
+		$visibility_summary = __('Public', 'escortwp');
+	} else {
+		$visibility_summary = ucfirst($post_status !== '' ? $post_status : __('Unknown', 'escortwp'));
+	}
+
+	return array(
+		'profile_id' => $profile_id,
+		'premium' => array(
+			'active' => $premium_active,
+			'expires' => $premium_expire,
+			'badge' => $premium_active ? __('Active', 'escortwp') : __('Off', 'escortwp'),
+			'summary' => $premium_active
+				? ($premium_expire ? sprintf(__('Active until %s', 'escortwp'), escortwp_child_admin_format_status_date($premium_expire)) : __('Active forever', 'escortwp'))
+				: __('Not active', 'escortwp'),
+		),
+		'featured' => array(
+			'active' => $featured_active,
+			'expires' => $featured_expire,
+			'badge' => $featured_active ? __('Active', 'escortwp') : __('Off', 'escortwp'),
+			'summary' => $featured_active
+				? ($featured_expire ? sprintf(__('Active until %s', 'escortwp'), escortwp_child_admin_format_status_date($featured_expire)) : __('Active forever', 'escortwp'))
+				: __('Not active', 'escortwp'),
+		),
+		'expiry' => array(
+			'active' => $profile_expire > 0,
+			'expires' => $profile_expire,
+			'badge' => $profile_expire > 0 ? __('Scheduled', 'escortwp') : __('Open', 'escortwp'),
+			'summary' => $profile_expire > 0
+				? sprintf(__('Expires on %s', 'escortwp'), escortwp_child_admin_format_status_date($profile_expire))
+				: __('No expiry date set', 'escortwp'),
+		),
+		'verified' => array(
+			'active' => $verified,
+			'badge' => $verified ? __('Verified', 'escortwp') : __('Unverified', 'escortwp'),
+			'summary' => $verified ? __('Verification badge is visible', 'escortwp') : __('Verification badge is hidden', 'escortwp'),
+		),
+		'visibility' => array(
+			'post_status' => $post_status,
+			'needs_payment' => $needs_payment,
+			'notactive' => $notactive,
+			'badge' => $post_status === 'publish' ? __('Public', 'escortwp') : __('Private', 'escortwp'),
+			'summary' => $visibility_summary,
+			'options' => escortwp_child_admin_profile_visibility_options($post_status, $needs_payment, $notactive),
+		),
+	);
+}
+
+/**
+ * Apply premium status changes using the legacy meta semantics.
+ */
+function escortwp_child_admin_apply_premium_mode($profile_id, $mode, $duration_value)
+{
+	if ($mode !== 'enable' && $mode !== 'disable') {
+		return;
+	}
+
+	if ($mode === 'disable') {
+		update_post_meta($profile_id, 'premium', '0');
+		delete_post_meta($profile_id, 'premium_expire');
+		delete_post_meta($profile_id, 'premium_renew');
+		delete_post_meta($profile_id, 'premium_since');
+		return;
+	}
+
+	update_post_meta($profile_id, 'premium', '1');
+	update_post_meta($profile_id, 'premium_since', time());
+
+	if ($duration_value === 'forever') {
+		delete_post_meta($profile_id, 'premium_expire');
+		delete_post_meta($profile_id, 'premium_renew');
+		return;
+	}
+
+	$current_expiration = (int) get_post_meta($profile_id, 'premium_expire', true);
+	$expiration = escortwp_child_admin_resolve_expiration_timestamp($duration_value, $current_expiration);
+
+	if ($expiration !== null) {
+		update_post_meta($profile_id, 'premium_expire', $expiration);
+	}
+}
+
+/**
+ * Apply featured status changes using the legacy meta semantics.
+ */
+function escortwp_child_admin_apply_featured_mode($profile_id, $mode, $duration_value)
+{
+	if ($mode !== 'enable' && $mode !== 'disable') {
+		return;
+	}
+
+	if ($mode === 'disable') {
+		update_post_meta($profile_id, 'featured', '0');
+		delete_post_meta($profile_id, 'featured_expire');
+		delete_post_meta($profile_id, 'featured_renew');
+		return;
+	}
+
+	update_post_meta($profile_id, 'featured', '1');
+
+	if ($duration_value === 'forever') {
+		delete_post_meta($profile_id, 'featured_expire');
+		delete_post_meta($profile_id, 'featured_renew');
+		return;
+	}
+
+	$current_expiration = (int) get_post_meta($profile_id, 'featured_expire', true);
+	$expiration = escortwp_child_admin_resolve_expiration_timestamp($duration_value, $current_expiration);
+
+	if ($expiration !== null) {
+		update_post_meta($profile_id, 'featured_expire', $expiration);
+	}
+}
+
+/**
+ * Apply registration expiry changes using the legacy meta semantics.
+ */
+function escortwp_child_admin_apply_profile_expiry_mode($profile_id, $mode, $duration_value)
+{
+	if ($mode !== 'set' && $mode !== 'remove') {
+		return;
+	}
+
+	if ($mode === 'remove') {
+		delete_post_meta($profile_id, 'escort_expire');
+		delete_post_meta($profile_id, 'escort_renew');
+
+		$profile_author_id = (int) get_post_field('post_author', $profile_id);
+		$plan_name = get_option('escortid' . $profile_author_id) === escortwp_child_get_agency_post_type_slug() ? 'agescortreg' : 'indescreg';
+
+		if (function_exists('payment_plans') && payment_plans($plan_name, 'price')) {
+			update_post_meta($profile_id, 'needs_payment', '1');
+			wp_update_post(array(
+				'ID' => $profile_id,
+				'post_status' => 'private',
+			));
+		}
+		return;
+	}
+
+	if ($duration_value === 'forever') {
+		delete_post_meta($profile_id, 'escort_expire');
+		delete_post_meta($profile_id, 'escort_renew');
+		return;
+	}
+
+	$current_expiration = (int) get_post_meta($profile_id, 'escort_expire', true);
+	$expiration = escortwp_child_admin_resolve_expiration_timestamp($duration_value, $current_expiration);
+
+	if ($expiration !== null) {
+		update_post_meta($profile_id, 'escort_expire', $expiration);
+	}
+}
+
+/**
+ * Apply verification changes explicitly instead of using the legacy toggle POST.
+ */
+function escortwp_child_admin_apply_verified_mode($profile_id, $mode)
+{
+	if ($mode === 'set_verified') {
+		update_post_meta($profile_id, 'verified', '1');
+	} elseif ($mode === 'set_unverified') {
+		update_post_meta($profile_id, 'verified', '0');
+	}
+}
+
+/**
+ * Apply visibility and activation changes using the existing meta semantics.
+ */
+function escortwp_child_admin_apply_visibility_mode($profile_id, $mode, $duration_value)
+{
+	if ($mode === 'keep') {
+		return;
+	}
+
+	if ($mode === 'set_private') {
+		if (get_post_status($profile_id) !== 'private') {
+			update_post_meta($profile_id, 'notactive', '1');
+			wp_update_post(array(
+				'ID' => $profile_id,
+				'post_status' => 'private',
+			));
+		}
+		return;
+	}
+
+	if ($mode === 'activate_private') {
+		delete_post_meta($profile_id, 'notactive');
+		wp_update_post(array(
+			'ID' => $profile_id,
+			'post_status' => 'publish',
+		));
+		return;
+	}
+
+	if ($mode === 'activate_unpaid') {
+		if ($duration_value === 'forever') {
+			delete_post_meta($profile_id, 'escort_expire');
+			delete_post_meta($profile_id, 'escort_renew');
+		} else {
+			$current_expiration = (int) get_post_meta($profile_id, 'escort_expire', true);
+			$expiration = escortwp_child_admin_resolve_expiration_timestamp($duration_value, $current_expiration);
+
+			if ($expiration !== null) {
+				update_post_meta($profile_id, 'escort_expire', $expiration);
+			}
+		}
+
+		delete_post_meta($profile_id, 'needs_payment');
+		wp_update_post(array(
+			'ID' => $profile_id,
+			'post_status' => 'publish',
+		));
+	}
+}
+
+add_action('wp_ajax_escortwp_admin_save_profile_subscriptions', 'escortwp_child_admin_save_profile_subscriptions');
+
+/**
+ * Save all admin subscription changes in one request.
+ */
+function escortwp_child_admin_save_profile_subscriptions()
+{
+	if (!current_user_can('level_10')) {
+		wp_send_json_error(array(
+			'message' => __('You do not have permission to manage this profile.', 'escortwp'),
+		), 403);
+	}
+
+	$nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+	if (!wp_verify_nonce($nonce, 'escortwp_admin_save_profile_subscriptions')) {
+		wp_send_json_error(array(
+			'message' => __('Your admin session expired. Refresh the page and try again.', 'escortwp'),
+		), 403);
+	}
+
+	$profile_id = isset($_POST['profile_id']) ? absint(wp_unslash($_POST['profile_id'])) : 0;
+	$profile_post_type = escortwp_child_get_profile_post_type_slug();
+
+	if ($profile_id < 1 || get_post_type($profile_id) !== $profile_post_type) {
+		wp_send_json_error(array(
+			'message' => __('Invalid profile selected.', 'escortwp'),
+		), 400);
+	}
+
+	$payload = array(
+		'premium_mode' => sanitize_key((string) ($_POST['premium_mode'] ?? 'keep')),
+		'premium_duration' => escortwp_child_normalize_duration_value($_POST['premium_duration'] ?? ''),
+		'featured_mode' => sanitize_key((string) ($_POST['featured_mode'] ?? 'keep')),
+		'featured_duration' => escortwp_child_normalize_duration_value($_POST['featured_duration'] ?? ''),
+		'expiry_mode' => sanitize_key((string) ($_POST['expiry_mode'] ?? 'keep')),
+		'expiry_duration' => escortwp_child_normalize_duration_value($_POST['expiry_duration'] ?? ''),
+		'verified_mode' => sanitize_key((string) ($_POST['verified_mode'] ?? 'keep')),
+		'visibility_mode' => sanitize_key((string) ($_POST['visibility_mode'] ?? 'keep')),
+		'visibility_duration' => escortwp_child_normalize_duration_value($_POST['visibility_duration'] ?? ''),
+	);
+
+	$allowed_modes = array(
+		'premium_mode' => array('keep', 'enable', 'disable'),
+		'featured_mode' => array('keep', 'enable', 'disable'),
+		'expiry_mode' => array('keep', 'set', 'remove'),
+		'verified_mode' => array('keep', 'set_verified', 'set_unverified'),
+		'visibility_mode' => array('keep', 'set_private', 'activate_private', 'activate_unpaid'),
+	);
+
+	foreach ($allowed_modes as $field => $allowed_values) {
+		if (!in_array($payload[$field], $allowed_values, true)) {
+			wp_send_json_error(array(
+				'message' => __('One of the requested changes is not valid.', 'escortwp'),
+			), 400);
+		}
+	}
+
+	if ($payload['premium_mode'] === 'enable' && !escortwp_child_admin_is_valid_duration($payload['premium_duration'])) {
+		wp_send_json_error(array(
+			'message' => __('Select a valid Premium duration before saving.', 'escortwp'),
+		), 400);
+	}
+
+	if ($payload['featured_mode'] === 'enable' && !escortwp_child_admin_is_valid_duration($payload['featured_duration'])) {
+		wp_send_json_error(array(
+			'message' => __('Select a valid Featured duration before saving.', 'escortwp'),
+		), 400);
+	}
+
+	if ($payload['expiry_mode'] === 'set' && !escortwp_child_admin_is_valid_duration($payload['expiry_duration'])) {
+		wp_send_json_error(array(
+			'message' => __('Select a valid profile expiry duration before saving.', 'escortwp'),
+		), 400);
+	}
+
+	$current_state = escortwp_child_admin_get_profile_subscription_state($profile_id);
+	$allowed_visibility_modes = wp_list_pluck($current_state['visibility']['options'], 'value');
+	$allowed_visibility_modes[] = 'keep';
+	$allowed_visibility_modes = array_unique($allowed_visibility_modes);
+
+	if (!in_array($payload['visibility_mode'], $allowed_visibility_modes, true)) {
+		wp_send_json_error(array(
+			'message' => __('The selected visibility action is not available for this profile.', 'escortwp'),
+		), 400);
+	}
+
+	if ($payload['visibility_mode'] === 'activate_unpaid' && !escortwp_child_admin_is_valid_duration($payload['visibility_duration'])) {
+		wp_send_json_error(array(
+			'message' => __('Select a valid activation duration before saving.', 'escortwp'),
+		), 400);
+	}
+
+	escortwp_child_admin_apply_premium_mode($profile_id, $payload['premium_mode'], $payload['premium_duration']);
+	escortwp_child_admin_apply_featured_mode($profile_id, $payload['featured_mode'], $payload['featured_duration']);
+	escortwp_child_admin_apply_profile_expiry_mode($profile_id, $payload['expiry_mode'], $payload['expiry_duration']);
+	escortwp_child_admin_apply_verified_mode($profile_id, $payload['verified_mode']);
+	escortwp_child_admin_apply_visibility_mode($profile_id, $payload['visibility_mode'], $payload['visibility_duration']);
+
+	wp_send_json_success(array(
+		'message' => __('Subscription settings updated.', 'escortwp'),
+		'state' => escortwp_child_admin_get_profile_subscription_state($profile_id),
+	));
 }
 
 /**

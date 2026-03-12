@@ -11,6 +11,16 @@ if (is_user_logged_in()) {
 
 $profile_author_id = $post->post_author;
 $this_post_id = get_the_ID();
+$profile_orders_url = '';
+$profile_orders_classes = '';
+
+if (is_woocommerce_active && function_exists('wc_get_account_endpoint_url')) {
+	$profile_orders_url = (string) wc_get_account_endpoint_url('orders');
+
+	if (function_exists('wc_get_account_menu_item_classes')) {
+		$profile_orders_classes = (string) wc_get_account_menu_item_classes('orders');
+	}
+}
 
 /* Recently Viewed (server-side cookie, safe) */
 $rv_cookie_name = 'escortwp_recently_viewed';
@@ -807,6 +817,11 @@ get_header(); ?>
 							<span class="icon icon-check"></span>
 							<span><?php _e('Verified status', 'escortwp'); ?></span>
 						</button>
+						<button type="button" class="profile-admin-quick-actions__btn"
+							data-admin-profile-action="subscriptions">
+							<span class="icon icon-dollar"></span>
+							<span><?php _e('Subscriptions & Activation', 'escortwp'); ?></span>
+						</button>
 						<button type="button" class="profile-admin-quick-actions__btn" data-admin-profile-action="addanote">
 							<span class="icon icon-doc-text"></span>
 							<span><?php _e('Add a note', 'escortwp'); ?></span>
@@ -822,12 +837,188 @@ get_header(); ?>
 							<span><?php _e('Edit in WordPress', 'escortwp'); ?></span>
 						</a>
 					</div>
-				</section>
-				<?php
-			}
-			?>
-			<!-- Profile Hero Section — Cover + Avatar Layout -->
-			<section class="profile-hero profile-hero--cover" aria-label="Profile hero">
+					</section>
+					<?php
+				}
+
+				if (current_user_can('level_10') && function_exists('escortwp_child_admin_get_profile_subscription_state')) {
+					$admin_subscription_state = escortwp_child_admin_get_profile_subscription_state(get_the_ID());
+					$admin_subscription_durations = function_exists('escortwp_child_get_payment_durations') ? escortwp_child_get_payment_durations() : array();
+					?>
+					<div class="agency_options_subscriptions agency_options_dropdowns registerform profile-admin-subscriptions"
+						data-profile-subscriptions-panel>
+						<div class="settingspagetitle rad3 l"><?php _e('Subscriptions & Activation', 'escortwp'); ?></div>
+						<?php closebtn(); ?>
+						<div class="clear20"></div>
+
+						<form class="profile-admin-subscriptions__form"
+							data-profile-subscriptions-form
+							data-profile-id="<?php echo esc_attr((int) get_the_ID()); ?>">
+							<div class="profile-admin-subscriptions__intro">
+								<p><?php _e('Review the current subscription status, choose only the changes you want to make, and save everything in one go.', 'escortwp'); ?></p>
+							</div>
+
+							<div class="profile-admin-subscriptions__feedback" data-subscriptions-feedback hidden></div>
+
+							<div class="profile-admin-subscriptions__summary" data-subscriptions-summary>
+								<div class="profile-admin-subscriptions__summary-card">
+									<span class="profile-admin-subscriptions__summary-label"><?php _e('Premium', 'escortwp'); ?></span>
+									<strong class="profile-admin-subscriptions__summary-value" data-summary-premium-badge><?php echo esc_html($admin_subscription_state['premium']['badge']); ?></strong>
+									<span class="profile-admin-subscriptions__summary-meta" data-summary-premium><?php echo esc_html($admin_subscription_state['premium']['summary']); ?></span>
+								</div>
+								<div class="profile-admin-subscriptions__summary-card">
+									<span class="profile-admin-subscriptions__summary-label"><?php _e('Featured', 'escortwp'); ?></span>
+									<strong class="profile-admin-subscriptions__summary-value" data-summary-featured-badge><?php echo esc_html($admin_subscription_state['featured']['badge']); ?></strong>
+									<span class="profile-admin-subscriptions__summary-meta" data-summary-featured><?php echo esc_html($admin_subscription_state['featured']['summary']); ?></span>
+								</div>
+								<div class="profile-admin-subscriptions__summary-card">
+									<span class="profile-admin-subscriptions__summary-label"><?php _e('Expiry', 'escortwp'); ?></span>
+									<strong class="profile-admin-subscriptions__summary-value" data-summary-expiry-badge><?php echo esc_html($admin_subscription_state['expiry']['badge']); ?></strong>
+									<span class="profile-admin-subscriptions__summary-meta" data-summary-expiry><?php echo esc_html($admin_subscription_state['expiry']['summary']); ?></span>
+								</div>
+								<div class="profile-admin-subscriptions__summary-card">
+									<span class="profile-admin-subscriptions__summary-label"><?php _e('Verification', 'escortwp'); ?></span>
+									<strong class="profile-admin-subscriptions__summary-value" data-summary-verified-badge><?php echo esc_html($admin_subscription_state['verified']['badge']); ?></strong>
+									<span class="profile-admin-subscriptions__summary-meta" data-summary-verified><?php echo esc_html($admin_subscription_state['verified']['summary']); ?></span>
+								</div>
+								<div class="profile-admin-subscriptions__summary-card">
+									<span class="profile-admin-subscriptions__summary-label"><?php _e('Visibility', 'escortwp'); ?></span>
+									<strong class="profile-admin-subscriptions__summary-value" data-summary-visibility-badge><?php echo esc_html($admin_subscription_state['visibility']['badge']); ?></strong>
+									<span class="profile-admin-subscriptions__summary-meta" data-summary-visibility><?php echo esc_html($admin_subscription_state['visibility']['summary']); ?></span>
+								</div>
+							</div>
+
+							<div class="profile-admin-subscriptions__grid">
+								<div class="profile-admin-subscriptions__card">
+									<div class="profile-admin-subscriptions__card-head">
+										<h4><?php _e('Premium', 'escortwp'); ?></h4>
+										<span class="profile-admin-subscriptions__badge" data-card-premium-badge><?php echo esc_html($admin_subscription_state['premium']['badge']); ?></span>
+									</div>
+									<p class="profile-admin-subscriptions__card-meta" data-card-premium><?php echo esc_html($admin_subscription_state['premium']['summary']); ?></p>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Action', 'escortwp'); ?></span>
+										<select name="premium_mode" data-mode-field="premium_duration">
+											<option value="keep"><?php _e('Keep current Premium status', 'escortwp'); ?></option>
+											<option value="enable"><?php _e('Enable or extend Premium', 'escortwp'); ?></option>
+											<option value="disable"><?php _e('Disable Premium', 'escortwp'); ?></option>
+										</select>
+									</label>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Duration', 'escortwp'); ?></span>
+										<select name="premium_duration" data-duration-select="premium_duration" disabled>
+											<option value="forever"><?php _e('Forever', 'escortwp'); ?></option>
+											<?php foreach ($admin_subscription_durations as $duration_key => $duration_meta) { ?>
+												<option value="<?php echo esc_attr($duration_key); ?>"><?php echo esc_html($duration_meta[0]); ?></option>
+											<?php } ?>
+										</select>
+									</label>
+								</div>
+
+								<div class="profile-admin-subscriptions__card">
+									<div class="profile-admin-subscriptions__card-head">
+										<h4><?php _e('Featured', 'escortwp'); ?></h4>
+										<span class="profile-admin-subscriptions__badge" data-card-featured-badge><?php echo esc_html($admin_subscription_state['featured']['badge']); ?></span>
+									</div>
+									<p class="profile-admin-subscriptions__card-meta" data-card-featured><?php echo esc_html($admin_subscription_state['featured']['summary']); ?></p>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Action', 'escortwp'); ?></span>
+										<select name="featured_mode" data-mode-field="featured_duration">
+											<option value="keep"><?php _e('Keep current Featured status', 'escortwp'); ?></option>
+											<option value="enable"><?php _e('Enable or extend Featured', 'escortwp'); ?></option>
+											<option value="disable"><?php _e('Disable Featured', 'escortwp'); ?></option>
+										</select>
+									</label>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Duration', 'escortwp'); ?></span>
+										<select name="featured_duration" data-duration-select="featured_duration" disabled>
+											<option value="forever"><?php _e('Forever', 'escortwp'); ?></option>
+											<?php foreach ($admin_subscription_durations as $duration_key => $duration_meta) { ?>
+												<option value="<?php echo esc_attr($duration_key); ?>"><?php echo esc_html($duration_meta[0]); ?></option>
+											<?php } ?>
+										</select>
+									</label>
+								</div>
+
+								<div class="profile-admin-subscriptions__card">
+									<div class="profile-admin-subscriptions__card-head">
+										<h4><?php _e('Profile Expiry', 'escortwp'); ?></h4>
+										<span class="profile-admin-subscriptions__badge" data-card-expiry-badge><?php echo esc_html($admin_subscription_state['expiry']['badge']); ?></span>
+									</div>
+									<p class="profile-admin-subscriptions__card-meta" data-card-expiry><?php echo esc_html($admin_subscription_state['expiry']['summary']); ?></p>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Action', 'escortwp'); ?></span>
+										<select name="expiry_mode" data-mode-field="expiry_duration">
+											<option value="keep"><?php _e('Keep current profile expiry', 'escortwp'); ?></option>
+											<option value="set"><?php _e('Set or extend profile expiry', 'escortwp'); ?></option>
+											<option value="remove"><?php _e('Mark profile as expired', 'escortwp'); ?></option>
+										</select>
+									</label>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Duration', 'escortwp'); ?></span>
+										<select name="expiry_duration" data-duration-select="expiry_duration" disabled>
+											<option value="forever"><?php _e('Forever', 'escortwp'); ?></option>
+											<?php foreach ($admin_subscription_durations as $duration_key => $duration_meta) { ?>
+												<option value="<?php echo esc_attr($duration_key); ?>"><?php echo esc_html($duration_meta[0]); ?></option>
+											<?php } ?>
+										</select>
+									</label>
+								</div>
+
+								<div class="profile-admin-subscriptions__card">
+									<div class="profile-admin-subscriptions__card-head">
+										<h4><?php _e('Verification', 'escortwp'); ?></h4>
+										<span class="profile-admin-subscriptions__badge" data-card-verified-badge><?php echo esc_html($admin_subscription_state['verified']['badge']); ?></span>
+									</div>
+									<p class="profile-admin-subscriptions__card-meta" data-card-verified><?php echo esc_html($admin_subscription_state['verified']['summary']); ?></p>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Action', 'escortwp'); ?></span>
+										<select name="verified_mode">
+											<option value="keep"><?php _e('Keep current verification', 'escortwp'); ?></option>
+											<option value="set_verified"><?php _e('Mark profile as verified', 'escortwp'); ?></option>
+											<option value="set_unverified"><?php _e('Remove verified status', 'escortwp'); ?></option>
+										</select>
+									</label>
+								</div>
+
+								<div class="profile-admin-subscriptions__card profile-admin-subscriptions__card--wide">
+									<div class="profile-admin-subscriptions__card-head">
+										<h4><?php _e('Activation & Visibility', 'escortwp'); ?></h4>
+										<span class="profile-admin-subscriptions__badge" data-card-visibility-badge><?php echo esc_html($admin_subscription_state['visibility']['badge']); ?></span>
+									</div>
+									<p class="profile-admin-subscriptions__card-meta" data-card-visibility><?php echo esc_html($admin_subscription_state['visibility']['summary']); ?></p>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Action', 'escortwp'); ?></span>
+										<select name="visibility_mode" data-mode-field="visibility_duration" data-visibility-mode>
+											<?php foreach ($admin_subscription_state['visibility']['options'] as $visibility_option) { ?>
+												<option value="<?php echo esc_attr($visibility_option['value']); ?>"><?php echo esc_html($visibility_option['label']); ?></option>
+											<?php } ?>
+										</select>
+									</label>
+									<label class="profile-admin-subscriptions__field">
+										<span><?php _e('Activation duration', 'escortwp'); ?></span>
+										<select name="visibility_duration" data-duration-select="visibility_duration" disabled>
+											<option value="forever"><?php _e('Forever', 'escortwp'); ?></option>
+											<?php foreach ($admin_subscription_durations as $duration_key => $duration_meta) { ?>
+												<option value="<?php echo esc_attr($duration_key); ?>"><?php echo esc_html($duration_meta[0]); ?></option>
+											<?php } ?>
+										</select>
+										<small><?php _e('Used only when activating an unpaid private profile.', 'escortwp'); ?></small>
+									</label>
+								</div>
+							</div>
+
+							<div class="profile-admin-subscriptions__actions">
+								<button type="submit" class="pinkbutton rad25" data-subscriptions-save>
+									<?php _e('Save All Changes', 'escortwp'); ?>
+								</button>
+							</div>
+						</form>
+					</div>
+					<?php
+				}
+				?>
+				<!-- Profile Hero Section — Cover + Avatar Layout -->
+				<section class="profile-hero profile-hero--cover" aria-label="Profile hero">
 				<!-- Decorative cover band (no user photo) -->
 				<div class="profile-hero__cover">
 					<div class="profile-hero__cover-pattern"></div>
@@ -902,6 +1093,13 @@ get_header(); ?>
 								</div>
 							</div>
 						</div><!-- /meta -->
+
+
+
+
+
+
+
 						</div><!-- /details -->
 
 						<!-- CTA buttons (right-aligned) -->
@@ -1103,12 +1301,12 @@ get_header(); ?>
 								href="<?php echo get_permalink(get_option('escort_edit_personal_info_page_id')); ?>">
 								<span class="icon icon-pencil"></span><?php _e('Edit my Profile', 'escortwp'); ?>
 							</a>
-							<?php if (is_woocommerce_active) { ?>
-								<a class="profile-account__action"
-									href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>">
-									<span class="icon icon-dollar"></span><?php _e('My Payments', 'escortwp'); ?>
-								</a>
-							<?php } ?>
+								<?php if ($profile_orders_url !== '') { ?>
+									<a class="profile-account__action"
+										href="<?php echo esc_url($profile_orders_url); ?>">
+										<span class="icon icon-dollar"></span><?php _e('My Payments', 'escortwp'); ?>
+									</a>
+								<?php } ?>
 							<a class="profile-account__action"
 								href="<?php echo get_permalink(get_option('change_password_page_id')); ?>">
 								<span class="icon icon-key-outline"></span><?php _e('Change Password', 'escortwp'); ?>
@@ -1305,12 +1503,12 @@ get_header(); ?>
 												<span class="menu-label"><?php _e('Edit my Profile', 'escortwp'); ?></span>
 											</a>
 										</li>
-										<?php if (is_woocommerce_active) { ?>
-											<li class="menu-card menu-card--payments <?php echo wc_get_account_menu_item_classes('orders'); ?>">
-												<a href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>">
-													<span class="icon icon-dollar"></span>
-													<span class="menu-label"><?= __('My Payments', 'escortwp') ?></span>
-												</a>
+											<?php if ($profile_orders_url !== '') { ?>
+												<li class="menu-card menu-card--payments <?php echo esc_attr($profile_orders_classes); ?>">
+													<a href="<?php echo esc_url($profile_orders_url); ?>">
+														<span class="icon icon-dollar"></span>
+														<span class="menu-label"><?= __('My Payments', 'escortwp') ?></span>
+													</a>
 											</li>
 										<?php }
 										if ($account_has_not_payed == "yes") { ?>

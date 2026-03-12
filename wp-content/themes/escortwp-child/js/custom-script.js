@@ -2172,7 +2172,7 @@ jQuery(function ($) {
 		return;
 	}
 
-	var knownActions = ['editprofile', 'addtours', 'verified_status', 'addanote', 'delete'];
+	var knownActions = ['editprofile', 'addtours', 'verified_status', 'subscriptions', 'addanote', 'delete'];
 
 	function getActionFromElement($el) {
 		for (var i = 0; i < knownActions.length; i++) {
@@ -2303,4 +2303,190 @@ jQuery(function ($) {
 			}
 		}, 220);
 	});
+
+	var adminSubscriptions = window.escortwpAdminSubscriptions || null;
+	var $subscriptionsForm = $('[data-profile-subscriptions-form]').first();
+
+	function getSubscriptionFeedbackClasses(type) {
+		if (type === 'success') {
+			return ' profile-admin-subscriptions__feedback--success';
+		}
+
+		if (type === 'error') {
+			return ' profile-admin-subscriptions__feedback--error';
+		}
+
+		return ' profile-admin-subscriptions__feedback--busy';
+	}
+
+	function setSubscriptionsFeedback(type, message) {
+		var $feedback = $('[data-subscriptions-feedback]');
+		if (!$feedback.length) {
+			return;
+		}
+
+		$feedback
+			.prop('hidden', !message)
+			.removeClass('profile-admin-subscriptions__feedback--success profile-admin-subscriptions__feedback--error profile-admin-subscriptions__feedback--busy')
+			.addClass(message ? getSubscriptionFeedbackClasses(type) : '')
+			.text(message || '');
+	}
+
+	function syncSubscriptionDurationFields() {
+		if (!$subscriptionsForm.length) {
+			return;
+		}
+
+		$subscriptionsForm.find('[data-mode-field]').each(function () {
+			var $mode = $(this);
+			var targetName = String($mode.data('mode-field') || '');
+			var $target = $subscriptionsForm.find('[name="' + targetName + '"]');
+			var modeValue = String($mode.val() || '');
+			var shouldEnable = false;
+
+			if (targetName === 'visibility_duration') {
+				shouldEnable = (modeValue === 'activate_unpaid');
+			} else {
+				shouldEnable = (modeValue === 'enable' || modeValue === 'set');
+			}
+
+			$target.prop('disabled', !shouldEnable);
+			$target.closest('.profile-admin-subscriptions__field').toggleClass('is-disabled', !shouldEnable);
+		});
+	}
+
+	function setSubscriptionSelectValue(name, value) {
+		var $field = $subscriptionsForm.find('[name="' + name + '"]');
+		if (!$field.length) {
+			return;
+		}
+
+		if ($field.find('option[value="' + value + '"]').length) {
+			$field.val(value);
+		} else {
+			$field.prop('selectedIndex', 0);
+		}
+	}
+
+	function resetSubscriptionFormState() {
+		if (!$subscriptionsForm.length) {
+			return;
+		}
+
+		setSubscriptionSelectValue('premium_mode', 'keep');
+		setSubscriptionSelectValue('premium_duration', 'forever');
+		setSubscriptionSelectValue('featured_mode', 'keep');
+		setSubscriptionSelectValue('featured_duration', 'forever');
+		setSubscriptionSelectValue('expiry_mode', 'keep');
+		setSubscriptionSelectValue('expiry_duration', 'forever');
+		setSubscriptionSelectValue('verified_mode', 'keep');
+		setSubscriptionSelectValue('visibility_mode', 'keep');
+		setSubscriptionSelectValue('visibility_duration', 'forever');
+		syncSubscriptionDurationFields();
+	}
+
+	function renderVisibilityOptions(state) {
+		if (!$subscriptionsForm.length || !state || !state.visibility || !state.visibility.options) {
+			return;
+		}
+
+		var $visibilitySelect = $subscriptionsForm.find('[data-visibility-mode]');
+		if (!$visibilitySelect.length) {
+			return;
+		}
+
+		var optionsHtml = '';
+		$.each(state.visibility.options, function (_, option) {
+			optionsHtml += '<option value="' + String(option.value || '') + '">' + String(option.label || '') + '</option>';
+		});
+
+		$visibilitySelect.html(optionsHtml);
+		if ($visibilitySelect.find('option[value="keep"]').length) {
+			$visibilitySelect.val('keep');
+		} else {
+			$visibilitySelect.prop('selectedIndex', 0);
+		}
+	}
+
+	function updateSubscriptionSummary(state) {
+		if (!state) {
+			return;
+		}
+
+		$('[data-summary-premium-badge], [data-card-premium-badge]').text(state.premium && state.premium.badge ? state.premium.badge : '');
+		$('[data-summary-premium], [data-card-premium]').text(state.premium && state.premium.summary ? state.premium.summary : '');
+
+		$('[data-summary-featured-badge], [data-card-featured-badge]').text(state.featured && state.featured.badge ? state.featured.badge : '');
+		$('[data-summary-featured], [data-card-featured]').text(state.featured && state.featured.summary ? state.featured.summary : '');
+
+		$('[data-summary-expiry-badge], [data-card-expiry-badge]').text(state.expiry && state.expiry.badge ? state.expiry.badge : '');
+		$('[data-summary-expiry], [data-card-expiry]').text(state.expiry && state.expiry.summary ? state.expiry.summary : '');
+
+		$('[data-summary-verified-badge], [data-card-verified-badge]').text(state.verified && state.verified.badge ? state.verified.badge : '');
+		$('[data-summary-verified], [data-card-verified]').text(state.verified && state.verified.summary ? state.verified.summary : '');
+
+		$('[data-summary-visibility-badge], [data-card-visibility-badge]').text(state.visibility && state.visibility.badge ? state.visibility.badge : '');
+		$('[data-summary-visibility], [data-card-visibility]').text(state.visibility && state.visibility.summary ? state.visibility.summary : '');
+
+		renderVisibilityOptions(state);
+		resetSubscriptionFormState();
+	}
+
+	if ($subscriptionsForm.length && adminSubscriptions && Number(adminSubscriptions.canManage) === 1) {
+		syncSubscriptionDurationFields();
+
+		$subscriptionsForm.on('change', '[data-mode-field]', function () {
+			syncSubscriptionDurationFields();
+		});
+
+		$subscriptionsForm.on('submit', function (event) {
+			event.preventDefault();
+
+			var $form = $(this);
+			var $saveButton = $form.find('[data-subscriptions-save]');
+			var originalLabel = $saveButton.text();
+			var payload = {
+				action: adminSubscriptions.action,
+				nonce: adminSubscriptions.nonce,
+				profile_id: Number($form.data('profile-id') || 0),
+				premium_mode: String($form.find('[name="premium_mode"]').val() || 'keep'),
+				premium_duration: String($form.find('[name="premium_duration"]').val() || 'forever'),
+				featured_mode: String($form.find('[name="featured_mode"]').val() || 'keep'),
+				featured_duration: String($form.find('[name="featured_duration"]').val() || 'forever'),
+				expiry_mode: String($form.find('[name="expiry_mode"]').val() || 'keep'),
+				expiry_duration: String($form.find('[name="expiry_duration"]').val() || 'forever'),
+				verified_mode: String($form.find('[name="verified_mode"]').val() || 'keep'),
+				visibility_mode: String($form.find('[name="visibility_mode"]').val() || 'keep'),
+				visibility_duration: String($form.find('[name="visibility_duration"]').val() || 'forever')
+			};
+
+			setSubscriptionsFeedback('busy', adminSubscriptions.copy && adminSubscriptions.copy.saving ? adminSubscriptions.copy.saving : 'Saving changes…');
+			$saveButton.prop('disabled', true).text(adminSubscriptions.copy && adminSubscriptions.copy.saving ? adminSubscriptions.copy.saving : 'Saving changes…');
+
+			$.ajax({
+				url: adminSubscriptions.ajaxUrl,
+				method: 'POST',
+				dataType: 'json',
+				data: payload
+			}).done(function (response) {
+				if (!response || response.success !== true || !response.data || !response.data.state) {
+					setSubscriptionsFeedback('error', adminSubscriptions.copy && adminSubscriptions.copy.unexpected ? adminSubscriptions.copy.unexpected : 'Unexpected response from the server.');
+					return;
+				}
+
+				updateSubscriptionSummary(response.data.state);
+				setSubscriptionsFeedback('success', response.data.message || (adminSubscriptions.copy && adminSubscriptions.copy.saved ? adminSubscriptions.copy.saved : 'Subscription settings updated.'));
+			}).fail(function (xhr) {
+				var message = adminSubscriptions.copy && adminSubscriptions.copy.error ? adminSubscriptions.copy.error : 'Could not save the subscription settings right now.';
+
+				if (xhr && xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
+					message = xhr.responseJSON.data.message;
+				}
+
+				setSubscriptionsFeedback('error', message);
+			}).always(function () {
+				$saveButton.prop('disabled', false).text(originalLabel);
+			});
+		});
+	}
 });
