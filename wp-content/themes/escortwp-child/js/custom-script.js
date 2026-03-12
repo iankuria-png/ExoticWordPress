@@ -18,6 +18,16 @@ jQuery(document).ready(function () {
 		var $body = jQuery("body");
 		var $mobileMenu = jQuery(".mobile-menu-div-content");
 		var $mobileMenuToggle = jQuery(".mobile-menu-icon");
+		var mobileDrawerSearchConfig = window.escortwpMobileDrawerSearch || {};
+		var mobileDrawerSearchCopy = mobileDrawerSearchConfig.copy || {};
+		var $mobileDrawerSearch = $mobileMenu.find("[data-mobile-drawer-search]");
+		var $mobileDrawerSearchInput = $mobileDrawerSearch.find("[data-mobile-drawer-search-input]");
+		var $mobileDrawerSearchClear = $mobileDrawerSearch.find("[data-mobile-drawer-search-clear]");
+		var $mobileDrawerSearchStatus = $mobileDrawerSearch.find("[data-mobile-drawer-search-status]");
+		var $mobileDrawerSearchResults = $mobileDrawerSearch.find("[data-mobile-drawer-search-results]");
+		var drawerSearchMinLength = parseInt(mobileDrawerSearchConfig.minLength, 10) || 2;
+		var drawerSearchTimer = null;
+		var drawerSearchRequest = null;
 		var $accountOverlay = jQuery(".mobile-login-div-content");
 		var $accountPanel = $accountOverlay.find(".mobile-account-panel");
 			var $accountToggle = jQuery(".mobile-login-icon");
@@ -132,6 +142,107 @@ jQuery(document).ready(function () {
 				$body.toggleClass("ui-overlay-open", hasOverlay);
 			};
 
+			var setMobileDrawerSearchStatus = function (message, state) {
+				if (!$mobileDrawerSearch.length) {
+					return;
+				}
+
+				$mobileDrawerSearch.attr("data-search-state", state || "idle");
+				if ($mobileDrawerSearchStatus.length) {
+					$mobileDrawerSearchStatus.text(message || "");
+				}
+			};
+
+			var buildMobileDrawerEmptyState = function (message) {
+				return '<div class="mobile-drawer-search-empty">' +
+					'<span class="mobile-drawer-search-empty__icon icon icon-search" aria-hidden="true"></span>' +
+					'<div class="mobile-drawer-search-empty__copy">' + message + '</div>' +
+				'</div>';
+			};
+
+			var resetMobileDrawerSearch = function (clearInput) {
+				if (!$mobileDrawerSearch.length) {
+					return;
+				}
+
+				if (drawerSearchTimer) {
+					window.clearTimeout(drawerSearchTimer);
+					drawerSearchTimer = null;
+				}
+
+				if (drawerSearchRequest && typeof drawerSearchRequest.abort === "function" && drawerSearchRequest.readyState !== 4) {
+					drawerSearchRequest.abort();
+				}
+				drawerSearchRequest = null;
+
+				if (clearInput && $mobileDrawerSearchInput.length) {
+					$mobileDrawerSearchInput.val("");
+				}
+
+				$mobileDrawerSearch.removeClass("is-loading has-results");
+				$mobileDrawerSearchResults.empty().prop("hidden", true);
+				$mobileDrawerSearchClear.prop("hidden", true);
+				setMobileDrawerSearchStatus(mobileDrawerSearchCopy.idle || "", "idle");
+			};
+
+			var runMobileDrawerSearch = function (term) {
+				var trimmedTerm = jQuery.trim(term || "");
+				if (!$mobileDrawerSearch.length || !mobileDrawerSearchConfig.ajaxUrl || !mobileDrawerSearchConfig.nonce) {
+					return;
+				}
+
+				if (trimmedTerm.length < drawerSearchMinLength) {
+					$mobileDrawerSearch.removeClass("has-results is-loading");
+					$mobileDrawerSearchResults.empty().prop("hidden", true);
+					setMobileDrawerSearchStatus(
+						trimmedTerm.length > 0 ? (mobileDrawerSearchCopy.typeMore || "") : (mobileDrawerSearchCopy.idle || ""),
+						"idle"
+					);
+					return;
+				}
+
+				if (drawerSearchRequest && typeof drawerSearchRequest.abort === "function" && drawerSearchRequest.readyState !== 4) {
+					drawerSearchRequest.abort();
+				}
+
+				$mobileDrawerSearch.addClass("is-loading").removeClass("has-results");
+				$mobileDrawerSearchResults.prop("hidden", false).html(buildMobileDrawerEmptyState(mobileDrawerSearchCopy.loading || ""));
+				setMobileDrawerSearchStatus(mobileDrawerSearchCopy.loading || "", "loading");
+
+				drawerSearchRequest = jQuery.ajax({
+					url: mobileDrawerSearchConfig.ajaxUrl,
+					type: "POST",
+					dataType: "json",
+					data: {
+						action: "escortwp_mobile_profile_search",
+						nonce: mobileDrawerSearchConfig.nonce,
+						term: trimmedTerm
+					}
+				}).done(function (response) {
+					var payload = response && response.success ? (response.data || {}) : null;
+					var count = payload && payload.count ? parseInt(payload.count, 10) : 0;
+					if (payload && count > 0 && payload.html) {
+						$mobileDrawerSearchResults.html(payload.html).prop("hidden", false);
+						$mobileDrawerSearch.addClass("has-results");
+						setMobileDrawerSearchStatus(count === 1 ? "1 top match" : count + " top matches", "results");
+						return;
+					}
+
+					$mobileDrawerSearchResults.html(buildMobileDrawerEmptyState(mobileDrawerSearchCopy.empty || "")).prop("hidden", false);
+					setMobileDrawerSearchStatus(mobileDrawerSearchCopy.empty || "", "empty");
+				}).fail(function (xhr, textStatus) {
+					if (textStatus === "abort") {
+						return;
+					}
+
+					$mobileDrawerSearchResults.html(buildMobileDrawerEmptyState(mobileDrawerSearchCopy.error || "")).prop("hidden", false);
+					setMobileDrawerSearchStatus(mobileDrawerSearchCopy.error || "", "error");
+				}).always(function () {
+					$mobileDrawerSearch.removeClass("is-loading");
+					drawerSearchRequest = null;
+				});
+			};
+
 			var setGeoStatus = function (message, state) {
 				if (!$geoStatus.length) {
 					return;
@@ -201,6 +312,7 @@ jQuery(document).ready(function () {
 			$body.removeClass("mobile-nav-open");
 			$mobileMenuToggle.attr("aria-expanded", "false");
 			$mobileMenu.attr("aria-hidden", "true");
+			resetMobileDrawerSearch(true);
 			syncOverlayState();
 		};
 
@@ -261,6 +373,11 @@ jQuery(document).ready(function () {
 			$mobileMenuToggle.attr("aria-expanded", "true");
 			$mobileMenu.attr("aria-hidden", "false");
 			syncOverlayState();
+			window.setTimeout(function () {
+				if ($mobileDrawerSearchInput.length) {
+					$mobileDrawerSearchInput.trigger("focus");
+				}
+			}, 40);
 		};
 
 		var openAccountPanel = function () {
@@ -321,12 +438,37 @@ jQuery(document).ready(function () {
 			openLocationsPanel();
 		});
 
-		jQuery(".open-search").click(function (e) {
+		$mobileDrawerSearchInput.on("input", function () {
+			var currentValue = jQuery.trim(jQuery(this).val());
+			$mobileDrawerSearchClear.prop("hidden", currentValue === "");
+
+			if (drawerSearchTimer) {
+				window.clearTimeout(drawerSearchTimer);
+			}
+
+			drawerSearchTimer = window.setTimeout(function () {
+				runMobileDrawerSearch(currentValue);
+			}, 220);
+		});
+
+		$mobileDrawerSearchClear.on("click", function (e) {
 			e.preventDefault();
-			closeMobileMenu();
-			closeAccountPanel(false);
-			closeLocationsPanel();
-			jQuery(".quicksearch").show();
+			resetMobileDrawerSearch(true);
+			if ($mobileDrawerSearchInput.length) {
+				$mobileDrawerSearchInput.trigger("focus");
+			}
+		});
+
+		$mobileDrawerSearch.on("click", "[data-mobile-drawer-search-preset]", function (e) {
+			var presetValue = jQuery.trim(jQuery(this).attr("data-mobile-drawer-search-preset") || "");
+			e.preventDefault();
+			if (presetValue === "" || !$mobileDrawerSearchInput.length) {
+				return;
+			}
+
+			$mobileDrawerSearchInput.val(presetValue);
+			$mobileDrawerSearchClear.prop("hidden", false);
+			runMobileDrawerSearch(presetValue);
 		});
 
 
@@ -1414,7 +1556,7 @@ jQuery(function ($) {
 					: getHeadingTitle($heading, 'data-online-title', 'Online Now');
 				resolvedTitle = withLocationPrefix(onlineTitle);
 			} else if (filterType === 'recent_24h') {
-				resolvedTitle = withLocationPrefix(getHeadingTitle($heading, 'data-recent-title', 'Past 24 Hours'));
+				resolvedTitle = withLocationPrefix(getHeadingTitle($heading, 'data-recent-title', '24 Hours'));
 			} else if (filterType === 'new') {
 				resolvedTitle = withLocationPrefix('Newly Added');
 			} else {
@@ -1570,7 +1712,7 @@ jQuery(function ($) {
 			: (filterCopy.onlineEmptyBody || 'No escorts are live at the moment. Want a wider pulse check or someone nearby?');
 		var primaryLabel = isPastDay
 			? (filterCopy.liveNowCta || 'Live now only')
-			: (filterCopy.recent24Cta || 'Past 24 Hours');
+			: (filterCopy.recent24Cta || '24 Hours');
 
 		return '' +
 			'<div class="filter-empty-state__panel">' +

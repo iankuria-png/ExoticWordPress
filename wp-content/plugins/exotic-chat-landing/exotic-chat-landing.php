@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Exotic Chat Landing
  * Description: Plug-and-play modern /chat landing route for Support Board Cloud.
- * Version: 1.1.0
+ * Version: 1.2.1
  * Author: Exotic Online
  * Text Domain: exotic-chat-landing
  */
@@ -11,11 +11,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('EXOTIC_CHAT_LANDING_VERSION', '1.1.0');
+define('EXOTIC_CHAT_LANDING_VERSION', '1.2.1');
 define('EXOTIC_CHAT_LANDING_PATH', plugin_dir_path(__FILE__));
 define('EXOTIC_CHAT_LANDING_URL', plugin_dir_url(__FILE__));
 
 require_once EXOTIC_CHAT_LANDING_PATH . 'includes/class-exotic-chat-country-registry.php';
+require_once EXOTIC_CHAT_LANDING_PATH . 'includes/class-exotic-chat-language-registry.php';
 require_once EXOTIC_CHAT_LANDING_PATH . 'includes/class-exotic-chat-router.php';
 require_once EXOTIC_CHAT_LANDING_PATH . 'includes/class-exotic-chat-settings.php';
 

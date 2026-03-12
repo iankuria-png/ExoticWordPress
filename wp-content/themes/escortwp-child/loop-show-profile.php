@@ -111,6 +111,14 @@ $video_badge_label = $video_count > 0 ? sprintf(_n('%d video', '%d videos', $vid
 $thumbclass = ($premium === '1') ? ' girlpremium' : '';
 ?>
 
+<?php
+$labels = function_exists('get_escort_labels') ? get_escort_labels($escort_post_id) : '';
+$trust_classes = 'escort-card__trust';
+if (empty($labels)) {
+	$trust_classes .= ' escort-card__trust--empty';
+}
+?>
+
 <div class="girl escort-card" itemscope itemtype="http://schema.org/Person">
     <div class="thumb rad3<?php echo esc_attr($thumbclass); ?>">
         <div class="thumbwrapper">
@@ -205,30 +213,29 @@ $thumbclass = ($premium === '1') ? ' girlpremium' : '';
             <?php if (!empty($location)): ?>
                 <span class="girl-desc-location" itemprop="homeLocation">
                     <span class="icon-location"></span>
-                    <?php echo esc_html(implode(', ', $location)); ?>
+                    <span class="girl-desc-location__text"><?php echo esc_html(implode(', ', $location)); ?></span>
                 </span>
             <?php endif; ?>
             <span class="escort-card__last-active" data-last-online="<?php echo esc_attr($last_online ? (int) $last_online : ''); ?>"></span>
         </div>
 
-            <?php if (function_exists('get_escort_labels')):
-                $labels = get_escort_labels($escort_post_id);
-                if (!empty($labels)): ?>
-                    <div class="escort-card__trust">
-                        <?php echo $labels; ?>
-                    </div>
-                <?php endif;
-            endif; ?>
+            <div class="<?php echo esc_attr($trust_classes); ?>">
+                <?php echo $labels; ?>
+            </div>
 
             <?php if (!empty($phone)): ?>
-                <a class="contact-btn" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>"
+                <a class="contact-btn contact-btn--call" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>"
                     itemprop="telephone">
-                    <span class="icon icon-phone"></span>
+                    <span class="contact-btn__icon-shell" aria-hidden="true">
+                        <span class="icon icon-phone"></span>
+                    </span>
                     <span class="contact-btn__label"><?php echo esc_html($phone); ?></span>
                 </a>
             <?php else: ?>
-                <a class="contact-btn" href="<?php echo esc_url(get_permalink()); ?>">
-                    <span class="icon icon-user"></span>
+                <a class="contact-btn contact-btn--profile" href="<?php echo esc_url(get_permalink()); ?>">
+                    <span class="contact-btn__icon-shell" aria-hidden="true">
+                        <span class="icon icon-user"></span>
+                    </span>
                     <span class="contact-btn__label"><?php _e('View Profile', 'escortwp'); ?></span>
                 </a>
             <?php endif; ?>

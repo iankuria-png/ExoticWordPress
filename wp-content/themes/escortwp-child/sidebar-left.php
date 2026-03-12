@@ -85,8 +85,14 @@ $admin_home_quick_links = $is_admin_home_sidebar_context && function_exists('esc
 <div class="sidebar-left l">
 
 			<div class="countries sidebarcountries location-filter">
+				<div class="location-header">
+					<p class="location-header__eyebrow"><?php esc_html_e('Location', 'escortwp'); ?></p>
+					<h4><?php esc_html_e('Browse by location', 'escortwp'); ?></h4>
+					<p class="location-subcopy"><?php esc_html_e('Find escorts by county or city', 'escortwp'); ?></p>
+				</div>
 				<div class="location-search location-search--prominent">
 					<label class="screen-reader-text" for="location-search-desktop"><?php esc_html_e('Search locations', 'escortwp'); ?></label>
+					<span class="location-search__icon icon icon-search" aria-hidden="true"></span>
 				<input
 					id="location-search-desktop"
 					class="location-search__input js-location-filter"

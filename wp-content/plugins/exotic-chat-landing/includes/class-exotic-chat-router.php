@@ -41,7 +41,8 @@ final class Exotic_Chat_Router
             return;
         }
 
-        self::enqueue_assets($settings);
+        $chat_context = self::build_chat_context($settings);
+        self::enqueue_assets($settings, $chat_context);
         self::send_noindex_headers();
 
         global $wp_query;
@@ -50,8 +51,6 @@ final class Exotic_Chat_Router
         }
 
         status_header(200);
-
-        $chat_context = self::build_chat_context($settings);
 
         $template_path = EXOTIC_CHAT_LANDING_PATH . 'templates/chat-landing.php';
         if (file_exists($template_path)) {
@@ -93,12 +92,63 @@ final class Exotic_Chat_Router
             $department_id = $signed_department;
         }
 
+        $market_profile = self::resolve_market_profile($settings, $country_code);
+        $language_code = Exotic_Chat_Language_Registry::resolve_language(
+            $market_profile,
+            [
+                'query_language' => self::get_query_language(),
+                'browser_languages' => self::get_accept_language_header(),
+            ]
+        );
+        $translation_overrides = self::get_translation_overrides($market_profile, $language_code);
+        $strings = Exotic_Chat_Language_Registry::resolve_strings($language_code, $translation_overrides);
+        $widget_language = Exotic_Chat_Language_Registry::resolve_widget_language($market_profile, $language_code);
+
         return [
             'chat_id' => self::resolve_chat_id($settings),
             'department_id' => max(0, $department_id),
             'country_code' => $country_code,
             'host' => $host,
+            'language_code' => $language_code,
+            'widget_language_code' => $widget_language,
+            'html_lang' => Exotic_Chat_Language_Registry::html_lang_for($language_code),
+            'support_board_lang' => Exotic_Chat_Language_Registry::support_board_lang_for($widget_language),
+            'strings' => $strings,
+            'market_profile' => $market_profile,
         ];
+    }
+
+    /**
+     * @param array<string, mixed> $settings
+     * @return array<string, mixed>
+     */
+    private static function resolve_market_profile(array $settings, string $country_code): array
+    {
+        $profiles = isset($settings['language_profiles']) && is_array($settings['language_profiles']) ? $settings['language_profiles'] : [];
+        $country_code = strtoupper(trim($country_code));
+        if ($country_code !== '' && isset($profiles[$country_code]) && is_array($profiles[$country_code])) {
+            return $profiles[$country_code];
+        }
+
+        return Exotic_Chat_Language_Registry::default_market_profile();
+    }
+
+    /**
+     * @param array<string, mixed> $market_profile
+     * @return array<string, string>
+     */
+    private static function get_translation_overrides(array $market_profile, string $language_code): array
+    {
+        if (empty($market_profile['translations']) || !is_array($market_profile['translations'])) {
+            return [];
+        }
+
+        $translation_values = $market_profile['translations'][$language_code] ?? null;
+        if (!is_array($translation_values)) {
+            return [];
+        }
+
+        return Exotic_Chat_Language_Registry::sanitize_translation_values($translation_values);
     }
 
     /**
@@ -187,6 +237,20 @@ final class Exotic_Chat_Router
         return is_string($host) ? $host : '';
     }
 
+    private static function get_query_language(): string
+    {
+        if (!isset($_GET['lang'])) {
+            return '';
+        }
+
+        return (string) wp_unslash($_GET['lang']);
+    }
+
+    private static function get_accept_language_header(): string
+    {
+        return isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? (string) wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE']) : '';
+    }
+
     /**
      * @return array<string, mixed>
      */
@@ -212,9 +276,13 @@ final class Exotic_Chat_Router
 
     /**
      * @param array<string, mixed> $settings
+     * @param array<string, mixed> $chat_context
      */
-    private static function enqueue_assets(array $settings): void
+    private static function enqueue_assets(array $settings, array $chat_context): void
     {
+        wp_dequeue_script('chat-init');
+        wp_deregister_script('chat-init');
+
         wp_enqueue_style(
             'exotic-chat-landing-style',
             EXOTIC_CHAT_LANDING_URL . 'assets/css/chat-landing.css',
@@ -230,11 +298,27 @@ final class Exotic_Chat_Router
             true
         );
 
+        $strings = isset($chat_context['strings']) && is_array($chat_context['strings']) ? $chat_context['strings'] : [];
+
         wp_localize_script(
             'exotic-chat-landing-script',
             'exoticChatLandingConfig',
             [
                 'autoOpenDelayMs' => max(0, (int) ($settings['auto_open_delay_ms'] ?? 1500)),
+                'strings' => [
+                    'status_initializing' => (string) ($strings['status_initializing'] ?? ''),
+                    'status_loading' => (string) ($strings['status_loading'] ?? ''),
+                    'status_opening' => (string) ($strings['status_opening'] ?? ''),
+                    'status_connected' => (string) ($strings['status_connected'] ?? ''),
+                    'status_live' => (string) ($strings['status_live'] ?? ''),
+                    'status_minimized' => (string) ($strings['status_minimized'] ?? ''),
+                    'status_delayed' => (string) ($strings['status_delayed'] ?? ''),
+                    'status_still_loading' => (string) ($strings['status_still_loading'] ?? ''),
+                    'status_reopening' => (string) ($strings['status_reopening'] ?? ''),
+                    'status_focus_prompt' => (string) ($strings['status_focus_prompt'] ?? ''),
+                    'cta_focus' => (string) ($strings['cta_focus'] ?? ''),
+                    'cta_open' => (string) ($strings['cta_open'] ?? ''),
+                ],
             ]
         );
     }

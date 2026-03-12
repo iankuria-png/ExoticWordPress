@@ -412,11 +412,11 @@ function escortwp_child_enqueue_assets()
 				'onlineEmptyBody' => __('No escorts are live at the moment. Want a wider pulse check or someone nearby?', 'escortwp'),
 				'recentEmptyTitle' => __('Still a little quiet', 'escortwp'),
 				'recentEmptyBody' => __('No escorts have checked in over the past 24 hours. Try a nearby match instead.', 'escortwp'),
-				'recent24Cta' => __('Past 24 Hours', 'escortwp'),
+				'recent24Cta' => __('24 Hours', 'escortwp'),
 				'liveNowCta' => __('Live now only', 'escortwp'),
 				'nearbyCta' => __('Escorts Nearby', 'escortwp'),
 				'nearbyHint' => __('Use your location or pick a city to keep browsing.', 'escortwp'),
-				'recent24Label' => __('Past 24 Hours', 'escortwp'),
+				'recent24Label' => __('24 Hours', 'escortwp'),
 			),
 			)
 		);
@@ -439,6 +439,25 @@ function escortwp_child_enqueue_assets()
 					'noMatch' => __('We could not match your location yet. Choose a county or city manually.', 'escortwp'),
 					'networkError' => __('We could not resolve your location right now. Try again in a moment.', 'escortwp'),
 					'applied' => __('Showing escorts near %s', 'escortwp'),
+			),
+		)
+	);
+
+	wp_localize_script(
+		'escortwp-child-custom-script',
+		'escortwpMobileDrawerSearch',
+		array(
+			'ajaxUrl' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('escortwp_mobile_profile_search'),
+			'searchPageUrl' => get_permalink(get_option('search_page_id')),
+			'minLength' => 2,
+			'copy' => array(
+				'idle' => __('Search by name, city, county, or service.', 'escortwp'),
+				'typeMore' => __('Type at least 2 characters to start searching.', 'escortwp'),
+				'loading' => __('Searching escorts…', 'escortwp'),
+				'empty' => __('No matching escorts found yet. Try a name, city, county, or service.', 'escortwp'),
+				'error' => __('Search is unavailable right now. Please try again in a moment.', 'escortwp'),
+				'advanced' => __('Advanced search', 'escortwp'),
 			),
 		)
 	);
@@ -1493,6 +1512,348 @@ function escortwp_child_get_admin_home_quick_links()
 // Recently Viewed: return cards HTML for given IDs (works for logged-out users too)
 add_action('wp_ajax_nopriv_escortwp_recently_viewed', 'escortwp_recently_viewed_cards');
 add_action('wp_ajax_escortwp_recently_viewed', 'escortwp_recently_viewed_cards');
+add_action('wp_ajax_nopriv_escortwp_mobile_profile_search', 'escortwp_mobile_profile_search');
+add_action('wp_ajax_escortwp_mobile_profile_search', 'escortwp_mobile_profile_search');
+
+function escortwp_child_mobile_search_length($value)
+{
+	$value = (string) $value;
+	if (function_exists('mb_strlen')) {
+		return (int) mb_strlen($value);
+	}
+
+	return strlen($value);
+}
+
+function escortwp_child_get_mobile_search_location_label($post_id)
+{
+	global $taxonomy_location_url;
+
+	$post_id = (int) $post_id;
+	if ($post_id < 1 || empty($taxonomy_location_url)) {
+		return '';
+	}
+
+	$location_parts = array();
+	$city_terms = wp_get_post_terms($post_id, $taxonomy_location_url);
+	if (is_wp_error($city_terms) || empty($city_terms)) {
+		return '';
+	}
+
+	$city = $city_terms[0];
+	if (!empty($city->name)) {
+		$location_parts[] = (string) $city->name;
+	}
+
+	if (!empty($city->parent)) {
+		$parent_term = get_term((int) $city->parent, $taxonomy_location_url);
+		if ($parent_term && !is_wp_error($parent_term) && !empty($parent_term->name)) {
+			$location_parts[] = (string) $parent_term->name;
+		}
+	}
+
+	return implode(', ', array_slice($location_parts, 0, 2));
+}
+
+function escortwp_child_get_mobile_search_age_label($birthday)
+{
+	$birthday = (string) $birthday;
+	if ($birthday === '') {
+		return '';
+	}
+
+	$birthday_ts = strtotime($birthday);
+	if (!$birthday_ts) {
+		return '';
+	}
+
+	$age_years = (int) floor((current_time('timestamp') - $birthday_ts) / 31556926);
+	if ($age_years < 18 || $age_years > 99) {
+		return '';
+	}
+
+	return (string) $age_years . 'y';
+}
+
+function escortwp_child_get_mobile_search_status_badge(array $card_context)
+{
+	$featured = isset($card_context['featured']) ? (string) $card_context['featured'] : '';
+	$premium = isset($card_context['premium']) ? (string) $card_context['premium'] : '';
+	$verified = isset($card_context['verified']) ? (string) $card_context['verified'] : '';
+	$last_online = isset($card_context['last_online']) ? (int) $card_context['last_online'] : 0;
+
+	if ($last_online >= (current_time('timestamp') - 60 * 5)) {
+		return array(
+			'label' => __('Live', 'escortwp'),
+			'class' => 'online',
+		);
+	}
+
+	if ($featured === '1') {
+		return array(
+			'label' => __('VIP', 'escortwp'),
+			'class' => 'vip',
+		);
+	}
+
+	if ($premium === '1') {
+		return array(
+			'label' => __('Premium', 'escortwp'),
+			'class' => 'premium',
+		);
+	}
+
+	if ($verified === '1') {
+		return array(
+			'label' => __('Verified', 'escortwp'),
+			'class' => 'verified',
+		);
+	}
+
+	return array(
+		'label' => '',
+		'class' => '',
+	);
+}
+
+function escortwp_child_render_mobile_search_results_html(array $post_ids)
+{
+	$post_ids = array_values(array_unique(array_filter(array_map('intval', $post_ids))));
+	if (empty($post_ids)) {
+		return '';
+	}
+
+	escortwp_child_prime_profile_card_context($post_ids);
+	$fallback_card_image = trailingslashit(get_template_directory_uri()) . 'i/no-image.png';
+
+	ob_start();
+	echo '<div class="mobile-drawer-search-results-list">';
+	foreach ($post_ids as $post_id) {
+		$title = get_the_title($post_id);
+		$permalink = get_permalink($post_id);
+		if ($title === '' || empty($permalink)) {
+			continue;
+		}
+
+		$card_context = escortwp_child_get_profile_card_context($post_id);
+		$badge = escortwp_child_get_mobile_search_status_badge($card_context);
+		$location_label = escortwp_child_get_mobile_search_location_label($post_id);
+		$age_label = escortwp_child_get_mobile_search_age_label(isset($card_context['birthday']) ? $card_context['birthday'] : '');
+		$image_url = '';
+		if (!empty($card_context['image_default'])) {
+			$image_url = (string) $card_context['image_default'];
+		} elseif (!empty($card_context['image_5'])) {
+			$image_url = (string) $card_context['image_5'];
+		}
+		if ($image_url === '') {
+			$image_url = $fallback_card_image;
+		}
+
+		echo '<a class="mobile-drawer-search-result" href="' . esc_url($permalink) . '">';
+		echo '<span class="mobile-drawer-search-result__thumb"><img src="' . esc_url($image_url) . '" alt="' . esc_attr($title) . '" loading="lazy" decoding="async" /></span>';
+		echo '<span class="mobile-drawer-search-result__body">';
+		echo '<span class="mobile-drawer-search-result__title-row">';
+		echo '<strong class="mobile-drawer-search-result__title">' . esc_html($title) . '</strong>';
+		if ($age_label !== '') {
+			echo '<span class="mobile-drawer-search-result__age">' . esc_html($age_label) . '</span>';
+		}
+		echo '</span>';
+		if ($location_label !== '') {
+			echo '<span class="mobile-drawer-search-result__location"><span class="icon icon-location" aria-hidden="true"></span><span>' . esc_html($location_label) . '</span></span>';
+		}
+		if (!empty($badge['label'])) {
+			echo '<span class="mobile-drawer-search-result__badge mobile-drawer-search-result__badge--' . esc_attr($badge['class']) . '">' . esc_html($badge['label']) . '</span>';
+		}
+		echo '</span>';
+		echo '</a>';
+	}
+	echo '</div>';
+
+	return ob_get_clean();
+}
+
+function escortwp_mobile_profile_search()
+{
+	check_ajax_referer('escortwp_mobile_profile_search', 'nonce');
+
+	global $taxonomy_profile_url, $taxonomy_location_url, $services_a;
+
+	if (empty($taxonomy_profile_url)) {
+		$taxonomy_profile_url = (string) get_option('taxonomy_profile_url');
+	}
+	if (empty($taxonomy_profile_url)) {
+		$taxonomy_profile_url = 'escort';
+	}
+	if (empty($taxonomy_location_url)) {
+		$taxonomy_location_url = 'escorts-from';
+	}
+
+	$search_term = isset($_POST['term']) ? sanitize_text_field(wp_unslash($_POST['term'])) : '';
+	$search_term = trim((string) preg_replace('/\s+/', ' ', $search_term));
+	if (escortwp_child_mobile_search_length($search_term) < 2) {
+		wp_send_json_success(array(
+			'count' => 0,
+			'html' => '',
+		));
+	}
+
+	$search_limit = 6;
+	$matched_post_ids = array();
+
+	$text_query = new WP_Query(array(
+		'post_type' => $taxonomy_profile_url,
+		'post_status' => 'publish',
+		's' => $search_term,
+		'posts_per_page' => $search_limit,
+		'fields' => 'ids',
+		'no_found_rows' => true,
+	));
+	if (!empty($text_query->posts)) {
+		$matched_post_ids = array_merge($matched_post_ids, array_map('intval', $text_query->posts));
+	}
+
+	$matched_term_ids = get_terms(array(
+		'taxonomy' => $taxonomy_location_url,
+		'hide_empty' => false,
+		'fields' => 'ids',
+		'number' => 8,
+		'name__like' => $search_term,
+	));
+	if (!is_wp_error($matched_term_ids) && !empty($matched_term_ids)) {
+		$location_query = new WP_Query(array(
+			'post_type' => $taxonomy_profile_url,
+			'post_status' => 'publish',
+			'posts_per_page' => $search_limit,
+			'fields' => 'ids',
+			'no_found_rows' => true,
+			'tax_query' => array(
+				array(
+					'taxonomy' => $taxonomy_location_url,
+					'field' => 'term_id',
+					'terms' => array_map('intval', $matched_term_ids),
+				),
+			),
+		));
+		if (!empty($location_query->posts)) {
+			$matched_post_ids = array_merge($matched_post_ids, array_map('intval', $location_query->posts));
+		}
+	}
+
+	$matched_service_ids = array();
+	if (!empty($services_a) && is_array($services_a)) {
+		$search_term_normalized = function_exists('mb_strtolower') ? mb_strtolower($search_term) : strtolower($search_term);
+		foreach ($services_a as $service_id => $service_label) {
+			$service_label = (string) $service_label;
+			$service_label_normalized = function_exists('mb_strtolower') ? mb_strtolower($service_label) : strtolower($service_label);
+			if ($service_label !== '' && strpos($service_label_normalized, $search_term_normalized) !== false) {
+				$matched_service_ids[] = (int) $service_id;
+			}
+		}
+	}
+
+	if (!empty($matched_service_ids)) {
+		$service_meta_query = array('relation' => 'OR');
+		foreach ($matched_service_ids as $service_id) {
+			$service_meta_query[] = array(
+				'relation' => 'OR',
+				array(
+					'key' => 'services',
+					'value' => '%"' . $service_id . '"%',
+					'compare' => 'LIKE',
+				),
+				array(
+					'key' => 'services',
+					'value' => 'i:' . $service_id . ';',
+					'compare' => 'LIKE',
+				),
+			);
+		}
+
+		$service_query = new WP_Query(array(
+			'post_type' => $taxonomy_profile_url,
+			'post_status' => 'publish',
+			'posts_per_page' => $search_limit,
+			'fields' => 'ids',
+			'no_found_rows' => true,
+			'meta_query' => $service_meta_query,
+		));
+		if (!empty($service_query->posts)) {
+			$matched_post_ids = array_merge($matched_post_ids, array_map('intval', $service_query->posts));
+		}
+	}
+
+	$keyword = function_exists('mb_strtolower') ? mb_strtolower($search_term) : strtolower($search_term);
+	$keyword_query_args = null;
+	if ($keyword === 'vip') {
+		$keyword_query_args = array(
+			'meta_query' => array(
+				array(
+					'key' => 'featured',
+					'value' => '1',
+					'compare' => '=',
+					'type' => 'NUMERIC',
+				),
+			),
+		);
+	} elseif ($keyword === 'premium') {
+		$keyword_query_args = array(
+			'meta_query' => array(
+				array(
+					'key' => 'premium',
+					'value' => '1',
+					'compare' => '=',
+					'type' => 'NUMERIC',
+				),
+			),
+		);
+	} elseif ($keyword === 'verified') {
+		$keyword_query_args = array(
+			'meta_query' => array(
+				array(
+					'key' => 'verified',
+					'value' => '1',
+					'compare' => '=',
+					'type' => 'NUMERIC',
+				),
+			),
+		);
+	} elseif ($keyword === 'online') {
+		$online_users = (new WP_User_Query(array(
+			'meta_key' => 'last_online',
+			'meta_value' => current_time('timestamp') - 60 * 5,
+			'meta_compare' => '>=',
+			'fields' => 'ids',
+		)))->get_results();
+		if (!empty($online_users)) {
+			$keyword_query_args = array(
+				'author__in' => array_map('intval', $online_users),
+			);
+		}
+	}
+
+	if ($keyword_query_args) {
+		$keyword_query = new WP_Query(array_merge(array(
+			'post_type' => $taxonomy_profile_url,
+			'post_status' => 'publish',
+			'posts_per_page' => $search_limit,
+			'fields' => 'ids',
+			'no_found_rows' => true,
+		), $keyword_query_args));
+		if (!empty($keyword_query->posts)) {
+			$matched_post_ids = array_merge($matched_post_ids, array_map('intval', $keyword_query->posts));
+		}
+	}
+
+	$matched_post_ids = array_values(array_unique(array_filter(array_map('intval', $matched_post_ids))));
+	if (count($matched_post_ids) > $search_limit) {
+		$matched_post_ids = array_slice($matched_post_ids, 0, $search_limit);
+	}
+
+	wp_send_json_success(array(
+		'count' => count($matched_post_ids),
+		'html' => escortwp_child_render_mobile_search_results_html($matched_post_ids),
+	));
+}
 
 function escortwp_recently_viewed_cards()
 {
@@ -1647,7 +2008,7 @@ function escortwp_get_home_filter_label($filter_type, $filter_value)
 		'premium' => __('Premium', 'escortwp'),
 		'vip' => __('VIP', 'escortwp'),
 		'online' => __('Online', 'escortwp'),
-		'recent_24h' => __('Past 24 Hours', 'escortwp'),
+		'recent_24h' => __('24 Hours', 'escortwp'),
 		'new' => __('New', 'escortwp'),
 	);
 

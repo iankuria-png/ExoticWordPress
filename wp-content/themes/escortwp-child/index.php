@@ -290,9 +290,9 @@ if ($taxonomyName === 'escorts-from') {
             data-filter-value="1" data-filter-label="<?php esc_attr_e('Online', 'escortwp'); ?>">
             <span class="filter-chip__status-dot" aria-hidden="true"></span><?php esc_html_e('Online', 'escortwp'); ?>
           </button>
-          <button type="button" class="filter-chip filter-chip--utility" hidden aria-hidden="true" tabindex="-1"
+          <button type="button" class="filter-chip filter-chip--utility" aria-pressed="false"
             data-filter-type="recent_24h" data-filter-value="1"
-            data-filter-label="<?php esc_attr_e('Past 24 Hours', 'escortwp'); ?>"></button>
+            data-filter-label="<?php esc_attr_e('24 Hours', 'escortwp'); ?>"><?php esc_html_e('24 Hours', 'escortwp'); ?></button>
           <a class="filter-chip filter-chip--nav" href="<?php echo esc_url(home_url('/videos/')); ?>"
             data-filter-nav data-filter-label="<?php esc_attr_e('Videos', 'escortwp'); ?>">
             <?php esc_html_e('Videos', 'escortwp'); ?>
@@ -344,7 +344,7 @@ if ($taxonomyName === 'escorts-from') {
 	          data-default-title="<?php echo esc_attr__('VIP Escorts', 'escortwp'); ?>"
 	          data-location-title="<?php echo esc_attr__('VIP Escorts', 'escortwp'); ?>"
             data-online-title="<?php echo esc_attr__('VIP Online', 'escortwp'); ?>"
-            data-recent-title="<?php echo esc_attr__('VIP Past 24 Hours', 'escortwp'); ?>"
+            data-recent-title="<?php echo esc_attr__('VIP 24 Hours', 'escortwp'); ?>"
             data-online-fallback-title="<?php echo esc_attr__('VIP Recently Active', 'escortwp'); ?>"><?php _e('VIP Escorts', 'escortwp'); ?></h2>
 	      </div>
       <div class="clear"></div>
@@ -411,7 +411,7 @@ if ($taxonomyName === 'escorts-from') {
 	              data-default-title="<?php printf(esc_attr__('Premium %s', 'escortwp'), ucwords($taxonomy_profile_name_plural)); ?>"
 	              data-location-title="<?php printf(esc_attr__('Premium %s', 'escortwp'), ucwords($taxonomy_profile_name_plural)); ?>"
                 data-online-title="<?php echo esc_attr__('Premium Online', 'escortwp'); ?>"
-                data-recent-title="<?php echo esc_attr__('Premium Past 24 Hours', 'escortwp'); ?>"
+                data-recent-title="<?php echo esc_attr__('Premium 24 Hours', 'escortwp'); ?>"
                 data-online-fallback-title="<?php echo esc_attr__('Premium Recently Active', 'escortwp'); ?>">
 	              <?php printf(esc_html__('Premium %s', 'escortwp'), ucwords($taxonomy_profile_name_plural)); ?>
 	            </h2>
@@ -452,7 +452,7 @@ if ($taxonomyName === 'escorts-from') {
 	            data-default-title="<?php printf(esc_attr__('Newly Added %s', 'escortwp'), ucwords($taxonomy_profile_name_plural)); ?>"
 	            data-location-title="<?php printf(esc_attr__('New %s', 'escortwp'), ucwords($taxonomy_profile_name_plural)); ?>"
               data-online-title="<?php echo esc_attr__('Basic Online', 'escortwp'); ?>"
-              data-recent-title="<?php echo esc_attr__('Basic Past 24 Hours', 'escortwp'); ?>"
+              data-recent-title="<?php echo esc_attr__('Basic 24 Hours', 'escortwp'); ?>"
               data-online-fallback-title="<?php echo esc_attr__('Basic Recently Active', 'escortwp'); ?>">
 	            <?php printf(esc_html__('Newly Added %s', 'escortwp'), ucwords($taxonomy_profile_name_plural)); ?>
 	          </h2>

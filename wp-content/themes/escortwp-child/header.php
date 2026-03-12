@@ -259,21 +259,6 @@ if (is_user_logged_in() && function_exists('escortwp_child_get_logged_in_escort_
             </a>
         </div>
 
-        <div class="mobile-menu-div">
-            <div class="mobile-menu-action">
-                <a href="#" class="open-country">
-                    <span class="icon icon-location"></span>
-                    <span class="mobile-menu-label"><?php _e('Escort Locations', 'escortwp'); ?></span>
-                </a>
-            </div>
-            <div class="mobile-menu-action open-search-div">
-                <a href="#" class="open-search">
-                    <span class="icon icon-search"></span>
-                    <span class="mobile-menu-label"><?php _e('Search', 'escortwp'); ?></span>
-                </a>
-            </div>
-        </div>
-
     </header>
 
     <?php if ($show_escort_profile_cta): ?>
@@ -304,24 +289,47 @@ if (is_user_logged_in() && function_exists('escortwp_child_get_logged_in_escort_
         <div class="mobile-drawer-header">
             <div class="mobile-drawer-heading">
                 <p class="mobile-drawer-eyebrow"><?php esc_html_e('Explore', 'escortwp'); ?></p>
-                <h4 class="mobile-drawer-title"><?php esc_html_e('Quick Navigation', 'escortwp'); ?></h4>
+                <h4 class="mobile-drawer-title"><?php esc_html_e('Search & Browse', 'escortwp'); ?></h4>
             </div>
             <button type="button" class="close-menu" aria-label="<?php esc_attr_e('Close navigation menu', 'escortwp'); ?>">
                 <span class="icon icon-cancel" aria-hidden="true"></span>
             </button>
         </div>
-        <div class="mobile-menu-quick-actions">
-            <a class="mobile-menu-quick-action mobile-menu-search"
-                href="<?php echo get_permalink(get_option('search_page_id')); ?>">
-                <span class="icon icon-search"></span>
-                <?php _e('Search', 'escortwp'); ?>
-            </a>
-            <a href="#" class="mobile-menu-quick-action open-country">
-                <span class="icon icon-location"></span>
-                <?php _e('Escort Locations', 'escortwp'); ?>
+        <div class="mobile-drawer-search-shell" data-mobile-drawer-search data-search-state="idle">
+            <label class="screen-reader-text" for="mobile-drawer-search-input"><?php esc_html_e('Search escorts', 'escortwp'); ?></label>
+            <div class="mobile-drawer-search-field">
+                <span class="mobile-drawer-search-field__icon icon icon-search" aria-hidden="true"></span>
+                <input id="mobile-drawer-search-input"
+                    class="mobile-drawer-search-field__input"
+                    type="search"
+                    autocomplete="off"
+                    inputmode="search"
+                    placeholder="<?php esc_attr_e('Search name, city, county, or service', 'escortwp'); ?>"
+                    data-mobile-drawer-search-input />
+                <button type="button"
+                    class="mobile-drawer-search-field__clear"
+                    data-mobile-drawer-search-clear
+                    hidden
+                    aria-label="<?php esc_attr_e('Clear search', 'escortwp'); ?>">
+                    <span class="icon icon-cancel" aria-hidden="true"></span>
+                </button>
+            </div>
+            <p class="mobile-drawer-search__status" data-mobile-drawer-search-status>
+                <?php esc_html_e('Search by name, city, county, or service.', 'escortwp'); ?>
+            </p>
+            <div class="mobile-drawer-search__presets" aria-label="<?php esc_attr_e('Popular searches', 'escortwp'); ?>">
+                <button type="button" class="mobile-drawer-search__preset" data-mobile-drawer-search-preset="VIP"><?php esc_html_e('VIP', 'escortwp'); ?></button>
+                <button type="button" class="mobile-drawer-search__preset" data-mobile-drawer-search-preset="Verified"><?php esc_html_e('Verified', 'escortwp'); ?></button>
+                <button type="button" class="mobile-drawer-search__preset" data-mobile-drawer-search-preset="Nairobi"><?php esc_html_e('Nairobi', 'escortwp'); ?></button>
+                <button type="button" class="mobile-drawer-search__preset" data-mobile-drawer-search-preset="Massage"><?php esc_html_e('Massage', 'escortwp'); ?></button>
+            </div>
+            <div class="mobile-drawer-search__results" data-mobile-drawer-search-results hidden></div>
+            <a class="mobile-drawer-search__advanced" href="<?php echo esc_url(get_permalink(get_option('search_page_id'))); ?>">
+                <span class="icon icon-search" aria-hidden="true"></span>
+                <span><?php esc_html_e('Advanced search', 'escortwp'); ?></span>
             </a>
         </div>
-        <h4 class="h-heading"><?php esc_html_e('Main Navigation', 'escortwp'); ?></h4>
+        <h4 class="h-heading"><?php esc_html_e('Browse pages', 'escortwp'); ?></h4>
         <div class="mobile-drawer-nav">
             <?php
             wp_nav_menu(array(

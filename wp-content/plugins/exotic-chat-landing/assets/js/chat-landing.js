@@ -8,9 +8,15 @@
   var actionButtonMode = 'hidden';
   var chatReady = false;
   var widgetObserverStarted = false;
+  var strings = config.strings || {};
 
   if (!Number.isFinite(delayMs) || delayMs < 0) {
     delayMs = 1500;
+  }
+
+  function t(key, fallback) {
+    var value = strings[key];
+    return typeof value === 'string' && value !== '' ? value : fallback;
   }
 
   function onReady(fn) {
@@ -63,22 +69,22 @@
     if (mode === 'reopen') {
       button.hidden = false;
       button.dataset.mode = 'reopen';
-      button.textContent = 'Open chat';
-      button.setAttribute('aria-label', 'Open chat');
+      button.textContent = t('cta_open', 'Open chat');
+      button.setAttribute('aria-label', t('cta_open', 'Open chat'));
       return;
     }
 
     if (mode === 'focus') {
       button.hidden = false;
       button.dataset.mode = 'focus';
-      button.textContent = 'Tap to start typing';
-      button.setAttribute('aria-label', 'Tap to start typing');
+      button.textContent = t('cta_focus', 'Tap to start typing');
+      button.setAttribute('aria-label', t('cta_focus', 'Tap to start typing'));
       return;
     }
 
     button.hidden = true;
     button.dataset.mode = 'hidden';
-    button.textContent = 'Tap to start typing';
+    button.textContent = t('cta_focus', 'Tap to start typing');
     button.removeAttribute('aria-label');
   }
 
@@ -102,7 +108,7 @@
     }
 
     setActionButtonMode('reopen');
-    statusText('Chat minimized. Tap Open chat.');
+    statusText(t('status_minimized', 'Chat minimized. Tap Open chat.'));
   }
 
   function observeWidgetState() {
@@ -165,6 +171,8 @@
       host: runtime.host || window.location.hostname || '',
       landing_url: window.location.href || '',
       landing_path: window.location.pathname || '',
+      landing_language: runtime.languageCode || '',
+      widget_language: runtime.widgetLanguageCode || '',
       referrer: document.referrer || '',
       utm_source: getSearchParam('utm_source'),
       utm_medium: getSearchParam('utm_medium'),
@@ -277,7 +285,7 @@
         if (document.activeElement === composer) {
           window.clearInterval(timer);
           setActionButtonMode('hidden');
-          statusText('Chat is live.');
+          statusText(t('status_live', 'Chat is live.'));
           return;
         }
       }
@@ -285,21 +293,21 @@
       if (attempts >= maxAttempts) {
         window.clearInterval(timer);
         setActionButtonMode('focus');
-        statusText('Tap the button below to start typing.');
+        statusText(t('status_focus_prompt', 'Tap the button below to start typing.'));
       }
     }, 200);
   }
 
   function runAutoOpenFlow() {
-    statusText('Opening chat...');
+    statusText(t('status_opening', 'Opening chat...'));
 
     if (!openChat()) {
       setChatOpenState(false);
-      statusText('Still loading chat...');
+      statusText(t('status_still_loading', 'Still loading chat...'));
       return;
     }
 
-    statusText('Connected. Preparing input...');
+    statusText(t('status_connected', 'Connected. Preparing input...'));
     focusComposerWithRetries();
     watchMetadataAttachment();
   }
@@ -312,9 +320,9 @@
 
     button.addEventListener('click', function () {
       var mode = button.dataset.mode || 'focus';
-      statusText(mode === 'reopen' ? 'Reopening chat...' : 'Opening chat...');
+      statusText(mode === 'reopen' ? t('status_reopening', 'Reopening chat...') : t('status_opening', 'Opening chat...'));
       if (!openChat()) {
-        statusText('Still loading chat...');
+        statusText(t('status_still_loading', 'Still loading chat...'));
         return;
       }
       focusComposerWithRetries();
@@ -365,7 +373,7 @@
       if (pollAttempts >= 60) {
         window.clearInterval(poll);
         setActionButtonMode('focus');
-        statusText('Chat is taking longer than expected. Tap the button below.');
+        statusText(t('status_delayed', 'Chat is taking longer than expected. Tap the button below.'));
       }
     }, 250);
   }
@@ -374,7 +382,7 @@
     setActionButtonMode('hidden');
     observeWidgetState();
     syncUiWithWidgetState();
-    statusText('Chat is loading...');
+    statusText(t('status_loading', 'Chat is loading...'));
     bindFallbackButton();
     waitForChatReady(runAutoOpenFlow);
   });

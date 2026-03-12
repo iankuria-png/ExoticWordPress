@@ -38,6 +38,61 @@ final class Exotic_Chat_Country_Registry
     }
 
     /**
+     * @return array<string, string>
+     */
+    public static function country_name_map(): array
+    {
+        return [
+            'KE' => 'Kenya',
+            'GH' => 'Ghana',
+            'ZA' => 'South Africa',
+            'NG' => 'Nigeria',
+            'TZ' => 'Tanzania',
+            'CI' => "Côte d'Ivoire",
+            'SN' => 'Senegal',
+            'ET' => 'Ethiopia',
+            'ZM' => 'Zambia',
+            'BJ' => 'Benin',
+            'TG' => 'Togo',
+            'SS' => 'South Sudan',
+            'UG' => 'Uganda',
+            'RW' => 'Rwanda',
+            'CD' => 'DRC',
+            'AO' => 'Angola',
+            'MZ' => 'Mozambique',
+            'BW' => 'Botswana',
+            'NA' => 'Namibia',
+            'MW' => 'Malawi',
+            'ZW' => 'Zimbabwe',
+            'EG' => 'Egypt',
+        ];
+    }
+
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    public static function available_markets(): array
+    {
+        $markets = [];
+        foreach (self::country_name_map() as $country_code => $country_name) {
+            $markets[$country_code] = [
+                'country_code' => $country_code,
+                'name' => $country_name,
+                'department_id' => self::default_department_for_country($country_code),
+            ];
+        }
+
+        return $markets;
+    }
+
+    public static function country_name(string $country_code): string
+    {
+        $country_code = strtoupper(trim($country_code));
+        $names = self::country_name_map();
+        return isset($names[$country_code]) ? $names[$country_code] : $country_code;
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public static function resolve_from_host(string $host, array $country_map, int $default_department_id): array
